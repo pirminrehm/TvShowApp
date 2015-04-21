@@ -6,9 +6,29 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
+var series = require('./routes/series');
+
 var users = require('./routes/users');
 
 var app = express();
+
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/testdb');
+
+var db = mongoose.connection;
+
+
+db.on('error', function callback() {
+    console.log("Verbindung zu MongoDB fehlgeschalgen");
+});
+
+db.once('open', function callback(){
+  console.log("Verbindung zu MongoDB erfolgreich");
+});
+
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,6 +44,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+
+app.use('/series', series);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
