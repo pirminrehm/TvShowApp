@@ -2,13 +2,13 @@ var express = require('express');
 var router = express.Router();
 
 
-var serien = require('../controllers/serieController');
+var series = require('../controllers/seriesController');
 
 /* POST new Serie. */
-router.post('/', serien.post);
-router.get('/', serien.get);
-router.get('/:serieId', serien.show);
-router.put('/:serieId', serien.put);
-router.delete('/:serieId', serien.delete);
+router.post('/', series.post);
+router.get('/', series.get);
+router.get('/:serieId', series.show);
+router.put('/:serieId', series.put);
+router.delete('/:serieId', series.delete);
 
 module.exports = router;

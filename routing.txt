@@ -1,8 +1,8 @@
 get		/user/:user_id										Informationen über User
 get		/user/:user_id/series								Übersicht über alle Serien des Users
-get		/user/:user_id/:series_id/seansons					Übersicht über alle Staffeln einer bestimmten Serie des Nutzers
-get		/user/:user_id/:series_id/:seanson_id/episodes		Übersicht über alle Episoden einer bestimmten Staffel einer bestimmten Serie des Nutzers
-get		/user/:user_id/:series_id/:seanson_id/:episode_id	Informationen über bestimmte Episode einer bestimmten Staffel einer bestimmten Serie des Nutzers
+get		/user/:user_id/:series_id/seasons					Übersicht über alle Staffeln einer bestimmten Serie des Nutzers
+get		/user/:user_id/:series_id/:season_id/episodes		Übersicht über alle Episoden einer bestimmten Staffel einer bestimmten Serie des Nutzers
+get		/user/:user_id/:series_id/:season_id/:episode_id	Informationen über bestimmte Episode einer bestimmten Staffel einer bestimmten Serie des Nutzers
 
 post	/user												neuen User anlegen
 post	/user/:user_id/series								Nutzer fügt Serie hinzu

@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+//just for developement to check if express works -> no real function
+
+
+// GET home page
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.send('Hello World - Home Page of our TvDataBase Web Application - P.S.: Der letzte räumte die Erde auf');
 });
 
 module.exports = router;
