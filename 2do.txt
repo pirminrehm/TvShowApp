@@ -1,0 +1,79 @@
+* im server cors modul sicher mache
+
+
+* crwaler.js schreiben
+	- holt alle 2h für die momentan gesehenen serien die neuen daten von der tvd
+	- muss vergleichen, was neu es neue serien gibt
+	- iteriert über alle user und fügt dort eine neue episode oder season "watched":"false" ein, wo die serie abonniert wurde
+	- holt alle metainfos zur serie (beschreibung, bilder-urls) in die mongo, aber nicht die bilder selbst
+
+* suche
+	- zu viele serien auf tvd heißt nicht machbar da mongo zu klein
+	- bei suche direkt von tvd holen
+
+
+* model für die user: entweder folgendes:
+
+
+var EpisodeSchema = new Schema({
+	number: String,
+	watched: Boolean
+});
+
+var SeasonSchema = new Schema({
+	number: String,
+	episodes: [EpisodeSchema]
+});
+
+var SeriesSchema = new Schema({
+	name: String,
+	tvdatabaseID: String,
+	seasons: [SeasonSchema]
+});
+
+
+
+dazu die json
+
+{
+	"name" : "How I Met Your Mother",
+	"tvdatabaseID" : "tdvid346243234234",
+	"seasons" : [
+		{ 
+			"number": 1, 
+			"episodes": [
+				{ "number": 1, "watched": true },
+				{ "number": 2, "watched": true },
+				{ "number": 3, "watched": true },
+				{ "number": 4, "watched": true },
+				{ "number": 5, "watched": true },
+				{ "number": 6, "watched": true },
+				{ "number": 7, "watched": true },
+				{ "number": 8, "watched": true },
+				{ "number": 9, "watched": true },
+				{ "number": 10, "watched": true },
+			]
+		},
+		{ 
+			"number": 2, 
+			"episodes": [
+				{ "number": 1, "watched": true },
+				{ "number": 2, "watched": true },
+				{ "number": 3, "watched": true },
+				{ "number": 4, "watched": true },
+				{ "number": 5, "watched": true },
+				{ "number": 6, "watched": true },
+				{ "number": 7, "watched": true },
+				{ "number": 8, "watched": true },
+				{ "number": 9, "watched": true },
+				{ "number": 10, "watched": true },
+			]
+		}
+	]
+}
+
+
+optimierter:
+	- wenn ein user eine episode watched hat kommt ein key hinzu von der ep {"s02e13"} --> diese ep wurde gesehn
+	- iterieren einfacher, da nicht über 3 schemas rekursiv
+	- dafür mehr mappe weil aus xml <season nr="1"><ep nr="1">... EIN key geamcht werden muss
