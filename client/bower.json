@@ -1,0 +1,21 @@
+{
+  "name": "tvd-client",
+  "version": "0.0.1",
+  "homepage": "https://github.com/pirminrehm/tvdatabase",
+  "authors": [
+    "HdM Stuttgart"
+  ],
+  "description": "TV-Database WEB-Client",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.4"
+  }
+}

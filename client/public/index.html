@@ -1,9 +1,236 @@
-<html>
-	<head>
-		<title>TV-Database Client online</title>
-	</head>	
-	<body>
-		<h1>Hallo ich bin die TV-Database</h1>
-		<p>Codebitches</p>
-	</body>
+<!DOCTYPE html>
+<head>
+	<script src="lib/jquery/dist/jquery.min.js"></script>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>TVShowApp</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap-theme.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body ng-app="series">
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+    <div class="navbar-header pull-left">
+      <a class="navbar-brand" href="#">TVShowApp</a>
+    </div>
+    <div class="navbar-header pull-right">
+	<div id="the-basics">
+  <input class="typeahead" type="text" placeholder="New Series">
+</div>
+      <button type="button" class="btn btn-default navbar-btn add-show">
+      	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      </button>
+    </div>
+    </div>
+</nav>
+
+<div class="container-fluid" ng-controller="HomeController">
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="progress">
+				<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+			</div>
+			<div class="series" style="background-image:url(http://thetvdb.com/banners/fanart/original/262980-11.jpg);background-size:100%;">
+				<div class="series-inner">
+					<div class="series-inner-title">
+						<div class="left">
+							<h2>House of Cards</h2>
+							S03E01: {{message}}
+						</div>
+						<div class="right">
+							<h4><span class="label label-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></h4>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="progress">
+				<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+			</div>
+			<div class="series" style="background-image:url(http://thetvdb.com/banners/fanart/original/81797-18.jpg);background-size:100%;">
+				<div class="series-inner">
+					<div class="series-inner">
+					<div class="series-inner-title">
+						<div class="left">
+							<h2>One Piece</h2>
+							S17E01: Episodentitel
+						</div>
+						<div class="right">
+							<h4><span class="label label-warning">+1</span></h4>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="progress">
+				<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%;"></div>
+			</div>
+			<div class="series" style="background-image:url(http://thetvdb.com/banners/fanart/original/248741-1.jpg);background-size:100%;">
+				<div class="series-inner">
+					<div class="series-inner-title">
+						<p class="left">2 Broke Girls</p>
+						<p class="right">S03E01 >></p>
+						<p class="clear"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="progress">
+				<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+			</div>
+			<div class="series" style="background-image:url(http://thetvdb.com/banners/fanart/original/274044-1.jpg);background-size:100%;">
+				<div class="series-inner">
+					<div class="series-inner-title">
+						<p class="left">Sex Box</p>
+						<p class="right">S03E01 >></p>
+						<p class="clear"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="progress">
+				<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+			</div>
+			<div class="series" style="background-image:url(http://thetvdb.com/banners/fanart/original/75760-50.jpg);background-size:100%;">
+				<div class="series-inner">
+					<div class="series-inner-title">
+						<p class="left">How I met your Mother</p>
+						<p class="right">S03E01 >></p>
+						<p class="clear"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="progress">
+				<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+			</div>
+			<div class="series" style="background-image:url(http://thetvdb.com/banners/fanart/original/76703-11.jpg);background-size:100%;">
+				<div class="series-inner">
+					<div class="series-inner-title">
+						<p class="left">Pokemon</p>
+						<p class="right">S03E01 >></p>
+						<p class="clear"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="progress">
+				<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;"></div>
+			</div>
+			<div class="series" style="background-image:url(http://thetvdb.com/banners/fanart/original/79168-14.jpg);background-size:100%;">
+				<div class="series-inner">
+					<div class="series-inner-title">
+						<p class="left">Friends</p>
+						<p class="right">S03E01 >></p>
+						<p class="clear"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<ul ng-repeat="serie in series">
+			<li>{{serie._id}}</li>
+			<li>{{serie.tvdatabaseID}}</li>
+			<li>{{serie.name}}</li>
+			<li>{{serie.season}}</li>
+		</ul>
+	</div>
+</div>
+
+	
+
+
+
+	
+	<script  type="text/javascript" src="js/main.js"></script>
+		<script  type="text/javascript" src="js/typeahead.bundle.js"></script>
+<script type="text/javascript">
+var substringMatcher = function(strs) {
+  return function findMatches(q, cb) {
+    var matches, substrRegex;
+ 
+    // an array that will be populated with substring matches
+    matches = [];
+ 
+    // regex used to determine if a string contains the substring `q`
+    substrRegex = new RegExp(q, 'i');
+ 
+    // iterate through the pool of strings and for any string that
+    // contains the substring `q`, add it to the `matches` array
+    $.each(strs, function(i, str) {
+      if (substrRegex.test(str)) {
+        // the typeahead jQuery plugin expects suggestions to a
+        // JavaScript object, refer to typeahead docs for more info
+        matches.push({ value: str });
+      }
+    });
+ 
+    cb(matches);
+  };
+};
+ 
+var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+  'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
+  'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+  'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
+  'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+  'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+  'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
+  'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+];
+ 
+$('#the-basics .typeahead').typeahead({
+  hint: true,
+  highlight: true,
+  minLength: 1
+},
+{
+  name: 'states',
+  displayKey: 'value',
+  source: substringMatcher(states)
+});
+</script>
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+   <!-- <script src="lib/bootstrap/dist/js/ie10-viewport-bug-workaround.js"></script> -->
+
+
+
+
+    <!--Just some Tests
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="lib/angular/angular.min.js"></script>
+    <script src="app/app.js"></script>
+
+
+</body>
 </html>
