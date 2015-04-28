@@ -10,3 +10,5 @@ router.get('/', function(req, res, next) {
 });
 
 module.exports = router;
+
+console.log("Success: routes/Index.js");

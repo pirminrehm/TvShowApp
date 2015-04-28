@@ -12,3 +12,5 @@ router.put('/:serieId', series.put);
 router.delete('/:serieId', series.delete);
 
 module.exports = router;
+
+console.log("Success: routes/series.js");

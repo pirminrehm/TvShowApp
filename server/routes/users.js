@@ -15,3 +15,5 @@ router.put('/:serieId', user.put);
 router.delete('/:serieId', user.delete);
 
 module.exports = router;
+
+console.log("Success: routes/users.js");

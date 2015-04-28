@@ -10,7 +10,7 @@ var cors = require('cors');
 //require local packaes
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var series = require('./routes/series');
+//var series = require('./routes/series');
 
 
 var app = express();
@@ -24,8 +24,9 @@ db.on('error', function callback() {
 });
 
 db.once('open', function callback(){
-  console.log("Verbindung zu MongoDB erfolgreich");
+  console.log("Success: MongoDB Verbindung");
 });
+
 
 
 
@@ -39,7 +40,7 @@ app.use(cookieParser());
 //use local packages
 app.use('/', routes);
 app.use('/user', users);
-app.use('/series', series);
+//app.use('/series', series);
 
 
 // catch 404 and forward to error handler
@@ -48,6 +49,8 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+console.log("Success: 404 Initialization");
 
 // error handlers
 
@@ -63,6 +66,8 @@ if (app.get('env') === 'development') {
   });
 }
 
+console.log("Success: Error Handler");
+
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
@@ -75,3 +80,5 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
+
+console.log("Success: End of Neddit");

@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 
 var EpisodeSchema = new Schema({
-	number: int,
+	number: Number,
 	watched: Boolean
 });
 
@@ -21,51 +21,13 @@ var SeriesSchema = new Schema({
 
 
 var UserSchema = Schema({
-	userID: int,
+	userID: Number,
 	userLoginToken: String,
 	name: String,
 	series: [SeriesSchema]
 
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
