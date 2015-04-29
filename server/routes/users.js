@@ -9,11 +9,19 @@ var user = require('../controllers/userController');
 
 /* POST new Serie. */
 router.post('/', user.post);
-router.get('/', user.get);
-router.get('/:serieId', user.show);
-router.put('/:serieId', user.put);
-router.delete('/:serieId', user.delete);
+router.get('/:userId', user.show);
+router.put('/:userId', user.put);
+router.delete('/:userId', user.delete);
 
 module.exports = router;
 
 console.log("Success: routes/users.js");
+
+
+/*
+Annahme, dass folgendes nur zum Test war, deswegen auskommentiert:
+
+router.get('/', user.get);
+
+
+*/
