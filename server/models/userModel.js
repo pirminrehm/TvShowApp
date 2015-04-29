@@ -21,7 +21,7 @@ var SeriesSchema = new Schema({
 
 
 var UserSchema = Schema({
-	userID: Number,
+	userId: Number,
 	userLoginToken: String,
 	name: String,
 	series: [SeriesSchema]

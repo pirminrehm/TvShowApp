@@ -9,14 +9,14 @@ var url = 'http://localhost:3000';
 
 var data = {
 	 profil1 : {
-	  	userID: 100123,
+	  	userId: 100123,
 		userLoginToken: "abcdefg133562abcd",
 		name: "Testo Testan",
 		series: null
 	  },
 
 	profil2 : {
-	  	userID: 100567,
+	  	userId: 100567,
 		userLoginToken: "oipioiop879789oipoiiop",
 		name: "Maxi Mustermann",
 		series: null
@@ -46,7 +46,8 @@ describe('Init', function() {
 		.post('/user')
 		.send(data.profil2)
 		.expect(200) //Status code
-		// end handles the response
+		.expect('Content-Type', /json/) //ist es json?
+		.expect('Content-Type', 'application/json; charset=utf-8' ) //ist es utf8?
 		.end(function(err, res) {
 		      if (err) {
 		        throw err;
@@ -71,14 +72,15 @@ describe('Init', function() {
 		.post('/user')
 		.send(data.profil1)
 		.expect(200) //Status code
-		// end handles the response
+		.expect('Content-Type', /json/) //ist es json?
+		.expect('Content-Type', 'application/json; charset=utf-8' ) //ist es utf8?
 		.end(function(err, res) {
 		      if (err) {
 		        throw err;
 		      }
 
 
-		      data.user1_id = res.body._id;
+		      data.userId1 = res.body._id;
 		      
 		      res.should.have.status;
 		      res.status.should.be.exactly(200);  
@@ -94,19 +96,20 @@ describe('Init', function() {
 
 
 		request(url)
-		.get('/user/' + data.user1_id)
+		.get('/user/' + data.userId1)
 		.expect(200) //Status code
-		// end handles the response
+		.expect('Content-Type', /json/) //ist es json?
+		.expect('Content-Type', 'application/json; charset=utf-8' ) //ist es utf8?
 		.end(function(err, res) {
 		      if (err) {
 		        throw err;
 		      }
 
-		      console.log(res.body);
+		    
 
 
-		      assert.equal(data.profil1.userID, res.body.userID, "userID stimmt nicht überein");
-		      assert.equal(data.profil1.userLoginToken, res.body.userLoginToken, "userLoginToken stimmt nicht überein");
+		      assert.equal(data.profil1.userId, res.body.userId, "userId stimmt nicht überein");
+		      assert.notEqual(data.profil1.userLoginToken, res.body.userLoginToken, "userLoginToken wurde nicht überschrieben");
 		      assert.equal(data.profil1.name, res.body.name, "name stimmt nicht überein");
 		      assert.equal(data.profil1.series, res.body.series, "series stimmt nicht überein");
 
@@ -127,9 +130,10 @@ describe('Init', function() {
 
 			request(url)
 			.post('/user')
-			.send(data.profil2)
+			.send(data.profil1)
 			.expect(200) //Status code
-			// end handles the response
+			.expect('Content-Type', /json/) //ist es json?
+		.expect('Content-Type', 'application/json; charset=utf-8' ) //ist es utf8?
 			.end(function(err, res) {
 			      if (err) {
 			        throw err;
@@ -143,29 +147,3 @@ describe('Init', function() {
 		});
 });
 
-
-
-/*
-it('should correctly update an existing account', function(done){
-var body = {
-	firstName: 'JP',
-	lastName: 'Berd'
-};
-request(url)
-	.put('/api/profiles/vgheri')
-	.send(body)
-	.expect('Content-Type', /json/)
-	.expect(200) //Status code
-	.end(function(err,res) {
-		if (err) {
-			throw err;
-		}
-		// Should.js fluent syntax applied
-		res.body.should.have.property('_id');
-                res.body.firstName.should.equal('JP');
-                res.body.lastName.should.equal('Berd');                    
-                res.body.creationDate.should.not.equal(null);
-		done();
-	});
-});
-*/
