@@ -27,14 +27,18 @@
 		<div class="navbar-header pull-left">
 			<a class="navbar-brand" href="#">TVShowApp</a>
 		</div>
+
 		<!-- Right Part of the Navigation, mostly the add button -->
 		<div class="navbar-header pull-right">
 			<!-- Placeholder Search Bar -->
 			<div id="the-basics">
-				<input class="typeahead" type="text" placeholder="New Series">
+				<input class="typeahead" type="text" placeholder="Add new series">
 			</div>
 			<!-- Add Button, which opens the search function -->
-			<button type="button" class="btn btn-default navbar-btn add-show">
+			<!-- IDEA FOR ANOTHER BUTTON?
+				<h2 style="margin:0px;float:right;"><span class="label label-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></span></h2>
+			-->
+			<button type="button" class="btn btn-default navbar-btn add-show" onclick="javascript:opensearch()">
 				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 			</button>
 		</div>
@@ -234,38 +238,107 @@
 			<li>{{serie.season}}</li>
 		</ul>
 	</div>
-</div>
 
+
+	<!-- For testing, new searchbox, not designed yet -->
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Search for...">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-search" aria-hidden="true">
+						</button>
+					</span>
+			</div><!-- /input-group -->
+		</div><!-- /.col-lg-6 -->
+	</div>
+
+	<br><br>
+
+	<!--
+		Shows the series design
+		There's always a checkbox inside to check if episode / season is watched
+
+		TODO: At the moment and in the v1, nothing should happen when the LI is pressed.
+		TODO: Or do you want to see a small episode description
+	 -->
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="list-group">
+			<!-- IF this checkbox is checked, check all. if uncheck, uncheck all -->
+			<a href="#" class="list-group-item active">Staffel 1<span class="right"><input type="checkbox" aria-label="..."></span></a>
+			<!-- List of episodes starts here -->
+			<a href="#" class="list-group-item">E01: Jorgs Geburt<span class="right"><input type="checkbox" aria-label="..."></span></a>
+			<a href="#" class="list-group-item">E02: Jorgs Kindheit<span class="right"><input type="checkbox" aria-label="..."></span></a>
+			<!--
+				TODO
+				Implement the script to open and close (how (ul li ul li))
+				Get rid of the weird mouse icon that pops out when you :hover
+			-->
+			<a href="#" class="list-group-item disabled">Imagine someone had clicked on "Jorgs Kindheit" so see the small episode description....</a>
+			<a href="#" class="list-group-item">E03: Jorgs Erstes Mal mit seiner schwulen besten Freundin<span class="right"><input type="checkbox" aria-label="..."></span></a>
+			<a href="#" class="list-group-item">E04: Jorgs BitchesbangerZeit<span class="right"><input type="checkbox" aria-label="..."></span></a>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<a href="#" class="list-group-item active">Staffelauswahl</a>
+			<a href="#" class="list-group-item">Staffel 01</a>
+			<a href="#" class="list-group-item">Staffel 02</a>
+			<a href="#" class="list-group-item">Staffel 03</a>
+			<a href="#" class="list-group-item">Staffel 04</a>
+			<a href="#" class="list-group-item">Staffel 05</a>
+			<a href="#" class="list-group-item">Staffel 06</a>
+			<a href="#" class="list-group-item">Staffel 07</a>
+		</div>
+	</div>
 	
-
+<br><br><br>
 
 
 	
 	<script  type="text/javascript" src="js/main.js"></script>
-		<script  type="text/javascript" src="js/typeahead.bundle.js"></script>
-<script type="text/javascript">
+	<script  type="text/javascript" src="js/typeahead.bundle.js"></script>
+	<script type="text/javascript">
+
+	// Stupid function that lets the search field be visible after touch
+	// TODO: Do a real one (not one coded by pascal)
+	function opensearch() {
+		$('#the-basics').css('display', 'inline-block');
+	};
+	// TODO: Function that closes the search, when someone clicks somewhere else
+	// $( document ).ready() {
+	// 	$('.container-fluid').onclick() {
+	// 		$('#the-basics').css('display', 'none');
+	// 	}
+	// }
+
+
 var substringMatcher = function(strs) {
-  return function findMatches(q, cb) {
-    var matches, substrRegex;
+	return function findMatches(q, cb) {
+		var matches, substrRegex;
  
-    // an array that will be populated with substring matches
-    matches = [];
+		// an array that will be populated with substring matches
+		matches = [];
+
+		// regex used to determine if a string contains the substring `q`
+		substrRegex = new RegExp(q, 'i');
+
+		// iterate through the pool of strings and for any string that
+		// contains the substring `q`, add it to the `matches` array
+		$.each(strs, function(i, str) {
+			if (substrRegex.test(str)) {
+			// the typeahead jQuery plugin expects suggestions to a
+			// JavaScript object, refer to typeahead docs for more info
+			matches.push({ value: str });
+		}
+	});
  
-    // regex used to determine if a string contains the substring `q`
-    substrRegex = new RegExp(q, 'i');
- 
-    // iterate through the pool of strings and for any string that
-    // contains the substring `q`, add it to the `matches` array
-    $.each(strs, function(i, str) {
-      if (substrRegex.test(str)) {
-        // the typeahead jQuery plugin expects suggestions to a
-        // JavaScript object, refer to typeahead docs for more info
-        matches.push({ value: str });
-      }
-    });
- 
-    cb(matches);
-  };
+	cb(matches);
+	};
 };
  
 var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
@@ -276,7 +349,7 @@ var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
   'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
   'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
   'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming', 'Jorg-is-a-Penis'
 ];
  
 $('#the-basics .typeahead').typeahead({

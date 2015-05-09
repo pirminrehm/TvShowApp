@@ -16,7 +16,7 @@ body {
 /* Progressbar */
 .progress {
 	height: 5px;
-	margin: 0px; /* Stick to the continer underneath */
+	margin: 0px; /* Stick to the container underneath */
 	/* Get them the same shape as the series container */
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
@@ -27,7 +27,7 @@ body {
 .series {
 	height: 150px;
 	background: white;
-	margin-bottom: 30px; /* 30 seems to be the same as the margin-left/right */
+	margin-bottom: 30px; /* 30 seems to be the same as the margin-left/right - iam just guessing here */
 
 	/* less ;) */
 	border-bottom-right-radius: 5px;
@@ -81,7 +81,6 @@ body {
 
 
 
-
 /*
 		JORGS SHIT
 */
@@ -93,8 +92,10 @@ cursor: pointer;
 
 /* INSTANT SEARCH */
 #the-basics {
-display: inline-block;
-}
+display: none;
+} /* Is hidden from the beginning, only appears when add button is clicked */
+
+
 .bs-example{
 	font-family: sans-serif;
 	position: relative;
