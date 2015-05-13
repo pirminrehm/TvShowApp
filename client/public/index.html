@@ -27,16 +27,27 @@
 		<div class="navbar-header pull-left">
 			<a class="navbar-brand" href="#">TVShowApp</a>
 		</div>
+
 		<!-- Right Part of the Navigation, mostly the add button -->
 		<div class="navbar-header pull-right">
 			<!-- Placeholder Search Bar -->
-			<div id="the-basics">
-				<input class="typeahead" type="text" placeholder="New Series">
-			</div>
+			<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div id="search" class="input-group">
+				<input id="search_bar" type="text" class="form-control" placeholder="Search for...">
+					<span class="input-group-btn">
+						<button id="search_button" class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true">
+						</button>
+					</span>
+			</div><!-- /input-group -->
+		</div><!-- /.col-lg-6 -->
+	</div>
 			<!-- Add Button, which opens the search function -->
-			<button type="button" class="btn btn-default navbar-btn add-show">
-				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-			</button>
+			<!-- IDEA FOR ANOTHER BUTTON?
+				<h2 style="margin:0px;float:right;"><span class="label label-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></span></h2>
+			-->
+
 		</div>
     </div>
 </nav>
@@ -234,38 +245,220 @@
 			<li>{{serie.season}}</li>
 		</ul>
 	</div>
-</div>
+
 
 	
 
+	<br><br>
+
+	<!--
+		Shows the series design
+		There's always a checkbox inside to check if episode / season is watched
+
+		TODO: At the moment and in the v1, nothing should happen when the LI is pressed.
+		TODO: Or do you want to see a small episode description
+	 -->
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			
+			
+			
+			<ul class="season_list">
+			<li class="header">
+				<h4>Staffelauswahl</h4>
+			</li>
+			<li>
+				<h4>Season 1</h4>
+				<p>In Season1 passieren faszinierende Dinge!</p>
+			</li>
+			<li class="active">
+				<h4>Season 2</h4>
+				<p>In Season2 passieren unglaubliche Dinge!</p>
+			</li>
+			
+			
+			</ul>
+			
+			
+			<div class="list-group">
+			<!-- IF this checkbox is checked, check all. if uncheck, uncheck all -->
+			<a class="list-group-item active" name="season01">Staffel 1<span class="right"><input type="checkbox" aria-label="..."></span></a>
+			<!-- List of episodes starts here -->
+			<a class="list-group-item">E01: Jorgs Geburt<span class="right"><input type="checkbox" aria-label="..."></span></a>
+
+
+			<!-- Example of a description that pop out -->
+			<a class="list-group-item open">
+				<p>E02: Jorgs Kindheit</p>
+				<span class="right"><input type="checkbox" aria-label="..."></span>
+				<!-- Thats the description -->
+				<p class="list-group-item disabled">Imagine someone had clicked on "Jorgs Kindheit" so see the small episode description....</p>
+			</a>
+			<!-- END OF EXAMPLE -->
+			<!--
+				TODO
+				Implement the script to open and close
+				Make a smooth transition
+				Only allow one open at a time?! Yes / No?
+			-->
+			
+			<a href="" class="list-group-item">E03: Jorgs Erstes Mal mit seiner schwulen besten Freundin<span class="right"><input type="checkbox" aria-label="..."></span></a>
+			<a href="" class="list-group-item">E04: Jorgs BitchesbangerZeit<span class="right"><input type="checkbox" aria-label="..."></span></a>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="list-group">
+			<!-- IF this checkbox is checked, check all. if uncheck, uncheck all -->
+			<a href="" class="list-group-item active" name="season02">Staffel 2<span class="right"><input type="checkbox" aria-label="..."></span></a>
+			<!-- List of episodes starts here -->
+			<a href="" class="list-group-item">E01: Jorgs Geburt<span class="right"><input type="checkbox" aria-label="..."></span></a>
+
+
+			<!-- Example of a description that pop out -->
+			<a href="" class="list-group-item">
+				E02: Jorgs Kindheit
+				<span class="right"><input type="checkbox" aria-label="..."></span>
+				<!-- Thats the description -->
+				<a href="" class="list-group-item disabled">Imagine someone had clicked on "Jorgs Kindheit" so see the small episode description....</a>
+			</a>
+			<!-- END OF EXAMPLE -->
+			<!--
+				TODO
+				Implement the script to open and close
+				Make a smooth transition
+				Only allow one open at a time?! Yes / No?
+			-->
+			
+			<a href="" class="list-group-item">E03: Jorgs Erstes Mal mit seiner schwulen besten Freundin<span class="right"><input type="checkbox" aria-label="..."></span></a>
+			<a href="" class="list-group-item">E04: Jorgs BitchesbangerZeit<span class="right"><input type="checkbox" aria-label="..."></span></a>
+			<a href="" class="list-group-item">E05: The Affair<span class="right"><input type="checkbox" aria-label="..."></span></a>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<a href="#" class="list-group-item active">Staffelauswahl</a>
+			<a href="#season01" class="list-group-item">Staffel 01</a>
+			<a href="#season02" class="list-group-item">Staffel 02</a>
+			<a href="#" class="list-group-item">Staffel 03</a>
+			<a href="#" class="list-group-item">Staffel 04</a>
+			<a href="#" class="list-group-item">Staffel 05</a>
+			<a href="#" class="list-group-item">Staffel 06</a>
+			<a href="#" class="list-group-item">Staffel 07</a>
+		</div>
+	</div>
+	
+<br><br><br>
+
+	<p>===== Wilkommensseite =====</p>
+
+<br><br><br>
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
+			<div class="input-group input-group-lg">
+		 		<span class="input-group-addon" id="sizing-addon1">@</span>
+				<input type="text" class="form-control" placeholder="Email-Address" aria-describedby="sizing-addon1">
+			</div>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
+			<div class="col-xs-12 col-sm-6 col-md-6" style="text-align:center;">
+				<h1><span class="label label-primary">New list</span></h1>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-6" style="text-align:center;">
+				<h1><span class="label label-primary">Get list</span></h1>
+			</div>
+		</div>
+	</div>
 
 
 	
 	<script  type="text/javascript" src="js/main.js"></script>
-		<script  type="text/javascript" src="js/typeahead.bundle.js"></script>
-<script type="text/javascript">
+	<script  type="text/javascript" src="js/typeahead.bundle.js"></script>
+	<script type="text/javascript">
+
+
+$('#search_button').click(function() {
+  if($('#search_bar').hasClass('active')){
+  
+  
+  //TODO: suche ausführen (und auch bei enter in search_bar
+ 
+  
+  } else {
+  $('#search_button .glyphicon').removeClass('glyphicon-plus');
+  $('#search_button .glyphicon').addClass('glyphicon-search');
+  $('#search_bar').addClass('active');
+  //$('#the-basics').css('display', 'inline-block');
+  }
+});
+
+$(document.body).click(function(e){
+   var $box = $('#search');
+   if(/*e.target.id !== 'search' &&*/ !$.contains($box[0], e.target)){
+   reduceSearch();
+   //alert("1");
+   }
+    
+});
+
+
+function reduceSearch(){
+if($('#search_bar').hasClass('active')){
+  $('#search_button .glyphicon').removeClass('glyphicon-search');
+  $('#search_button .glyphicon').addClass('glyphicon-plus');
+  $('#search_bar').removeClass('active');
+  }
+}
+
+
+
+	function opensearch() {
+		
+	};
+	// TODO: Function that closes the search, when someone clicks somewhere else
+	// $( document ).ready() {
+	// 	$('.container-fluid').onclick() {
+	// 		$('#the-basics').css('display', 'none');
+	// 	}
+	// }
+
+	// Function to open the description
+	// TODO: if else / case / bla
+	function opendesc() {
+		$('#desc123').css('display', 'inline-block');
+	}
+
+
 var substringMatcher = function(strs) {
-  return function findMatches(q, cb) {
-    var matches, substrRegex;
+	return function findMatches(q, cb) {
+		var matches, substrRegex;
  
-    // an array that will be populated with substring matches
-    matches = [];
+		// an array that will be populated with substring matches
+		matches = [];
+
+		// regex used to determine if a string contains the substring `q`
+		substrRegex = new RegExp(q, 'i');
+
+		// iterate through the pool of strings and for any string that
+		// contains the substring `q`, add it to the `matches` array
+		$.each(strs, function(i, str) {
+			if (substrRegex.test(str)) {
+			// the typeahead jQuery plugin expects suggestions to a
+			// JavaScript object, refer to typeahead docs for more info
+			matches.push({ value: str });
+		}
+	});
  
-    // regex used to determine if a string contains the substring `q`
-    substrRegex = new RegExp(q, 'i');
- 
-    // iterate through the pool of strings and for any string that
-    // contains the substring `q`, add it to the `matches` array
-    $.each(strs, function(i, str) {
-      if (substrRegex.test(str)) {
-        // the typeahead jQuery plugin expects suggestions to a
-        // JavaScript object, refer to typeahead docs for more info
-        matches.push({ value: str });
-      }
-    });
- 
-    cb(matches);
-  };
+	cb(matches);
+	};
 };
  
 var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
@@ -276,7 +469,7 @@ var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
   'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
   'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
   'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming', 'Jorg-is-a-Penis'
 ];
  
 $('#the-basics .typeahead').typeahead({

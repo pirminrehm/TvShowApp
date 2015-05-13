@@ -1,0 +1,8 @@
+{
+	"restUrl" : "http://localhost:3000",
+	"dbUrl" :"mongodb://localhost/testdb",
+	"dbTestUrl" :"mongodb://localhost/testdb",
+	"dbDevelopmentUrl" : "mongodb://localhost/development",
+	"dbProductUrl" : "mongodb://localhost/product",
+	"thetvdbApiKey" : "DFC9CF716B0709C4"
+}
