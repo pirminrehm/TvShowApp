@@ -8,9 +8,9 @@ var mongoose = require('mongoose');
 var cors = require('cors');
 
 //require local packaes
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var series = require('./routes/series');
+// var users = require('./routes/usersRoutes');
+var series = require('./routes/seriesRoutes');
+var config = require('./config.json');
 
 
 var app = express();
@@ -19,14 +19,14 @@ var app = express();
 //Initialization of mongoDB
 mongoose.connect('mongodb://localhost/testdb');
 var db = mongoose.connection;
+
 db.on('error', function callback() {
-    console.log("Verbindung zu MongoDB fehlgeschalgen");
+  console.log('Verbindung zu MongoDB fehlgeschlagen');
 });
 
-db.once('open', function callback(){
-  console.log("Verbindung zu MongoDB erfolgreich");
+db.on('open', function callback() {
+  console.log('Verbindung zu MongoDB erfolgreich (Database: ' + config.dbUrl + ")");
 });
-
 
 
 app.use(cors());
@@ -37,8 +37,8 @@ app.use(cookieParser());
 
 
 //use local packages
-app.use('/', routes);
-app.use('/user', users);
+
+// app.use('/user', users);
 app.use('/series', series);
 
 
