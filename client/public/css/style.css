@@ -104,6 +104,30 @@ a#desc123 {
 		JORGS SHIT
 */
 
+
+/* search */
+#search_bar {
+width: 10%;
+opacity: 0;
+visibility: hidden;
+float: right;
+-webkit-transition: all 500ms ease-out;
+    -moz-transition: all 500ms ease-out;
+    -o-transition: all 500ms ease-out;
+    transition: all 500ms ease-out;
+}
+.active#search_bar {
+
+opacity: 1;
+visibility: visible;
+width: 100%;
+}
+
+/* season overview list */
+p < a {
+padding: 0px;
+}
+
 /* BUTTON FUNCTIONALITY */
 .label:hover {
 cursor: pointer;
