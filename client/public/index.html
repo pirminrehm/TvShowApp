@@ -264,15 +264,17 @@
 			
 			
 			<ul class="season_list">
-			<li class="header">
+			<div>
 				<h4>Staffelauswahl</h4>
-			</li>
+			</div>
 			<li>
 				<h4>Season 1</h4>
+				<input type="checkbox">
 				<p>In Season1 passieren faszinierende Dinge!</p>
 			</li>
 			<li class="active">
 				<h4>Season 2</h4>
+				<input type="checkbox">
 				<p>In Season2 passieren unglaubliche Dinge!</p>
 			</li>
 			
@@ -384,6 +386,24 @@
 	<script  type="text/javascript" src="js/typeahead.bundle.js"></script>
 	<script type="text/javascript">
 
+	$('.season_list li').click(function () {
+
+		if (!$(this).hasClass('active')) {
+			$('.season_list li').removeClass('active');
+			$('.season_list li p').slideUp();
+
+			$(this).addClass('active');
+			$(this).find('p').slideDown();
+			/*
+			$(this).next('.season_list li p').slideDown();*/
+		} else {
+			$('.season_list li').removeClass('active');
+			$('.season_list li p').slideUp();
+		}
+		return false;
+		
+	});
+	
 
 $('#search_button').click(function() {
   if($('#search_bar').hasClass('active')){
