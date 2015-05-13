@@ -77,9 +77,21 @@ body {
 	padding: 0px;
 }
 
+/* Description Hidden */
+a#desc123 {
+	display: none;
+}
 
+/* Get rid of weird button or shall i change list-item disbaled */
+.list-group-item.disabled,
+.list-group-item.disabled:hover,
+.list-group-item.disabled:focus {
+  color: #777;
+  cursor: pointer;
+  background-color: #eee;
+}
 
-
+/* */
 
 /*
 		JORGS SHIT
