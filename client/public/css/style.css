@@ -13,11 +13,11 @@ body {
 .container-fluid {
 	max-width: 980px;
 }
+
 /* Progressbar */
 .progress {
 	height: 5px;
-	margin: 0px; /* Stick to the container underneath */
-	/* Get them the same shape as the series container */
+	margin: 0px;
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
 	border-top-left-radius: 5px;
@@ -27,9 +27,7 @@ body {
 .series {
 	height: 150px;
 	background: white;
-	margin-bottom: 30px; /* 30 seems to be the same as the margin-left/right - iam just guessing here */
-
-	/* less ;) */
+	margin-bottom: 30px;
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
 }
@@ -38,15 +36,6 @@ body {
 	height: 150px;
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
-	/*
-	WHAT IS THIS?
-	background: linear-gradient(top, #fff 0%, #ccc 85%, #ccc 100%);
-	background: -moz-linear-gradient(top, #fff 0%, #ccc 85%, #ccc 100%);
-	background: -webkit-linear-gradient(top, #fff 0%, #ccc 85%, #ccc 100%);
-	background: -ms-linear-gradient(top, #fff 0%, #ccc 85%, #ccc 100%);
-	background: -o-linear-gradient(top, #fff 0%, #ccc 85%, #ccc 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#fff, endColorstr=#ccc,GradientType=1);
-	*/
 }
 
 .series-inner-title{
@@ -59,12 +48,12 @@ body {
 
 .series-inner-title .right {
 	padding-right: 10px;
-	padding-top: 17px; /* Same margin to bottom and right now */
+	padding-top: 17px;
 }
 
 .series-inner-title .left p, .series-inner-title .left h2 {
 	color: white;
-	text-shadow: 0px 1px rgba(0,0,0,0.5); /* Make the text more readable */
+	text-shadow: 0px 1px rgba(0,0,0,0.5);
 }
 
 /* Clearfix */
@@ -77,65 +66,44 @@ body {
 	padding: 0px;
 }
 
-/* Description Hidden */
-a#desc123 {
-	display: none;
-}
-
-/* Get rid of weird button or shall i change list-item disbaled */
-.list-group-item.disabled,
-.list-group-item.disabled:hover,
-.list-group-item.disabled:focus {
-  color: #777;
-  cursor: pointer;
-  background-color: #eee;
-}
-
-
-/* login */
+/* Login */
 .login {
 	width: 50%;
 	margin: auto;
 }
 
-/* */
-
 /*
 		JORGS SHIT
 */
 .pull-left {
-	width: 130px;
 }
 
 /* FUCK */
 .pull-right {
-	width: 100%;
-	margin-left: 130px;
-	box-sizing: border-box;
 }
 
 #search {
 	width: 100%;
 	float: right;
+	margin-top: 8px;
 }
-/* FUCK OFF */
 
-/* search */
+/* Search */
 #search_bar {
-width: 10%;
-opacity: 0;
-visibility: hidden;
-float: right;
--webkit-transition: all 500ms ease-out;
-    -moz-transition: all 500ms ease-out;
-    -o-transition: all 500ms ease-out;
-    transition: all 500ms ease-out;
+	width: 10%;
+	opacity: 0;
+	visibility: hidden;
+	float: right;
+	-webkit-transition: all 500ms ease-out;
+	-moz-transition: all 500ms ease-out;
+	-o-transition: all 500ms ease-out;
+	transition: all 500ms ease-out;
 }
-.active#search_bar {
 
-opacity: 1;
-visibility: visible;
-width: 100%;
+.active#search_bar {
+	opacity: 1;
+	visibility: visible;
+	width: 100%;
 }
 
 #search_button {
@@ -145,71 +113,72 @@ width: 100%;
 
 /* season overview list */
 .season_list {
-list-style: none;
-margin: 0px;
-  padding: 0px;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
 }
 
 .season_list > div {
-padding: 10px 15px;
-  margin: 0px;
-
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  text-shadow: 0 -1px 0 #286090;
-  background-image: -webkit-linear-gradient(top,#337ab7 0,#2b669a 100%);
-  background-image: -o-linear-gradient(top,#337ab7 0,#2b669a 100%);
-  background-image: -webkit-gradient(linear,left top,left bottom,from(#337ab7),to(#2b669a));
-  background-image: linear-gradient(to bottom,#337ab7 0,#2b669a 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff2b669a', GradientType=0);
-  background-repeat: repeat-x;
-  border-color: #2b669a;
-  }
+	padding: 10px 15px;
+	margin: 0px;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	text-shadow: 0 -1px 0 #286090;
+	background-image: -webkit-linear-gradient(top,#337ab7 0,#2b669a 100%);
+	background-image: -o-linear-gradient(top,#337ab7 0,#2b669a 100%);
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#337ab7),to(#2b669a));
+	background-image: linear-gradient(to bottom,#337ab7 0,#2b669a 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff2b669a', GradientType=0);
+	background-repeat: repeat-x;
+	border-color: #2b669a;
+}
   
-  .season_list > div h4 {
-  	font-weight: normal;
+.season_list > div h4 {
+	font-weight: normal;
 	font-size: 16px;
-color: #fff;
-  }
+	color: #fff;
+}
 
   
-  .season_list li {
-  position: relative;
-  display: block;
-  
-  margin-bottom: -1px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  }
-  .season_list li > h4 {
-  padding: 10px 15px;
-  margin: 0px;
-    color: #555;
+.season_list li {
+	position: relative;
+	display: block;
+	margin-bottom: -1px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+}
+
+.season_list li > h4 {
+	padding: 10px 15px;
+	margin: 0px;
+	color: #555;
 	font-weight: normal;
 	font-size: 14px;
-  }
+}
   
-  .season_list li > input{
-   position: absolute;
-  top: 7px;
-  right: 10px;
-  }
-  
- 
-
-
-
+.season_list li > input{
+	position: absolute;
+	top: 7px;
+	right: 10px;
+}
 
 /* BUTTON FUNCTIONALITY */
 .label:hover {
-cursor: pointer;
+	cursor: pointer;
 }
 
-/* INSTANT SEARCH */
-#the-basics {
-display: none;
-} /* Is hidden from the beginning, only appears when add button is clicked */
 
+
+
+
+
+/*
+INSTANT SEARCH
+KANN EIGENTLICH ALLES WEG
+*/
+#the-basics {
+	display: none;
+} /* Is hidden from the beginning, only appears when add button is clicked */
 
 .bs-example{
 	font-family: sans-serif;

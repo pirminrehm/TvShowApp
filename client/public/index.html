@@ -23,37 +23,31 @@
 <!-- Top Navigation -->
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
+
 		<!-- Left Part of the Navigation, mostly the title -->
 		<div class="navbar-header pull-left">
 			<a class="navbar-brand" href="#">TVShowApp</a>
 		</div>
+		<!-- End Left Part of the Navigation -->
+
+<!-- TODO: Fix Search Bar : Needs to be in one line -->
 
 		<!-- Right Part of the Navigation, mostly the add button -->
-		<!--
-			TODO
-			Fix the bug with 100%. fucker.
-		-->
-		<div class="navbar-header pull-right">
-			<!-- Placeholder Search Bar -->
+		<div class="right" style="width:250px;">
 				<div id="search" class="input-group">
 					<input id="search_bar" type="text" class="form-control" placeholder="Search for...">
 					<span class="input-group-btn">
 						<button id="search_button" class="btn btn-default" type="button">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 						</button>
 					</span>
-				</button>
-
+				</div>
 		</div>
-			<!-- Add Button, which opens the search function -->
-			<!-- IDEA FOR ANOTHER BUTTON?
-				<h2 style="margin:0px;float:right;"><span class="label label-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></span></h2>
-			-->
+		<!-- End Right Part of the navigation -->
 
-		</div>
     </div>
 </nav>
-<!-- End of Navigation -->
+<!-- End of Top Navigation -->
 
 <!-- Main Content -->
 <div class="container-fluid" ng-controller="HomeController">
