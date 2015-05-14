@@ -29,20 +29,22 @@
 		</div>
 
 		<!-- Right Part of the Navigation, mostly the add button -->
+		<!--
+			TODO
+			Fix the bug with 100%. fucker.
+		-->
 		<div class="navbar-header pull-right">
 			<!-- Placeholder Search Bar -->
-			<div class="row">
-		<div class="col-xs-12 col-sm-6 col-md-4">
-			<div id="search" class="input-group">
-				<input id="search_bar" type="text" class="form-control" placeholder="Search for...">
+				<div id="search" class="input-group">
+					<input id="search_bar" type="text" class="form-control" placeholder="Search for...">
 					<span class="input-group-btn">
 						<button id="search_button" class="btn btn-default" type="button">
 							<span class="glyphicon glyphicon-plus" aria-hidden="true">
 						</button>
 					</span>
-			</div><!-- /input-group -->
-		</div><!-- /.col-lg-6 -->
-	</div>
+				</button>
+
+		</div>
 			<!-- Add Button, which opens the search function -->
 			<!-- IDEA FOR ANOTHER BUTTON?
 				<h2 style="margin:0px;float:right;"><span class="label label-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></span></h2>
@@ -416,7 +418,9 @@ $('#search_button').click(function() {
   $('#search_button .glyphicon').removeClass('glyphicon-plus');
   $('#search_button .glyphicon').addClass('glyphicon-search');
   $('#search_bar').addClass('active');
-  //$('#the-basics').css('display', 'inline-block');
+
+  $('#search_button').css('border-top-left-radius', '0px');
+  $('#search_button').css('border-bottom-left-radius', '0px');
   }
 });
 
@@ -435,6 +439,9 @@ if($('#search_bar').hasClass('active')){
   $('#search_button .glyphicon').removeClass('glyphicon-search');
   $('#search_button .glyphicon').addClass('glyphicon-plus');
   $('#search_bar').removeClass('active');
+
+  $('#search_button').css('border-top-left-radius', '4px');
+  $('#search_button').css('border-bottom-left-radius', '4px');
   }
 }
 

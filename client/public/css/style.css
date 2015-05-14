@@ -103,7 +103,22 @@ a#desc123 {
 /*
 		JORGS SHIT
 */
+.pull-left {
+	width: 130px;
+}
 
+/* FUCK */
+.pull-right {
+	width: 100%;
+	margin-left: 130px;
+	box-sizing: border-box;
+}
+
+#search {
+	width: 100%;
+	float: right;
+}
+/* FUCK OFF */
 
 /* search */
 #search_bar {
@@ -121,6 +136,11 @@ float: right;
 opacity: 1;
 visibility: visible;
 width: 100%;
+}
+
+#search_button {
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
 }
 
 /* season overview list */
