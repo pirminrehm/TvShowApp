@@ -3,17 +3,13 @@ var Schema = mongoose.Schema;
 
 
 
-<<<<<<< HEAD
+
+
 // var EpisodeSchema = new Schema({
-// 	number: int,
+// 	number: Number,
 // 	watched: Boolean
 // });
-=======
-var EpisodeSchema = new Schema({
-	number: Number,
-	watched: Boolean
-});
->>>>>>> 980a4020f10c97f21a5fbb44a141ba396388cb57
+
 
 // var SeasonSchema = new Schema({
 // 	number: String,
@@ -27,25 +23,15 @@ var EpisodeSchema = new Schema({
 // });
 
 
-<<<<<<< HEAD
-// var UserSchema = Schema({
-// 	userID: int,
-// 	userLoginToken: String,
-// 	name: String,
-// 	series: [SeriesSchema]
-=======
 var UserSchema = Schema({
-	userId: Number,
-	userLoginToken: String,
-	name: String,
-	series: [SeriesSchema]
->>>>>>> 980a4020f10c97f21a5fbb44a141ba396388cb57
+	email: String,
+	token: String,
+	validated: Boolean
+
+ });
 
 
-// });
-
-
-
+/*
 
 UserSchema.statics = {
 	load: function(id, cb){
@@ -53,5 +39,7 @@ UserSchema.statics = {
 	}
 }
 
+*/
 
-mongoose.model('UserModel', UserSchema);
+
+mongoose.model('User', UserSchema);

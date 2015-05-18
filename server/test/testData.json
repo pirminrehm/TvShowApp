@@ -1,0 +1,11 @@
+{
+	"acc1" : {
+		"email" : "tvshowapp-test1@7kw.de"
+	},
+	"acc2" : {
+		"email" : "tvshowapp-test2@7kw.de"
+	},
+	"acc3" : {
+		"email" : "foobar@7kw.de"
+	}
+}

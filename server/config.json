@@ -1,5 +1,6 @@
 {
 	"restUrl" : "http://localhost:3000",
+	"testRestUrl" : "http://localhost:3000",
 	"dbUrl" :"mongodb://localhost/testdb",
 	"dbTestUrl" :"mongodb://localhost/testdb",
 	"dbDevelopmentUrl" : "mongodb://localhost/development",

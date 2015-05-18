@@ -1,27 +1,34 @@
 var express = require('express');
 var router = express.Router();
+var config = require('../config.json');
+
 
 
 var user = require('../controllers/userController');
 
-//Define all routes for ...  /user/ ....
+
+// GET /usr/6752c09377e2105a1ca2748c79dac931c8e67b63/test
+// just get a test response to a restriced area
+// Test NOT implemented
+router.get('/:token/test', user.test);
 
 
-/* POST new Serie. */
-router.post('/', user.post);
-router.get('/:userId', user.show);
-router.put('/:userId', user.put);
-router.delete('/:userId', user.delete);
+// POST /usr/register
+// register a new account
+// Test implemented
+router.post('/register', user.registerAccount);
+
+
+// GET /usr/register/verify/6752c09377e2105a1ca2748c79dac931c8e67b63/test
+// verify an account with the token
+// Test implemented
+router.get('/register/verify/:token', user.verifyAccount);
+
+
+
+
+
 
 module.exports = router;
 
-console.log("Success: routes/users.js");
 
-
-/*
-Annahme, dass folgendes nur zum Test war, deswegen auskommentiert:
-
-router.get('/', user.get);
-
-
-*/

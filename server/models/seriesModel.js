@@ -71,7 +71,7 @@ var DataSchema = new Schema({
 
 
 var SeriesSchema = new Schema({
-    Data: [DataSchema],    
+    Data: DataSchema,    
     Episode: [EpisodeSchema]
 
 });

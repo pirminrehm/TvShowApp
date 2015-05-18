@@ -11,6 +11,7 @@ var cors = require('cors');
 
 
 var series = require('./routes/seriesRoutes');
+var usr = require('./routes/usersRoutes');
 var config = require('./config.json');
 
 
@@ -21,7 +22,7 @@ var app = express();
 
 
 //Initialization of mongoDB
-mongoose.connect('mongodb://localhost/testdb');
+mongoose.connect(config.dbUrl);
 var db = mongoose.connection;
 
 db.on('error', function callback() {
@@ -33,6 +34,11 @@ db.on('open', function callback() {
   console.log('Verbindung zu MongoDB erfolgreich (Database: ' + config.dbUrl + ")");
 });
 
+
+
+
+
+
 app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -43,6 +49,7 @@ app.use(cookieParser());
 //use local packages
 
 app.use('/series', series);
+app.use('/usr', usr);
 
 
 
@@ -53,7 +60,7 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-console.log("Success: 404 Initialization");
+
 
 // error handlers
 
@@ -69,7 +76,7 @@ if (app.get('env') === 'development') {
   });
 }
 
-console.log("Success: Error Handler");
+
 
 // production error handler
 // no stacktraces leaked to user
@@ -82,6 +89,9 @@ app.use(function(err, req, res, next) {
 });
 
 
-module.exports = app;
 
-console.log("Success: End of TvShowApp");
+
+
+
+
+module.exports = app;
