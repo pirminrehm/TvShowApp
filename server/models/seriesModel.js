@@ -40,7 +40,9 @@ var EpisodeSchema = new Schema({
 });
 
 
-var DataSchema = new Schema({
+
+var SeriesSchema = new Schema({
+    Data: {
       id: String,
       Actors: String,
       Airs_DayOfWeek: String,
@@ -67,11 +69,7 @@ var DataSchema = new Schema({
       poster: String,
       tms_wanted_old: String,
       zap2it_id: String
-});
-
-
-var SeriesSchema = new Schema({
-    Data: DataSchema,    
+      },    
     Episode: [EpisodeSchema]
 
 });
