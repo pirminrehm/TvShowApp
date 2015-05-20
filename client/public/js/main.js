@@ -29,40 +29,26 @@ $(document).ready(function () {
 /*
 	SpoilerDescription Function
 	Allows to open and close the description for a single episode
+
+	Checkbox Function
+	Lets the user check the episodes/series he has already seen
 */
 
-
-	//$('.season_list li input').val($(this).is(':checked'));
-
+	/* SpoilerDescription Function */
 	$('.season_list div input').click(function (e) {
-		
-		
-		
-			
-			var returnVal = confirm("Are you sure?");
-			if(returnVal == true){
-				var newBool = $(this).is(":checked");
-				$(this).attr("checked", newBool);
-			
-				
-				$('.season_list li').find('input').each(function(){
-
-				     $(':checkbox').prop("checked", newBool);
-
-					
-
-    }); 
-				
-				
-				
-			}
-			$('.season_list div input').val($(this).is(':checked'));
-			      
-    });
+		var returnVal = confirm("Are you sure?");
+		if(returnVal == true){
+			var newBool = $(this).is(":checked");
+			$(this).attr("checked", newBool);
+			$('.season_list li').find('input').each(function(){
+				$(':checkbox').prop("checked", newBool);
+			}); 
+		}
+		$('.season_list div input').val($(this).is(':checked'));
+	});
 	
+	/* Checkbox Function */
 	$('.season_list li').click(function (e) {
-	
-
 		if(e.target.className != 'checkbox'){
 			if (!$(this).hasClass('active')) {
 				$('.season_list li').removeClass('active');
@@ -74,8 +60,6 @@ $(document).ready(function () {
 				$('.season_list li p').slideUp();
 			}
 		}
-			
-		
 	});
 
 /*
@@ -84,7 +68,7 @@ $(document).ready(function () {
 */
 	$('#search_button').click(function() {
 		if($('#search_bar').hasClass('active')){
-			//TODO: suche ausführen (und auch bei enter in search_bar
+			search();
 		} else {
 			$('#search_button .glyphicon').removeClass('glyphicon-plus');
 			$('#search_button .glyphicon').addClass('glyphicon-search');
@@ -92,6 +76,13 @@ $(document).ready(function () {
 			$('#search_button').css('border-top-left-radius', '0px');
 			$('#search_button').css('border-bottom-left-radius', '0px');
 		}
+	});
+
+	/* Small function, that detects if the user uses the enter button */
+	$("#search_bar").keyup(function (e) {
+    	if (e.keyCode == 13) {
+        	search();
+    	}
 	});
 
 	$(document.body).click(function(e){
@@ -109,6 +100,10 @@ $(document).ready(function () {
 	  $('#search_button').css('border-top-left-radius', '4px');
 	  $('#search_button').css('border-bottom-left-radius', '4px');
 	  }
+	};
+
+	function search() {
+		alert("Suche geht noch nicht, Bruder");
 	};
 
 });
