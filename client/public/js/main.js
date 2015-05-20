@@ -30,20 +30,52 @@ $(document).ready(function () {
 	SpoilerDescription Function
 	Allows to open and close the description for a single episode
 */
-	$('.season_list li').click(function () {
-		if (!$(this).hasClass('active')) {
-			$('.season_list li').removeClass('active');
-			$('.season_list li p').slideUp();
-			$(this).addClass('active');
-			$(this).find('p').slideDown();
-			/*
-			$(this).next('.season_list li p').slideDown();
-			*/
-		} else {
-			$('.season_list li').removeClass('active');
-			$('.season_list li p').slideUp();
+
+
+	//$('.season_list li input').val($(this).is(':checked'));
+
+	$('.season_list div input').click(function (e) {
+		
+		
+		
+			
+			var returnVal = confirm("Are you sure?");
+			if(returnVal == true){
+				var newBool = $(this).is(":checked");
+				$(this).attr("checked", newBool);
+			
+				
+				$('.season_list li').find('input').each(function(){
+
+				     $(':checkbox').prop("checked", newBool);
+
+					
+
+    }); 
+				
+				
+				
+			}
+			$('.season_list div input').val($(this).is(':checked'));
+			      
+    });
+	
+	$('.season_list li').click(function (e) {
+	
+
+		if(e.target.className != 'checkbox'){
+			if (!$(this).hasClass('active')) {
+				$('.season_list li').removeClass('active');
+				$('.season_list li p').slideUp();
+				$(this).addClass('active');
+				$(this).find('p').slideDown();
+			} else {
+				$('.season_list li').removeClass('active');
+				$('.season_list li p').slideUp();
+			}
 		}
-		return false;	
+			
+		
 	});
 
 /*
