@@ -114,8 +114,10 @@ body {
 /* season overview list */
 .season_list {
 	list-style: none;
-	margin: 0px;
+	margin: 0px 0px 20px 0px;
 	padding: 0px;
+	box-shadow: 0 1px 2px rgba(0,0,0,.075);
+	border-radius: 4px;
 }
 
 .season_list > div {
@@ -131,12 +133,15 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff2b669a', GradientType=0);
 	background-repeat: repeat-x;
 	border-color: #2b669a;
+
 }
   
 .season_list > div h4 {
 	font-weight: normal;
 	font-size: 16px;
 	color: #fff;
+	padding: 3px 0px;
+	margin: 0px;
 }
 
   
@@ -155,11 +160,30 @@ body {
 	font-weight: normal;
 	font-size: 14px;
 }
+
+.season_list div > input {
+	position: absolute;
+	top: 12px;
+	right: 26px;
+}
   
 .season_list li > input{
 	position: absolute;
 	top: 7px;
 	right: 10px;
+}
+
+.season_list li > p {
+	padding: 0px 15px;
+}
+
+.season_list li:last-child {
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+.season_list li:first-child {
+	border-top: 0px;
 }
 
 /* BUTTON FUNCTIONALITY */

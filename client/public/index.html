@@ -14,6 +14,7 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
 
+	<!-- Our Own Stylesheet -->
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
@@ -146,94 +147,6 @@
 			</div>
 		</div>
 
-		<div class="col-xs-12 col-sm-6 col-md-4">
-			<div class="progress">
-				<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-			</div>
-			<div class="series" style="background-image:url(http://thetvdb.com/banners/fanart/original/81797-18.jpg);background-size:100%;">
-				<div class="series-inner">
-					<div class="series-inner">
-					<div class="series-inner-title">
-						<div class="left">
-							<h2>One Piece</h2>
-							<p>S17E01: Episodentitel</p>
-						</div>
-						<div class="right">
-							<h4><span class="label label-warning">+1</span></h4>
-						</div>
-						<div class="clear"></div>
-					</div>
-				</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-xs-12 col-sm-6 col-md-4">
-			<div class="progress">
-				<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-			</div>
-			<div class="series" style="background-image:url(http://thetvdb.com/banners/fanart/original/81797-18.jpg);background-size:100%;">
-				<div class="series-inner">
-					<div class="series-inner">
-					<div class="series-inner-title">
-						<div class="left">
-							<h2>One Piece</h2>
-							<p>S17E01: Episodentitel</p>
-						</div>
-						<div class="right">
-							<h4><span class="label label-warning">+1</span></h4>
-						</div>
-						<div class="clear"></div>
-					</div>
-				</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-xs-12 col-sm-6 col-md-4">
-			<div class="progress">
-				<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-			</div>
-			<div class="series" style="background-image:url(http://thetvdb.com/banners/fanart/original/81797-18.jpg);background-size:100%;">
-				<div class="series-inner">
-					<div class="series-inner">
-					<div class="series-inner-title">
-						<div class="left">
-							<h2>One Piece</h2>
-							<p>S17E01: Episodentitel</p>
-						</div>
-						<div class="right">
-							<h4><span class="label label-warning">+1</span></h4>
-						</div>
-						<div class="clear"></div>
-					</div>
-				</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-xs-12 col-sm-6 col-md-4">
-			<div class="progress">
-				<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-			</div>
-			<div class="series" style="background-image:url(http://thetvdb.com/banners/fanart/original/81797-18.jpg);background-size:100%;">
-				<div class="series-inner">
-					<div class="series-inner">
-					<div class="series-inner-title">
-						<div class="left">
-							<h2>One Piece</h2>
-							<p>S17E01: Episodentitel</p>
-						</div>
-						<div class="right">
-							<h4><span class="label label-warning">+1</span></h4>
-						</div>
-						<div class="clear"></div>
-					</div>
-				</div>
-				</div>
-			</div>
-		</div>
-
 		<ul ng-repeat="serie in series">
 			<li>{{serie._id}}</li>
 			<li>{{serie.tvdatabaseID}}</li>
@@ -256,96 +169,24 @@
 	 -->
 	<div class="row">
 		<div class="col-xs-12 col-sm-6 col-md-4">
-			
-			
-			
+
 			<ul class="season_list">
-			<div>
-				<h4>Staffelauswahl</h4>
-			</div>
-			<li>
-				<h4>Season 1</h4>
-				<input type="checkbox">
-				<p>In Season1 passieren faszinierende Dinge!</p>
-			</li>
-			<li class="active">
-				<h4>Season 2</h4>
-				<input type="checkbox">
-				<p>In Season2 passieren unglaubliche Dinge!</p>
-			</li>
-			
-			
+				<div>
+					<h4>Staffelauswahl</h4>
+					<input type="checkbox">
+				</div>
+				<li>
+					<h4>Season 1</h4>
+					<input type="checkbox">
+					<p>In Season1 passieren faszinierende Dinge! Manche davon sind sogar so gruselig, dass JÃ¶rg sich manchmal in die<br>HOSE SCHEISST!</p>
+				</li>
+				<li class="active">
+					<h4>Season 2</h4>
+					<input type="checkbox">
+					<p>In Season2 passieren unglaubliche Dinge!</p>
+				</li>
 			</ul>
-			
-			
-			<div class="list-group">
-			<!-- IF this checkbox is checked, check all. if uncheck, uncheck all -->
-			<a class="list-group-item active" name="season01">Staffel 1<span class="right"><input type="checkbox" aria-label="..."></span></a>
-			<!-- List of episodes starts here -->
-			<a class="list-group-item">E01: Jorgs Geburt<span class="right"><input type="checkbox" aria-label="..."></span></a>
 
-
-			<!-- Example of a description that pop out -->
-			<a class="list-group-item open">
-				<p>E02: Jorgs Kindheit</p>
-				<span class="right"><input type="checkbox" aria-label="..."></span>
-				<!-- Thats the description -->
-				<p class="list-group-item disabled">Imagine someone had clicked on "Jorgs Kindheit" so see the small episode description....</p>
-			</a>
-			<!-- END OF EXAMPLE -->
-			<!--
-				TODO
-				Implement the script to open and close
-				Make a smooth transition
-				Only allow one open at a time?! Yes / No?
-			-->
-			
-			<a href="" class="list-group-item">E03: Jorgs Erstes Mal mit seiner schwulen besten Freundin<span class="right"><input type="checkbox" aria-label="..."></span></a>
-			<a href="" class="list-group-item">E04: Jorgs BitchesbangerZeit<span class="right"><input type="checkbox" aria-label="..."></span></a>
-			</div>
-		</div>
-
-		<div class="col-xs-12 col-sm-6 col-md-4">
-			<div class="list-group">
-			<!-- IF this checkbox is checked, check all. if uncheck, uncheck all -->
-			<a href="" class="list-group-item active" name="season02">Staffel 2<span class="right"><input type="checkbox" aria-label="..."></span></a>
-			<!-- List of episodes starts here -->
-			<a href="" class="list-group-item">E01: Jorgs Geburt<span class="right"><input type="checkbox" aria-label="..."></span></a>
-
-
-			<!-- Example of a description that pop out -->
-			<a href="" class="list-group-item">
-				E02: Jorgs Kindheit
-				<span class="right"><input type="checkbox" aria-label="..."></span>
-				<!-- Thats the description -->
-				<a href="" class="list-group-item disabled">Imagine someone had clicked on "Jorgs Kindheit" so see the small episode description....</a>
-			</a>
-			<!-- END OF EXAMPLE -->
-			<!--
-				TODO
-				Implement the script to open and close
-				Make a smooth transition
-				Only allow one open at a time?! Yes / No?
-			-->
-			
-			<a href="" class="list-group-item">E03: Jorgs Erstes Mal mit seiner schwulen besten Freundin<span class="right"><input type="checkbox" aria-label="..."></span></a>
-			<a href="" class="list-group-item">E04: Jorgs BitchesbangerZeit<span class="right"><input type="checkbox" aria-label="..."></span></a>
-			<a href="" class="list-group-item">E05: The Affair<span class="right"><input type="checkbox" aria-label="..."></span></a>
-			</div>
-		</div>
-	</div>
-
-
-	<div class="row">
-		<div class="col-xs-12 col-sm-6 col-md-4">
-			<a href="#" class="list-group-item active">Staffelauswahl</a>
-			<a href="#season01" class="list-group-item">Staffel 01</a>
-			<a href="#season02" class="list-group-item">Staffel 02</a>
-			<a href="#" class="list-group-item">Staffel 03</a>
-			<a href="#" class="list-group-item">Staffel 04</a>
-			<a href="#" class="list-group-item">Staffel 05</a>
-			<a href="#" class="list-group-item">Staffel 06</a>
-			<a href="#" class="list-group-item">Staffel 07</a>
 		</div>
 	</div>
 	
@@ -355,7 +196,7 @@
 
 <br><br><br>
 
-	<form action="localhost:3000/usr/register" method="post" id="mailingfield">
+	<form action="localhost:3000/usr/register" method="POST" id="mailingfield">
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
 				<div class="input-group input-group-lg">
@@ -368,8 +209,7 @@
 		<div class="row">
 			<div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
 				<div class="col-xs-12 col-sm-6 col-md-6" style="text-align:center;">
-					
-					<h1><span id="new_list" class="label label-primary">New list</span></h1>
+					<h1><span id="new_list" class="label label-primary" onclick="javascript:yay();">New list</span></h1>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6" style="text-align:center;">
 					<h1><span class="label label-primary">Get list</span></h1>
@@ -379,113 +219,56 @@
 	</form>
 
 	
-	<script  type="text/javascript" src="js/main.js"></script>
-	<script  type="text/javascript" src="js/typeahead.bundle.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/typeahead.bundle.js"></script>
 	<script type="text/javascript">
 
-/* PIRMIN JSON */
-	$.('#new_list span').click(function () {
-		alert("hello");
-
-		/* Receive input of mail-field */
-		var email = mailingfield.elements["mail-adress"].value;
-
-		/* Create json container */
-		var json = '{ "email" : "' + email + '"}';
-		
-		/* do i need this */
-		document.forms["mailingfield"].submit();
-
-		/* Send json via post */
-		$.ajax({
-			type: "POST",
-			url: "localhost:3000/usr/register",
-			data: formData,
-			dataType: "json",
-			contentType : "application/json"
-			success: function(){
-				alert('yay')
-			},
-		});
-	});
-/* END PIRMIN JSON */
-
-	$('.season_list li').click(function () {
-
-		if (!$(this).hasClass('active')) {
-			$('.season_list li').removeClass('active');
-			$('.season_list li p').slideUp();
-
-			$(this).addClass('active');
-			$(this).find('p').slideDown();
-			/*
-			$(this).next('.season_list li p').slideDown();*/
-		} else {
-			$('.season_list li').removeClass('active');
-			$('.season_list li p').slideUp();
-		}
-		return false;
-		
-	});
-	
-
-$('#search_button').click(function() {
-  if($('#search_bar').hasClass('active')){
-  
-  
-  //TODO: suche ausführen (und auch bei enter in search_bar
- 
-  
-  } else {
-  $('#search_button .glyphicon').removeClass('glyphicon-plus');
-  $('#search_button .glyphicon').addClass('glyphicon-search');
-  $('#search_bar').addClass('active');
-
-  $('#search_button').css('border-top-left-radius', '0px');
-  $('#search_button').css('border-bottom-left-radius', '0px');
-  }
-});
-
-$(document.body).click(function(e){
-   var $box = $('#search');
-   if(/*e.target.id !== 'search' &&*/ !$.contains($box[0], e.target)){
-   reduceSearch();
-   //alert("1");
-   }
-    
-});
-
-
-function reduceSearch(){
-if($('#search_bar').hasClass('active')){
-  $('#search_button .glyphicon').removeClass('glyphicon-search');
-  $('#search_button .glyphicon').addClass('glyphicon-plus');
-  $('#search_bar').removeClass('active');
-
-  $('#search_button').css('border-top-left-radius', '4px');
-  $('#search_button').css('border-bottom-left-radius', '4px');
-  }
-}
-
-
-
-	function opensearch() {
-		
-	};
-	// TODO: Function that closes the search, when someone clicks somewhere else
-	// $( document ).ready() {
-	// 	$('.container-fluid').onclick() {
-	// 		$('#the-basics').css('display', 'none');
-	// 	}
-	// }
-
-	// Function to open the description
-	// TODO: if else / case / bla
-	function opendesc() {
-		$('#desc123').css('display', 'inline-block');
+	function yay() {
+		alert("FICK DICH DONNER"); 
+		// var email = mailingfield.elements["mail-adress"].value;
+		// var json = '{ "email" : "' + email + '"}';
+		// $.ajax({
+		// 	type: "POST",
+		// 	url: "localhost:3000/usr/register",
+		// 	data: formData,
+		// 	dataType: "json",
+		// 	contentType : "application/json"
+		// 	success: function(){
+		// 		alert('yay');
+		// 	},
+		// });
 	}
 
+/* PIRMIN JSON */
+	// $.("#new_list").click(function () {
+	// 	alert("hello");
+	// });
+	// 	/* Receive input of mail-field */
+	// 	var email = mailingfield.elements["mail-adress"].value;
 
+	// 	/* Create json container */
+	// 	var json = '{ "email" : "' + email + '"}';
+		
+	// 	/* do i need this */
+	// 	document.forms["mailingfield"].submit();
+
+	// 	/* Send json via post */
+	// 	$.ajax({
+	// 		type: "POST",
+	// 		url: "localhost:3000/usr/register",
+	// 		data: formData,
+	// 		dataType: "json",
+	// 		contentType : "application/json"
+	// 		success: function(){
+	// 			alert('yay');
+	// 		},
+	// 	});
+	// });
+/* END PIRMIN JSON */
+
+/*
+	Search Function (Autocomplete)
+*/
 var substringMatcher = function(strs) {
 	return function findMatches(q, cb) {
 		var matches, substrRegex;
@@ -531,6 +314,8 @@ $('#the-basics .typeahead').typeahead({
   displayKey: 'value',
   source: substringMatcher(states)
 });
+
+
 </script>
 
 
