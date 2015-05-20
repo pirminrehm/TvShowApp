@@ -6,6 +6,19 @@ body {
 	background: #eee;
 }
 
+#brand {
+	position: absolute;
+	float: left;
+
+}
+
+/* Fix für Bootstrap */
+.navbar-brand {
+	margin-left: -15px;
+	width: 130px;
+	height: 50px;
+}
+
 .add-show {
 	margin-right: 15px;
 }
@@ -72,25 +85,16 @@ body {
 	margin: auto;
 }
 
-/*
-		JORGS SHIT
-*/
-.pull-left {
-}
-
-/* FUCK */
-.pull-right {
-}
-
 #search {
 	width: 100%;
 	float: right;
 	margin-top: 8px;
+	padding-left: 130px;
 }
 
-/* Search */
 #search_bar {
 	width: 10%;
+	/* max-width: 500px; */
 	opacity: 0;
 	visibility: hidden;
 	float: right;

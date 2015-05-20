@@ -4,24 +4,24 @@ var User = mongoose.model('User');
 
 
 
-exports.verify = function (token, ret) {
+exports.verify = function (token, callback) {
 
 	User.findOne({"token":token}, function (err, resultUser){
 		if(resultUser && !err){
 			if (resultUser.token == token && resultUser.validated) {
-				ret(true);
+				callback(true, resultUser);
 			} else {
-				ret(false);
+				callback(false, resultUser);
 			}
 			
 		}
 		else if(resultUser === null){
-			ret(false);
+			callback(false, resultUser);
 
 		}
 		else {
 			console.log('err', err);
-			ret(false);
+			callback(false, resultUser);
 		}
 	});
 
