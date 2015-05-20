@@ -30,7 +30,7 @@ $(document).ready(function () {
 	SpoilerDescription Function
 	Allows to open and close the description for a single episode
 */
-	$('.season_list li').click(function () {
+	$('.season_list li h4').click(function () {
 		if (!$(this).hasClass('active')) {
 			$('.season_list li').removeClass('active');
 			$('.season_list li p').slideUp();
@@ -52,7 +52,7 @@ $(document).ready(function () {
 */
 	$('#search_button').click(function() {
 		if($('#search_bar').hasClass('active')){
-			//TODO: suche ausführen (und auch bei enter in search_bar
+			search();
 		} else {
 			$('#search_button .glyphicon').removeClass('glyphicon-plus');
 			$('#search_button .glyphicon').addClass('glyphicon-search');
@@ -62,6 +62,14 @@ $(document).ready(function () {
 		}
 	});
 
+	/* Small function, that detects if the user uses the enter button */
+	$("#search_bar").keyup(function (e) {
+    	if (e.keyCode == 13) {
+        	search();
+    	}
+	});
+
+	/* reduceSearch shall be called, when user clicks somewhere else */
 	$(document.body).click(function(e){
 		var $box = $('#search');
 		if(/*e.target.id !== 'search' &&*/ !$.contains($box[0], e.target)){
@@ -69,6 +77,7 @@ $(document).ready(function () {
 		}
 	});
 
+	/* Lets the search shrinks again */
 	function reduceSearch(){
 	if($('#search_bar').hasClass('active')){
 	  $('#search_button .glyphicon').removeClass('glyphicon-search');
@@ -77,6 +86,11 @@ $(document).ready(function () {
 	  $('#search_button').css('border-top-left-radius', '4px');
 	  $('#search_button').css('border-bottom-left-radius', '4px');
 	  }
+	};
+
+	/* Search Function */
+	function search() {
+		alert("Sorry Bruder, Suche kommt noch!");
 	};
 
 });
