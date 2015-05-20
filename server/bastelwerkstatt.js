@@ -28,7 +28,7 @@ request('http://thetvdb.com/api/DFC9CF716B0709C4/series/75760/all/de.xml', funct
   	if (!error && response.statusCode == 200) {
   		data.xml = body;
   		start();
-  	};
+  	}
 
 });
 
