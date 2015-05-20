@@ -25,6 +25,13 @@ router.post('/register', user.registerAccount);
 router.get('/register/verify/:token', user.verifyAccount);
 
 
+// PUT /usr/add/series
+// Add a series to an account
+// Test NOT implemented
+router.put('/add/series/:seriesId', user.addSeries);
+
+
+
 
 
 

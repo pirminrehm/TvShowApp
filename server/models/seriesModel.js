@@ -42,7 +42,7 @@ var EpisodeSchema = new Schema({
 
 
 var SeriesSchema = new Schema({
-    Data: {
+    Series: {
       id: String,
       Actors: String,
       Airs_DayOfWeek: String,
@@ -75,4 +75,4 @@ var SeriesSchema = new Schema({
 });
 
 
-mongoose.model('SeriesModel', SeriesSchema);
+mongoose.model('Series', SeriesSchema);
