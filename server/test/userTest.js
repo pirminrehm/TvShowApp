@@ -198,5 +198,32 @@ describe('Test:', function() {
 			    });
 			});
 
+
+
+/*
+
+
+			it('daten von tvd holen', function(done) {
+			request(url)
+			.get('/series/searchresult/search/' + "big%20bang")
+			.expect(200) //Status code
+			//.expect('Content-Type', /json/) //ist es json?
+			//.expect('Content-Type', 'application/json; charset=utf-8' ) //ist es utf8?
+			.end(function(err, res) {
+			      if (err) {
+			        throw err;
+			      }
+
+			      console.log (res.body);
+
+			      done();
+
+			    });
+			});
+
+
+
+*/
+
 	});
 });

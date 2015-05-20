@@ -7,7 +7,7 @@ var email = require('emailjs');
 var emailValidator = require("email-validator");
 
 var _ = require('underscore');
-var toCo = require('./tokenController');
+var tokenController = require('./tokenController');
 var dataSafe = require('../../private/dataSafe.json');
 
 var User = mongoose.model('User');
@@ -40,8 +40,8 @@ var smtpServer  = email.server.connect({
 
 exports.test = function(req, res) {
 	if(clog) console.log(req.params.token);
-	toCo.verify(req.params.token, function (ret) {
-		if (ret) {
+	tokenController.verify(req.params.token, function (verified, user) {
+		if (verified) {
 			res.jsonp({"message" : "Access to restricted area granted"});
 		} else {
 			res.status(500).jsonp({"message" : "Access to restricted area denied"});
@@ -216,24 +216,12 @@ exports.verifyAccount = function (req, res) {
 
 exports.addSeries = function (req, res) {
 /*
-	User.findOne({"token":req.params.token}, function (err, resultUser){
-		if(resultUser && !err){
-			if (resultUser.validated) {
-				res.status(500).jsonp({"error" : "Your token is already validated for " + resultUser.email});
-			} else {
-				resultUser.validated = true;
-				resultUser.save(function (err, storedUser) {
-					res.jsonp(storedUser);
-				});
-			}
-		}
-		else if(resultUser === null){
-			res.status(500).jsonp({"error" : "We could't find your user token"});
-		}
-		else {
-			res.status(500).jsonp({"error" : err});			
-		}
-	});*/
+
+
+
+*/
+
+
 res.send("test");
 };
 

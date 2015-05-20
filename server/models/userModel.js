@@ -5,28 +5,26 @@ var Schema = mongoose.Schema;
 
 
 
-// var EpisodeSchema = new Schema({
-// 	number: Number,
-// 	watched: Boolean
-// });
+ var EpisodeSchema = new Schema({
+ 	id: Number,
+ 	watched: Boolean
+ });
 
 
-// var SeasonSchema = new Schema({
-// 	number: String,
-// 	episodes: [EpisodeSchema]
-// });
 
-// var SeriesSchema = new Schema({
-// 	name: String,
-// 	tvdatabaseID: String,
-// 	seasons: [SeasonSchema]
-// });
+var SeriesSchema = new Schema({
+ 	name: String,
+ 	id: String,
+ 	episodes: [EpisodeSchema]
+
+  });
 
 
 var UserSchema = Schema({
 	email: String,
 	token: String,
-	validated: Boolean
+	validated: Boolean,
+	series: [SeriesSchema]
 
  });
 
