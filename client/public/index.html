@@ -41,6 +41,8 @@
 				</span>
 			</div>
 
+			<!-- List of found series -->
+
 		</div>
 
     </div>
@@ -222,18 +224,20 @@
 
 	function yay() {
 		alert("FICK DICH DONNER"); 
-		// var email = mailingfield.elements["mail-adress"].value;
-		// var json = '{ "email" : "' + email + '"}';
-		// $.ajax({
-		// 	type: "POST",
-		// 	url: "localhost:3000/usr/register",
-		// 	data: formData,
-		// 	dataType: "json",
-		// 	contentType : "application/json"
-		// 	success: function(){
-		// 		alert('yay');
-		// 	},
-		// });
+		var email = mailingfield.elements["mail-adress"].value;
+		var jsonFile = '{ "email" : "' + email + '"}';
+		
+		$.ajax({
+			type: "POST",
+			url: "localhost:3000/usr/register",
+			data: jsonFile,
+			dataType: "json",
+			success: function(data){
+				alert('yay');
+			},
+		});
+
+		alert("!");
 	}
 
 /* PIRMIN JSON */

@@ -9,11 +9,14 @@ body {
 #brand {
 	position: absolute;
 	float: left;
+
 }
 
 /* Fix für Bootstrap */
 .navbar-brand {
 	margin-left: -15px;
+	width: 130px;
+	height: 50px;
 }
 
 .add-show {
