@@ -179,6 +179,7 @@ body {
 
 .season_list li > p {
 	padding: 0px 15px;
+	display: none;
 }
 
 .season_list li:last-child {

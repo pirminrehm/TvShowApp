@@ -29,21 +29,37 @@ $(document).ready(function () {
 /*
 	SpoilerDescription Function
 	Allows to open and close the description for a single episode
+
+	Checkbox Function
+	Lets the user check the episodes/series he has already seen
 */
-	$('.season_list li h4').click(function () {
-		if (!$(this).hasClass('active')) {
-			$('.season_list li').removeClass('active');
-			$('.season_list li p').slideUp();
-			$(this).addClass('active');
-			$(this).find('p').slideDown();
-			/*
-			$(this).next('.season_list li p').slideDown();
-			*/
-		} else {
-			$('.season_list li').removeClass('active');
-			$('.season_list li p').slideUp();
+
+	/* SpoilerDescription Function */
+	$('.season_list div input').click(function (e) {
+		var returnVal = confirm("Are you sure?");
+		if(returnVal == true){
+			var newBool = $(this).is(":checked");
+			$(this).attr("checked", newBool);
+			$('.season_list li').find('input').each(function(){
+				$(':checkbox').prop("checked", newBool);
+			}); 
 		}
-		return false;	
+		$('.season_list div input').val($(this).is(':checked'));
+	});
+	
+	/* Checkbox Function */
+	$('.season_list li').click(function (e) {
+		if(e.target.className != 'checkbox'){
+			if (!$(this).hasClass('active')) {
+				$('.season_list li').removeClass('active');
+				$('.season_list li p').slideUp();
+				$(this).addClass('active');
+				$(this).find('p').slideDown();
+			} else {
+				$('.season_list li').removeClass('active');
+				$('.season_list li p').slideUp();
+			}
+		}
 	});
 
 /*
@@ -69,7 +85,6 @@ $(document).ready(function () {
     	}
 	});
 
-	/* reduceSearch shall be called, when user clicks somewhere else */
 	$(document.body).click(function(e){
 		var $box = $('#search');
 		if(/*e.target.id !== 'search' &&*/ !$.contains($box[0], e.target)){
@@ -77,7 +92,6 @@ $(document).ready(function () {
 		}
 	});
 
-	/* Lets the search shrinks again */
 	function reduceSearch(){
 	if($('#search_bar').hasClass('active')){
 	  $('#search_button .glyphicon').removeClass('glyphicon-search');
@@ -88,9 +102,8 @@ $(document).ready(function () {
 	  }
 	};
 
-	/* Search Function */
 	function search() {
-		alert("Sorry Bruder, Suche kommt noch!");
+		alert("Suche geht noch nicht, Bruder");
 	};
 
 });
