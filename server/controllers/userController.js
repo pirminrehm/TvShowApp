@@ -172,7 +172,7 @@ exports.registerAccount = function (req, res) {
 					}
 				});
 			} else if (error == "duplicated") {
-				res.status(500).jsonp({"error":"email is duplicated"});
+				res.status(500).jsonp({"error":"For this email an account already exists"});
 			} else {
 				res.status(500).jsonp({"error":error});
 					
@@ -197,7 +197,8 @@ exports.verifyAccount = function (req, res) {
 			} else {
 				resultUser.validated = true;
 				resultUser.save(function (err, storedUser) {
-					res.jsonp(storedUser);
+					//res.jsonp(storedUser);
+					res.jsonp({"message" : "Your account is now verified"})
 				});
 			}
 		}

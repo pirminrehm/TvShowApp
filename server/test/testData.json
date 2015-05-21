@@ -1,11 +1,12 @@
 {
 	"acc1" : {
+		"token" : "79c25df0ec4bf2d92872a299c299685f426a3602",
+		"validated" : true,
 		"email" : "tvshowapp-test1@7kw.de"
 	},
 	"acc2" : {
+		"token" : "19bfca40a1d17d063de4dde03f967ad3e09b4763",
+		"validated" : false,
 		"email" : "tvshowapp-test2@7kw.de"
-	},
-	"acc3" : {
-		"email" : "foobar@7kw.de"
 	}
 }

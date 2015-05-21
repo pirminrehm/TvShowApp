@@ -4,7 +4,6 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
 var cors = require('cors');
 
 //require local packaes
@@ -21,18 +20,7 @@ var config = require('./config.json');
 var app = express();
 
 
-//Initialization of mongoDB
-mongoose.connect(config.dbUrl);
-var db = mongoose.connection;
-
-db.on('error', function callback() {
-  console.log('Verbindung zu MongoDB fehlgeschlagen');
-});
-
-
-db.on('open', function callback() {
-  console.log('Verbindung zu MongoDB erfolgreich (Database: ' + config.dbUrl + ")");
-});
+//Initialization of mongoDB outsourced to bon/startMono.js
 
 
 
