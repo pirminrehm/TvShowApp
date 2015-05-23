@@ -151,8 +151,8 @@ exports.registerAccount = function (req, res) {
 									if (storedUser && !err) {
 										if(clog) console.log('Success: insert user');
 										//just for testing!!!!
-										res.jsonp(storedUser);
-										//use this : res.jsonp({"statusMessage" : "You should recieve an Email with your login token"});
+										//res.jsonp(storedUser);
+										res.jsonp({"message" : "You should recieve an Email with your login token"});
 									} 
 									else if(storedUser === null){
 										var errorMessage = 'Error: insert user failed';
@@ -197,8 +197,8 @@ exports.verifyAccount = function (req, res) {
 			} else {
 				resultUser.validated = true;
 				resultUser.save(function (err, storedUser) {
-					//res.jsonp(storedUser);
-					res.jsonp({"message" : "Your account is now verified"})
+					res.jsonp(storedUser);
+					//res.jsonp({"message" : "Your account is now verified"});
 				});
 			}
 		}

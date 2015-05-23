@@ -189,13 +189,13 @@ describe('Test:', function() {
 	describe('Mail for registration '.yellow, function() {
 		it('should post the mail tvshowapp-test1@7kw.de', function(done){ 
 			req.post(data.acc1, "/usr/register", 200, function(body) {
-				myAssert (body.email, data.acc1.email, function () {done();});
+				myAssert (body.message, "You should recieve an Email with your login token", function () {done();});
 			});
 		});
 
 		it('should post the mail tvshowapp-test2@7kw.de', function(done) {
 			req.post(data.acc2, "/usr/register", 200, function(body) {
-				myAssert (body.email, data.acc2.email, function () {done();});
+				myAssert (body.message, "You should recieve an Email with your login token", function () {done();});
 			});
 		});
 	});
@@ -220,7 +220,7 @@ describe('Test:', function() {
 			
 		it('should verify tvshowapp-test2@7kw.de', function(done) {
 			req.get("", "/usr/register/verify/"+data.acc2.token, 200, function(body) {
-				myAssert (body.message, "Your account is now verified", function () {done() ;});
+				myAssert (body, "Your account is now verified", function () {done() ;});
 			});
 		});
 
