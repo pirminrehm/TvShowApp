@@ -2,7 +2,7 @@ A mobile web application using the TvDataBase API.
 
 #Server `localhost:3000`
 
-##Starting
+##Getting started
 1. Install nodeJS.
 2. Install MongoDB and start the deamon.
 3. Go into the directory `/server` with your shell and  init node with `npm install` 
@@ -91,4 +91,13 @@ MongoDB error:
 ```
 Status: 500, {"error" : ErrorStack }
 ```
+
+
+#### User operations
+Prerouting is still /usr
+##### User adds new series to his list
+`POST  /token/:token/series/:seriesId`
+* downloads the whole series from TvDatabase and stores it into our local MongoDB
+* adds the new series to User.series array (watched is by default false)
+* **Return:** User
 
