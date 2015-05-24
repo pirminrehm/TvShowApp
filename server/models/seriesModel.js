@@ -1,7 +1,5 @@
-
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
 
 
 var EpisodeSchema = new Schema({  
@@ -38,7 +36,6 @@ var EpisodeSchema = new Schema({
       thumb_height : String,
       thumb_width : String
 });
-
 
 
 var SeriesSchema = new Schema({

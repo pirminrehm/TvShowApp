@@ -1,9 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var config = require('../config.json');
-
-
-
 var user = require('../controllers/userController');
 
 
@@ -25,17 +22,28 @@ router.post('/register', user.registerAccount);
 router.get('/register/verify/:token', user.verifyAccount);
 
 
-// PUT /usr/add/series
-// Add a series to an account
+// POST /usr/token/6752c09377e2105a1ca2748c79dac931c8e67b63/series/262980
+// downloads the whole series from TvDatabase and stores it into our local MongoDB and adds the new series to User.series array (Return: User)
 // Test NOT implemented
-router.put('/add/series/:seriesId', user.addSeries);
+router.post('/token/:token/series/:seriesId', user.addSeriesToList);
 
 
+// DELETE /usr/token/6752c09377e2105a1ca2748c79dac931c8e67b63/series/262980
+// removes the series from the User.series array (Return: User)
+// Test NOT implemented
+router.delete('/token/:token/series/:seriesId', user.deleteSeriesFromList);
 
 
+// GET /usr/token/6752c09377e2105a1ca2748c79dac931c8e67b63/user/all
+// get all information about an user including his series (Return: User)
+// Test NOT implemented
+router.get('/token/:token/user/all', user.getAllUserInformation);
 
+
+// PUT /usr/token/6752c09377e2105a1ca2748c79dac931c8e67b63/watched/true/episode/4411361
+// changes the value of the watched attribut in an episode (Return: User)
+// Test NOT implemented
+router.put('/token/:token/watched/:bool/episode/:episodeId', user.updateEpisodeWatched);
 
 
 module.exports = router;
-
-
