@@ -101,3 +101,38 @@ Prerouting is still /usr
 * adds the new series to User.series array (watched is by default false)
 * **Return:** User
 
+##### User removes series from his list
+`DELETE  /token/:token/series/:seriesId`
+* removes the series from the User.series array
+* **Return:** User
+
+##### Get user information
+`GET  /token/:token/user/all`
+* get all information about a user (including his series)
+* **Return:** User 
+
+##### User marks an episodes as watched
+`PUT  /token/:token/watched/:bool/episode/:episodeId`
+* changes the value of the watched attribut in an episode
+* **Return:** User
+
+
+
+### Series based requests `/series`
+The prerouting for all user routes is `/series`
+##### Get series details
+`GET  /token/:token/series/:seriesId/details`
+* get all meta information of a series but not the episodes
+* **Return:** Series.Series
+
+##### Get episode details
+`GET  /token/:token/episode/:episodeId/details`
+* get all meta information of an episode
+* **Return:** Episode
+
+
+
+ 
+
+
+
