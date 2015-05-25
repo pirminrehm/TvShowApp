@@ -27,11 +27,11 @@ exports.search = function(req, res){
 };
 
 
-// exports.getSeriesDetails = function(req, res){
-// 	console.log('in getSeriesDetails');
-// };
+exports.getSeriesDetails = function(req, res){
+	console.log('in getSeriesDetails');
+};
 
 
-// exports.getEpisodeDetails = function(req, res){
-// 	console.log('in getEpisodeDetails');
-// };
+exports.getEpisodeDetails = function(req, res){
+	console.log('in getEpisodeDetails');
+};
