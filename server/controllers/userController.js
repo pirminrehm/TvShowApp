@@ -213,27 +213,21 @@ exports.verifyAccount = function (req, res) {
 
 
 
-
-
-exports.addSeries = function (req, res) {
-/*
-
-
-
-*/
-
-
-res.send("test");
+exports.addSeriesToList = function(req, res){
+	console.log('in addSeriesToList');
 };
 
 
-
-/*
-
-
-
+exports.deleteSeriesFromList = function(req, res){
+	console.log('in deleteSeriesFromList');
+};
 
 
-  
+exports.getAllUserInformation = function(req, res){
+	console.log('in getAllUserInformation');
+};
 
-*/
+
+exports.updateEpisodeWatched = function(req, res){
+	console.log('in updateEpisodeWatched');
+};
