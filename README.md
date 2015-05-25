@@ -95,43 +95,110 @@ Status: 500, {"error" : ErrorStack }
 
 #### User operations
 Prerouting is still /usr
+###### Errors, which can always occur:
+Wrong/incorrect token:
+```
+Status: 500, { "error" : "We could't find your user token" }
+```
+MongoDB error:
+```
+Status: 500, {"error" : ErrorStack }
+```
+
+
 ##### User adds new series to his list
 `POST  /token/:token/series/:seriesId`
 * downloads the whole series from TvDatabase and stores it into our local MongoDB
 * adds the new series to User.series array (watched is by default false)
 * **Return:** User
 
+###### Errors: 
+seriesId not found:
+```
+Status: 500, { "error" : "Error: seriesId not found" }
+```
+TvDataBase error:
+```
+Status: 500, { "error" : "Error: cannot retrieve series from TvDataBase" }
+```
+cannot insert series into user:
+```
+Status: 500, { "error" : "Error: cannot insert series into user" }
+```
+
+
 ##### User removes series from his list
 `DELETE  /token/:token/series/:seriesId`
 * removes the series from the User.series array
 * **Return:** User
+
+###### Errors:
+seriesId not found:
+```
+Status: 500, { "error" : "Error: seriesId not found" }
+```
+
 
 ##### Get user information
 `GET  /token/:token/user/all`
 * get all information about a user (including his series)
 * **Return:** User 
 
+###### Errors:
+User not found:
+```
+Status: 500, { "error" : "Error: User not found" }
+```
+
+
 ##### User marks an episodes as watched
 `PUT  /token/:token/watched/:bool/episode/:episodeId`
 * changes the value of the watched attribut in an episode
 * **Return:** User
 
-
+###### Errors:
+update failed:
+```
+Status: 500, { "error" : "Error: update of User failed" }
+```
+episodeId not found:
+```
+Status: 500, { "error" : "Error: episodeId not found" }
+```
 
 ### Series based requests `/series`
 The prerouting for all user routes is `/series`
+###### Errors, which can always occur:
+Wrong/incorrect token:
+```
+Status: 500, { "error" : "We could't find your user token" }
+```
+MongoDB error:
+```
+Status: 500, {"error" : ErrorStack }
+```
 ##### Get series details
 `GET  /token/:token/series/:seriesId/details`
 * get all meta information of a series but not the episodes
 * **Return:** Series.Series
+
+###### Errors:
+seriesId not found:
+```
+Status: 500, { "error" : "Error: seriesId not found" }
+```
+
 
 ##### Get episode details
 `GET  /token/:token/episode/:episodeId/details`
 * get all meta information of an episode
 * **Return:** Episode
 
-
-
+###### Errors:
+episodeId not found:
+```
+Status: 500, { "error" : "Error: episodeId not found" }
+```
  
 
 
