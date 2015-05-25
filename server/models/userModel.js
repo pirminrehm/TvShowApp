@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 
 
- var EpisodeSchema = new Schema({
+var EpisodeSchema = new Schema({
  	id: Number,
  	watched: Boolean
  });

@@ -4,6 +4,5 @@
 	"dbTestUrl" :"mongodb://localhost/tvTest",
 	"dbDevelopmentUrl" : "mongodb://localhost/tvDevelopment",
 	"dbProductUrl" : "mongodb://localhost/tvProduct",
-	"dbUrl" : "mongodb://localhost/tvTest",
-	"tvdbApiKey" : "DFC9CF716B0709C4"
+	"dbUrl" : "mongodb://localhost/tvTest"
 }
