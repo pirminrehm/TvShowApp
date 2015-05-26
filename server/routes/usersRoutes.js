@@ -22,10 +22,10 @@ router.post('/register', user.registerAccount);
 router.get('/register/verify/:token', user.verifyAccount);
 
 
-// POST /usr/token/6752c09377e2105a1ca2748c79dac931c8e67b63/series/262980
+// GET /usr/token/6752c09377e2105a1ca2748c79dac931c8e67b63/series/262980
 // downloads the whole series from TvDatabase and stores it into our local MongoDB and adds the new series to User.series array (Return: User)
 // Test NOT implemented
-router.post('/token/:token/series/:seriesId', user.addSeriesToList);
+router.get('/token/:token/series/:seriesId', user.addSeriesToList);
 
 
 // DELETE /usr/token/6752c09377e2105a1ca2748c79dac931c8e67b63/series/262980
