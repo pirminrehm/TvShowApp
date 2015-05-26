@@ -87,7 +87,7 @@ req.put = function (data2send, route, status, callback) {
 
 req.delete = function (data2send, route, status, callback) {
 	request(url)
-		.post(route)
+		.delete(route)
 		.expect(status) //Status code
 		.expect('Content-Type', /json/) //ist es json?
 		.expect('Content-Type', 'application/json; charset=utf-8' ) //ist es utf8?
@@ -272,14 +272,16 @@ describe('Test:', function() {
 				});
 				it('should add a new series to user 1', function(done) {
 					req.get("", "/usr/token/"+ data.acc1.token + "/series/"+ data.houseOfCards.Series.id, 200, function(body) {
-						should.equal(body.series.length, 1); done();
+						should.equal(body.series.length, 1);
+						myAssert(body.series[0], data.acc4.series[0], function() {	 done(); });
 					});
 				});
 			});
 			describe('which is not yet in the mongo', function() {	
 				it('should add a new series to user 1', function(done) {
 					req.get("", "/usr/token/"+ data.acc1.token + "/series/"+ data.houseOfCards.Series.id, 200, function(body) {
-						should.equal(body.series.length, 1); done();
+						should.equal(body.series.length, 1); 
+						myAssert(body.series[0], data.acc4.series[0], function() {	 done(); });
 					});
 				});
 			});
@@ -306,7 +308,7 @@ describe('Test:', function() {
 				});
 				it('should remove a series from user 2', function(done) {
 					req.delete("", "/usr/token/"+ data.acc3.token + "/series/"+ data.houseOfCards.Series.id, 200, function(body) {
-						should.equal(user.series.length, 0); done();
+						should.equal(body.series.length, 0); done();
 					});
 				});
 			});	
@@ -350,29 +352,29 @@ describe('Test:', function() {
 
 			describe('as watched', function() {
 				it('should mark an episode as watched', function(done) {
-					req.get("", "/usr/token/"+ data.acc3.token + "/watched/"+ true +"/episode/"+ data.acc3.series[0].episodes[0].id , 200, function(body) {
-						myAssert (1,1, function () {done() ;});
+					req.put("", "/usr/token/"+ data.acc3.token + "/watched/"+ true +"/episode/"+ data.acc3.series[0].episodes[0].id , 200, function(body) {
+						myAssert (body.series[0].episodes[0].watched, true, function () {done() ;});
 					});
 				});
 			});
 
 			describe('as unwatched', function() {
 				it('should mark an episode as unwatched', function(done) {
-					req.get("", "/usr/token/"+ data.acc3.token + "/watched/"+ false +"/episode/"+ data.acc3.series[0].episodes[1].id , 200, function(body) {
-						myAssert (1,1, function () {done() ;});
+					req.put("", "/usr/token/"+ data.acc3.token + "/watched/"+ false +"/episode/"+ data.acc3.series[0].episodes[1].id , 200, function(body) {
+						myAssert (body.series[0].episodes[1].watched, false, function () {done() ;});
 					});
 				});
 			});
 
 			describe('failures', function() {
 				it('should try to mark an episode as unwatched with wrong episode id', function(done) {
-					req.get("", "/usr/token/"+ data.acc3.token + "/watched/"+ false +"/episode/"+ "00" , 500, function(body) {
+					req.put("", "/usr/token/"+ data.acc3.token + "/watched/"+ false +"/episode/"+ "00" , 500, function(body) {
 						myAssert (body.error,"Error: episodeId not found", function () {done() ;});
 					});
 				});
 
 				it('should try to mark an episode as unwatched with wrong token', function(done) {
-					req.get("", "/usr/token/"+ "blub" + "/watched/"+ false +"/episode/"+ "00" , 500, function(body) {
+					req.put("", "/usr/token/"+ "blub" + "/watched/"+ false +"/episode/"+ "00" , 500, function(body) {
 						myAssert (body.error,"We could't find your user token", function () {done() ;});
 					});
 				});
