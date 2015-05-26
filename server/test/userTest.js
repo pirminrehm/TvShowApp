@@ -270,7 +270,7 @@ describe('Test:', function() {
 			insert.user (data.acc1, function() { done(); });
 		});
 
-		describe.only('add series'.yellow, function() {	
+		describe('add series'.yellow, function() {	
 			describe('which is already in the mongo', function() {	
 				beforeEach(function(done) {
 					insert.series (data.houseOfCards, function() {  done(); });
@@ -429,12 +429,12 @@ describe('Test:', function() {
 
 			describe('failures', function() {
 				it('should try to get meta infos about an episode with a wrong series id', function(done) {
-					req.get("", "/series/token/"+ data.acc1.token + "/series/"+"00"+"/details", 500, function(body) {
+					req.get("", "/series/token/"+ data.acc1.token + "/episode/"+"00"+"/details", 500, function(body) {
 						myAssert (body.error, "Error: episodeId not found" , function () {done() ;});
 					});
 				});
 				it('should try to get meta infos about an episode with wrong token', function(done) {
-					req.get("", "/series/token/"+ "blub" + "/series/"+"00"+"/details", 500, function(body) {
+					req.get("", "/series/token/"+ "blub" + "/episode/"+"00"+"/details", 500, function(body) {
 						myAssert (body.error,"We could't find your user token", function () {done() ;});
 					});
 				});
