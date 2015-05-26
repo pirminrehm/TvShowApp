@@ -150,7 +150,7 @@ insert.user = function (user2save, callback) {
 
 
 insert.series = function (series2save, callback) {
-	var series = new Series(user2save);
+	var series = new Series(series2save);
 	series.save(function (err, storedSeries) {		
 		if (storedSeries && !err) {
 			callback ();
@@ -305,7 +305,7 @@ describe('Test:', function() {
 					insert.user (data.acc3, function() { done(); }); //acc3 = user2 but verified and with one series
 				});
 				it('should remove a series from user 2', function(done) {
-					req.delete("", "/usr/token/"+ data.acc3.token + "/series/"+ data.houseOfCards.Series.id, 500, function(body) {
+					req.delete("", "/usr/token/"+ data.acc3.token + "/series/"+ data.houseOfCards.Series.id, 200, function(body) {
 						should.equal(user.series.length, 0); done();
 					});
 				});
@@ -326,47 +326,111 @@ describe('Test:', function() {
 			});
 		});
 
-
-		describe.skip('get user'.yellow, function() {	
-			it('should get the whole user', function(done) {
-				req.get("", "/usr/token/"+ data.acc1.token + "/user/all", 500, function(body) {
-					myAssert (1,1, function () {done() ;});
+		describe('get user'.yellow, function() {
+			describe('successfull', function() {	
+				it('should get the whole user', function(done) {
+					req.get("", "/usr/token/"+ data.acc1.token + "/user/all", 200, function(body) {
+						myAssert (body,data.acc1, function () {done() ;});
+					});
+				});
+			});
+			describe('failures', function() {	
+				it('should try to get the user with wrong token', function(done) {
+					req.get("", "/usr/token/"+ "blub" + "/user/all", 500, function(body) {
+						myAssert(body.error, "Error: User not found", function() { done(); });	
+					});
 				});
 			});
 		});
 
-		describe.skip('mark as watched'.yellow, function() {	
-			it('should mark an episode as watched', function(done) {
-				req.get("", "/usr/token/"+ data.acc1.token + "/watched/"+ true +"/episode/"+ "!!!!!hier ne id!!!!" , 500, function(body) {
-					myAssert (1,1, function () {done() ;});
+		describe('mark an episode'.yellow, function() {	
+			beforeEach(function(done) {
+				insert.user (data.acc3, function() { done(); }); //acc3 = user2 but verified and with one series
+			});
+
+			describe('as watched', function() {
+				it('should mark an episode as watched', function(done) {
+					req.get("", "/usr/token/"+ data.acc3.token + "/watched/"+ true +"/episode/"+ data.acc3.series[0].episodes[0].id , 200, function(body) {
+						myAssert (1,1, function () {done() ;});
+					});
 				});
 			});
 
-			it('should mark an episode as unwatched', function(done) {
-				req.get("", "/usr/token/"+ data.acc1.token + "/watched/"+ false +"/episode/"+ "!!!!!hier ne id!!!!" , 500, function(body) {
-					myAssert (1,1, function () {done() ;});
+			describe('as unwatched', function() {
+				it('should mark an episode as unwatched', function(done) {
+					req.get("", "/usr/token/"+ data.acc3.token + "/watched/"+ false +"/episode/"+ data.acc3.series[0].episodes[1].id , 200, function(body) {
+						myAssert (1,1, function () {done() ;});
+					});
 				});
+			});
+
+			describe('failures', function() {
+				it('should try to mark an episode as unwatched with wrong episode id', function(done) {
+					req.get("", "/usr/token/"+ data.acc3.token + "/watched/"+ false +"/episode/"+ "00" , 500, function(body) {
+						myAssert (body.error,"Error: episodeId not found", function () {done() ;});
+					});
+				});
+
+				it('should try to mark an episode as unwatched with wrong token', function(done) {
+					req.get("", "/usr/token/"+ "blub" + "/watched/"+ false +"/episode/"+ "00" , 500, function(body) {
+						myAssert (body.error,"We could't find your user token", function () {done() ;});
+					});
+				});
+
 			});
 		});
-
 	});
 
 
 
-	describe.skip('Series based requests'.yellow, function() {
+	describe('Series based requests'.yellow, function() {
 		beforeEach(function(done) {
-			insert.user (data.acc1, function() { insert.user (data.acc2, function() { done(); }); });
+			insert.user (data.acc1, function() {
+				insert.series (data.houseOfCards, function() { done(); });
+			});
 		});
-			
-		it('should add a new series to user 1', function(done) {
-			req.get("", "/series/token/"+ data.acc1.token + "/series/:seriesId/details", 200, function(body) {
-				myAssert (body, "Your account is now verified", function () {done() ;});
+		describe('get series'.yellow, function() {	
+			describe('successfull', function() {
+				it('should get meta infos about a series', function(done) {
+					req.get("", "/series/token/"+ data.acc1.token + "/series/"+data.houseOfCards.Series.id+"/details", 200, function(body) {
+						myAssert (body, data.houseOfCards.Series, function () {done() ;});
+					});
+				});
+			});
+			describe('failures', function() {
+				it('should try to get meta infos about a series with a wrong series id', function(done) {
+					req.get("", "/series/token/"+ data.acc1.token + "/series/"+"00"+"/details", 500, function(body) {
+						myAssert (body.error, "Error: seriesId not found" , function () {done() ;});
+					});
+				});
+				it('should try to get meta infos about a series with wrong token', function(done) {
+					req.get("", "/series/token/"+ "blub" + "/series/"+"00"+"/details", 500, function(body) {
+						myAssert (body.error,"We could't find your user token", function () {done() ;});
+					});
+				});
 			});
 		});
 
-		it('should add a new series to user 1', function(done) {
-			req.get("", "/series/token/"+ data.acc1.token + "/episode/:episodeId/details", 200, function(body) {
-				myAssert (body, "Your account is now verified", function () {done() ;});
+		describe('get episode'.yellow, function() {	
+			describe('successfull', function() {
+				it('should get meta infos about an episode', function(done) {
+					req.get("", "/series/token/"+ data.acc1.token + "/episode/"+ data.acc3.series[0].episodes[0].id +"/details", 200, function(body) {
+						myAssert (body, data.houseOfCards.Episode[0], function () {done() ;});
+					});
+				});
+			});
+
+			describe('failures', function() {
+				it('should try to get meta infos about an episode with a wrong series id', function(done) {
+					req.get("", "/series/token/"+ data.acc1.token + "/series/"+"00"+"/details", 500, function(body) {
+						myAssert (body.error, "Error: episodeId not found" , function () {done() ;});
+					});
+				});
+				it('should try to get meta infos about an episode with wrong token', function(done) {
+					req.get("", "/series/token/"+ "blub" + "/series/"+"00"+"/details", 500, function(body) {
+						myAssert (body.error,"We could't find your user token", function () {done() ;});
+					});
+				});
 			});
 		});
 	});

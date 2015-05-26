@@ -37,13 +37,13 @@ function start () {
 	//console.log(data.xml);
 
 	parseString(data.xml, {explicitRoot: false, explicitArray : false} ,function (err, result) {
-    	console.log(JSON.stringify(result));
+
 
     var series = new Series(result);
 	series.save(function (err, storedSeries) {		
 		if (storedSeries && !err) {
 			console.log('Success: insert series');
-			//console.log(storedSeries);
+			console.log(storedSeries);
 			throw "ende";
 		} 
 		else if(storedSeries === null){
