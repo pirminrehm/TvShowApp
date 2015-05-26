@@ -235,14 +235,19 @@ function addSeriesToUser(series2Store,user,res){
 	};
 
 	user.series.push(userSeries);
+	saveUser(user, res, "Success: update user (added series)", "Error: update user failed");
+}
 
+
+function saveUser(user, res, logTextSucces, resTextError){
 	user.save(function (errSave, storedUser){
 		if (storedUser && !errSave){
-			console.log('Success: update user (added series)');
+			console.log(logTextSucces);
+			// console.log('storedUser', storedUser);
 			res.jsonp(storedUser);
 		}
 		else if(storedUser === null){
-			res.status(500).jsonp({"error" : "Error: update user failed"});
+			res.status(500).jsonp({"error" : resTextError});
 		}
 		else {
 			res.status(500).jsonp({"error" : errSave});
@@ -263,11 +268,12 @@ exports.addSeriesToList = function(req, res){
 			for(var i=0; i<user.series.length; i++){
 				if(user.series[i].id == seriesId){
 					foundInUsersList = true;
+					break;
 				}
 			}
 
 			if(foundInUsersList){				
-				res.send('Series already in users list');
+				res.jsonp({"error":"Series already in users list"});
 			}
 			else{
 				if(clog) console.log('Series is NOT in users list');
@@ -333,15 +339,83 @@ exports.addSeriesToList = function(req, res){
 
 
 exports.deleteSeriesFromList = function(req, res){
-	console.log('in deleteSeriesFromList');
+
+	var seriesId = req.params.seriesId;
+
+	tokenController.verify(req.params.token, function (verified, user) {
+		if (verified) {
+			if(clog) console.log("Access to restricted area granted");
+			
+			var deleteIndex = -1;
+
+			for(var i=0; i<user.series.length; i++){
+				if(user.series[i].id == seriesId){
+					deleteIndex = i;
+					break;
+				}
+			}
+
+			if(deleteIndex >= 0){				
+				if(clog) console.log('user', user);
+				if(clog) console.log('Series in users list');
+
+				user.series.splice(deleteIndex,1);
+				saveUser(user, res, "Success: update user (delete series)", "Error: update user failed (delete series)");
+			}
+			else{
+				res.status(500).jsonp({"error":"Error: seriesId not found"});
+			}
+		} 
+		else {
+			res.status(500).jsonp({"error" : "We could't find your user token"});
+		}
+	});
 };
 
 
 exports.getAllUserInformation = function(req, res){
-	console.log('in getAllUserInformation');
+
+	tokenController.verify(req.params.token, function (verified, user) {
+		if (verified) {
+			if(clog) console.log("Access to restricted area granted");
+			res.send(user);
+		}
+		else {
+			res.status(500).jsonp({"error":"Error: User not found"});
+		}
+	});
 };
 
 
 exports.updateEpisodeWatched = function(req, res){
-	console.log('in updateEpisodeWatched');
+
+	var episodeId = req.params.episodeId;
+
+	tokenController.verify(req.params.token, function (verified, user) {
+		if (verified) {
+			if(clog) console.log("Access to restricted area granted");
+			
+			var foundInEpisodes = false;			
+
+			for(var i=0; i<user.series.length; i++){
+				for(var j=0; j<user.series[i].episodes.length; j++){
+					if(user.series[i].episodes[j].id == episodeId){
+						user.series[i].episodes[j].watched = req.params.bool;
+						foundInEpisodes = true;
+						break;
+					}
+				}
+			}
+
+			if(foundInEpisodes){
+				saveUser(user, res, "Success: update user (mark episode)", "Error: update user failed (mark episode)");
+			}
+			else{
+				res.status(500).jsonp({"error":"Error: episodeId not found"});
+			}
+		}
+		else {
+			res.status(500).jsonp({"error" : "We could't find your user token"});
+		}
+	});
 };
