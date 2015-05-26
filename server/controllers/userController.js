@@ -5,12 +5,15 @@ var stringify = require('json-stringify-safe');
 var colors = require('colors');
 var email = require('emailjs');
 var emailValidator = require("email-validator");
-
+var request = require('request');
 var _ = require('underscore');
+var parseString = require('xml2js').parseString;
+
 var tokenController = require('./tokenController');
 var dataSafe = require('../../private/dataSafe.json');
 
 var User = mongoose.model('User');
+var Series = mongoose.model('Series');
 
 /*
 ==========================================
@@ -213,8 +216,119 @@ exports.verifyAccount = function (req, res) {
 
 
 
+function addSeriesToUser(series2Store,user,res){
+	
+	var userSeriesEpisodes = [];
+
+	for(var i=0; i<series2Store.Episode.length; i++){
+		var episode = {
+			"id" : series2Store.Episode[i].id,
+			"watched" : false
+		};
+		userSeriesEpisodes.push(episode);
+	}
+
+	var userSeries = {
+		"name" : series2Store.Series.SeriesName,
+		"id" : series2Store.Series.id,
+		"episodes" : userSeriesEpisodes
+	};
+
+	user.series.push(userSeries);
+
+	user.save(function (errSave, storedUser){
+		if (storedUser && !errSave){
+			console.log('Success: update user (added series)');
+			res.jsonp(storedUser);
+		}
+		else if(storedUser === null){
+			res.status(500).jsonp({"error" : "Error: update user failed"});
+		}
+		else {
+			res.status(500).jsonp({"error" : errSave});
+		}
+	});
+}
+
+
 exports.addSeriesToList = function(req, res){
-	console.log('in addSeriesToList');
+
+	var seriesId = req.params.seriesId;
+
+	tokenController.verify(req.params.token, function (verified, user) {
+		if (verified) {
+			if(clog) console.log("Access to restricted area granted");
+			
+			var foundInUsersList = false;
+			for(var i=0; i<user.series.length; i++){
+				if(user.series[i].id == seriesId){
+					foundInUsersList = true;
+				}
+			}
+
+			if(foundInUsersList){				
+				res.send('Series already in users list');
+			}
+			else{
+				if(clog) console.log('Series is NOT in users list');
+
+				Series.findOne({'Series.id':seriesId}, function (errLoadSeries, resultSeries){
+					if(resultSeries && !errLoadSeries){
+						if(clog) console.log('Series found in Series DB collection');
+						addSeriesToUser(resultSeries, user, res);						
+					}
+
+					else if(resultSeries === null){
+						if(clog) console.log('Have to retrieve series from tvd');
+
+						var url = "http://www.thetvdb.com/api/" + dataSafe.tvdbApiKey + "/series/" + seriesId + "/all";
+
+						request(url, function (errReq, responseTvd, body) {
+							if (responseTvd.statusCode == 200 && !errReq) {
+
+								parseString(body, {explicitRoot: false, explicitArray : false}, function (errParse, resultJSON) {		
+									
+									if(resultJSON && !errParse){
+										var series = new Series(resultJSON);
+										series.save(function (errSaveSeries, storedSeries){
+											if(storedSeries && !errSaveSeries){
+												console.log('Success: store "' + storedSeries.Series.SeriesName +  '" in Series DB collection');							
+												addSeriesToUser(storedSeries, user, res);
+											}
+											else if(storedSeries === null){
+												res.status(500).jsonp({"error" : "Error: save series from TvD failed"});
+											}
+											else{
+												res.status(500).jsonp({"error" : errSaveSeries});
+											}
+										});
+									}
+									else if(resultJSON === null){
+										res.status(500).jsonp({"error" : "Error: parsing response from TvD into JSON failed"});
+									}
+									else{
+										res.status(500).jsonp({"error" : errParse});
+									}
+								});
+							}
+							else if(responseTvd.statusCode == 404){
+								res.status(500).jsonp({"error":"Error: seriesId not found"});
+							}							
+							else{
+								res.status(500).jsonp({"error" : errReq});
+							}
+						});
+					}
+					else{
+						res.status(500).jsonp({"error" : errLoadSeries});
+					}
+				});
+			}
+		} 
+		else {
+			res.status(500).jsonp({"error" : "We could't find your user token"});
+		}
+	});	
 };
 
 
