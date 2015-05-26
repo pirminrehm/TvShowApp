@@ -8,6 +8,9 @@ var colors = require('colors');
 require('../models/userModel');
 var User = mongoose.model('User');
 
+require('../models/seriesModel');
+var Series = mongoose.model('Series');
+
 //own dependencies
 var config = require('../config.json');
 var data =  require('./testData.json');
@@ -117,7 +120,7 @@ var myAssert = function (body, defined, callback) {
 		}
  	}
  	*/
-	assert.equal(body,defined);
+	assert.deepEqual(body,defined);
 	callback();
 };
 
@@ -143,9 +146,24 @@ insert.user = function (user2save, callback) {
 			throw (err);
 		}
 	});
-
-
 };
+
+
+insert.series = function (series2save, callback) {
+	var series = new Series(user2save);
+	series.save(function (err, storedSeries) {		
+		if (storedSeries && !err) {
+			callback ();
+		} 
+		else if(storedSeries === null){
+			throw ("insert series failed");
+		}
+		else {
+			throw (err);
+		}
+	});
+};
+
 
 
 
@@ -186,7 +204,7 @@ beforeEach(function (done) {
 
 //main describe over all Tests 
 describe('Test:', function() {
-	describe('Mail for registration '.yellow, function() {
+	describe('User Registration'.yellow, function() {
 		it('should post the mail tvshowapp-test1@7kw.de', function(done){ 
 			req.post(data.acc1, "/usr/register", 200, function(body) {
 				myAssert (body.message, "You should recieve an Email with your login token", function () {done();});
@@ -198,29 +216,31 @@ describe('Test:', function() {
 				myAssert (body.message, "You should recieve an Email with your login token", function () {done();});
 			});
 		});
-	});
 
-	describe('Send a registred mail for registraton'.yellow, function() {
-		beforeEach(function(done) {
-			insert.user (data.acc1, function() { done(); });
-		});
+		describe('Failure'.yellow, function() {
+			beforeEach(function(done) {
+				insert.user (data.acc1, function() { done(); });
+			});
 
-		it('should not create an account for tvshowapp-test1@7kw.de', function(done) {
-			req.post(data.acc1, "/usr/register", 500, function(body) {
-				myAssert (body.error, "For this email an account already exists", function () {done() ;});
+			it('should not create an account for tvshowapp-test1@7kw.de', function(done) {
+				req.post(data.acc1, "/usr/register", 500, function(body) {
+					myAssert (body.error, "For this email an account already exists", function () {done() ;});
+				});
 			});
 		});
 	});
 
 
-	describe('Verify Accounts'.yellow, function() {
+	describe('User Verification'.yellow, function() {
 		beforeEach(function(done) {
 			insert.user (data.acc1, function() { insert.user (data.acc2, function() { done(); }); });
 		});
 			
 		it('should verify tvshowapp-test2@7kw.de', function(done) {
 			req.get("", "/usr/register/verify/"+data.acc2.token, 200, function(body) {
-				myAssert (body, "Your account is now verified", function () {done() ;});
+				var valUser = data.acc2;
+				data.acc2.validated = true;
+				myAssert (body, data.acc2, function () {done() ;});
 			});
 		});
 
@@ -237,38 +257,124 @@ describe('Test:', function() {
 		});
 
 	});
+
+
+	describe('User Operations'.yellow, function() {
+		//each user operations test has user 1 
+		beforeEach(function(done) {
+			insert.user (data.acc1, function() { done(); });
+		});
+
+		describe('add series'.yellow, function() {	
+			describe('which is already in the mongo', function() {	
+				beforeEach(function(done) {
+					insert.series (data.houseOfCards, function() { done(); });
+				});
+				it('should add a new series to user 1', function(done) {
+					req.get("", "/usr/token/"+ data.acc1.token + "/series/"+ data.houseOfCards.Series.id, 200, function(body) {
+						should.equal(body.series.length, 1); done();
+					});
+				});
+			});
+			describe('which is not yet in the mongo', function() {	
+				it('should add a new series to user 1', function(done) {
+					req.get("", "/usr/token/"+ data.acc1.token + "/series/"+ data.houseOfCards.Series.id, 200, function(body) {
+						should.equal(body.series.length, 1); done();
+					});
+				});
+			});
+			describe('failures', function() {	
+				it('should try to get a series with wrong id', function(done) {
+					req.get("", "/usr/token/"+ data.acc1.token + "/series/1", 500, function(body) {
+						myAssert(body.error, "Error: seriesId not found", function() { done(); });	
+					});
+				});
+
+				it('should try to get a series with wrong token', function(done) {
+					req.get("", "/usr/token/"+ "blub" + "/series/"+ data.houseOfCards.Series.id, 500, function(body) {
+						myAssert(body.error, "We could't find your user token", function() { done(); });	
+					});
+				});
+			});
+
+		});
+
+		describe('remove series'.yellow, function() {	
+			describe('from user 2', function() {
+				beforeEach(function(done) {
+					insert.user (data.acc3, function() { done(); }); //acc3 = user2 but verified and with one series
+				});
+				it('should remove a series from user 2', function(done) {
+					req.delete("", "/usr/token/"+ data.acc3.token + "/series/"+ data.houseOfCards.Series.id, 500, function(body) {
+						should.equal(user.series.length, 0); done();
+					});
+				});
+			});	
+
+			describe('failures', function() {	
+				it('should try to remove a series with wrong id', function(done) {
+					req.delete("", "/usr/token/"+ data.acc1.token + "/series/1", 500, function(body) {
+						myAssert(body.error, "Error: seriesId not found", function() { done(); });	
+					});
+				});
+
+				it('should try to remove a series with wrong token', function(done) {
+					req.delete("", "/usr/token/"+ "blub" + "/series/"+ data.houseOfCards.Series.id, 500, function(body) {
+						myAssert(body.error, "We could't find your user token", function() { done(); });	
+					});
+				});
+			});
+		});
+
+
+		describe.skip('get user'.yellow, function() {	
+			it('should get the whole user', function(done) {
+				req.get("", "/usr/token/"+ data.acc1.token + "/user/all", 500, function(body) {
+					myAssert (1,1, function () {done() ;});
+				});
+			});
+		});
+
+		describe.skip('mark as watched'.yellow, function() {	
+			it('should mark an episode as watched', function(done) {
+				req.get("", "/usr/token/"+ data.acc1.token + "/watched/"+ true +"/episode/"+ "!!!!!hier ne id!!!!" , 500, function(body) {
+					myAssert (1,1, function () {done() ;});
+				});
+			});
+
+			it('should mark an episode as unwatched', function(done) {
+				req.get("", "/usr/token/"+ data.acc1.token + "/watched/"+ false +"/episode/"+ "!!!!!hier ne id!!!!" , 500, function(body) {
+					myAssert (1,1, function () {done() ;});
+				});
+			});
+		});
+
+	});
+
+
+
+	describe.skip('Series based requests'.yellow, function() {
+		beforeEach(function(done) {
+			insert.user (data.acc1, function() { insert.user (data.acc2, function() { done(); }); });
+		});
+			
+		it('should add a new series to user 1', function(done) {
+			req.get("", "/series/token/"+ data.acc1.token + "/series/:seriesId/details", 200, function(body) {
+				myAssert (body, "Your account is now verified", function () {done() ;});
+			});
+		});
+
+		it('should add a new series to user 1', function(done) {
+			req.get("", "/series/token/"+ data.acc1.token + "/episode/:episodeId/details", 200, function(body) {
+				myAssert (body, "Your account is now verified", function () {done() ;});
+			});
+		});
+	});
 });
 
 
 
 
-
-
-
-/*
-
-
-			it('daten von tvd holen', function(done) {
-			request(url)
-			.get('/series/searchresult/search/' + "big%20bang")
-			.expect(200) //Status code
-			//.expect('Content-Type', /json/) //ist es json?
-			//.expect('Content-Type', 'application/json; charset=utf-8' ) //ist es utf8?
-			.end(function(err, res) {
-			      if (err) {
-			        throw err;
-			      }
-
-			      console.log (res.body);
-
-			      done();
-
-			    });
-			});
-
-
-
-*/
 
 
 
