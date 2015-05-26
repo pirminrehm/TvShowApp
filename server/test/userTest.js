@@ -48,10 +48,11 @@ req.post = function (data2send, route, status, callback) {
 		.expect('Content-Type', /json/) //ist es json?
 		.expect('Content-Type', 'application/json; charset=utf-8' ) //ist es utf8?
 		.end(function(err, res) {
-		      if (err) {
-		        throw err;
-		      }
-		      callback(res.body);
+			if (clog) console.log(res.body);
+			if (err) {
+				throw err;
+			}
+			callback(res.body);
 		});
 };
 
@@ -63,10 +64,11 @@ req.get = function (data2send, route, status, callback) {
 		.expect('Content-Type', /json/) //ist es json?
 		.expect('Content-Type', 'application/json; charset=utf-8' ) //ist es utf8?
 		.end(function(err, res) {
-		      if (err) {
-		        throw err;
-		      }
-		      callback(res.body);
+			if (clog) console.log(res.body);
+			if (err) {
+				throw err;
+			}
+			callback(res.body);
 		});
 };
 
@@ -78,10 +80,11 @@ req.put = function (data2send, route, status, callback) {
 		.expect('Content-Type', /json/) //ist es json?
 		.expect('Content-Type', 'application/json; charset=utf-8' ) //ist es utf8?
 		.end(function(err, res) {
-		      if (err) {
-		        throw err;
-		      }
-		      callback(res.body);
+			if (clog) console.log(res.body);
+			if (err) {
+				throw err;
+			}
+			callback(res.body);
 		});
 };
 
@@ -92,10 +95,11 @@ req.delete = function (data2send, route, status, callback) {
 		.expect('Content-Type', /json/) //ist es json?
 		.expect('Content-Type', 'application/json; charset=utf-8' ) //ist es utf8?
 		.end(function(err, res) {
-		      if (err) {
-		        throw err;
-		      }
-		      callback(res.body);
+			if (clog) console.log(res.body);
+			if (err) {
+				throw err;
+			}
+			callback(res.body);
 		});
 };
 
@@ -108,18 +112,19 @@ req.delete = function (data2send, route, status, callback) {
 var myAssert = function (body, defined, callback) {
 	delete body._id;
 	delete body.__v;
-	//is there at least one episode
-	/*
-	if (body.series.length !== 0) {
-		if (body.series[0].episodes) {
-			for (var i; i<body.series.length; i++) {
-				for (var j; j<body.series[i].episodes.length; j++ ) {
+
+	if (body.hasOwnProperty("series")) {
+		for (var i=0; i<body.series.length; i++) {
+			delete body.series[i]._id;
+
+			if (body.series[i].hasOwnProperty("episodes")) {
+				for (var j=0; j<body.series[i].episodes.length; j++ ) {
 					delete body.series[i].episodes[j]._id;
 				}
 			}
-		}
- 	}
- 	*/
+	 	}
+	}
+
 	assert.deepEqual(body,defined);
 	callback();
 };
@@ -239,8 +244,8 @@ describe('Test:', function() {
 		it('should verify tvshowapp-test2@7kw.de', function(done) {
 			req.get("", "/usr/register/verify/"+data.acc2.token, 200, function(body) {
 				var valUser = data.acc2;
-				data.acc2.validated = true;
-				myAssert (body, data.acc2, function () {done() ;});
+				valUser.validated = true;
+				myAssert (body, valUser, function () {done() ;});
 			});
 		});
 
@@ -265,23 +270,23 @@ describe('Test:', function() {
 			insert.user (data.acc1, function() { done(); });
 		});
 
-		describe('add series'.yellow, function() {	
+		describe.only('add series'.yellow, function() {	
 			describe('which is already in the mongo', function() {	
 				beforeEach(function(done) {
-					insert.series (data.houseOfCards, function() { done(); });
+					insert.series (data.houseOfCards, function() {  done(); });
 				});
 				it('should add a new series to user 1', function(done) {
 					req.get("", "/usr/token/"+ data.acc1.token + "/series/"+ data.houseOfCards.Series.id, 200, function(body) {
 						should.equal(body.series.length, 1);
-						myAssert(body.series[0], data.acc4.series[0], function() {	 done(); });
+						myAssert(body, data.acc4, function() {	 done(); }); //acc1 + series = acc4
 					});
 				});
 			});
 			describe('which is not yet in the mongo', function() {	
 				it('should add a new series to user 1', function(done) {
-					req.get("", "/usr/token/"+ data.acc1.token + "/series/"+ data.houseOfCards.Series.id, 200, function(body) {
+					req.get("", "/usr/token/"+ data.acc4.token + "/series/"+ data.houseOfCards.Series.id, 200, function(body) {
 						should.equal(body.series.length, 1); 
-						myAssert(body.series[0], data.acc4.series[0], function() {	 done(); });
+						myAssert(body, data.acc4, function() {	 done(); });  //acc1 + series = acc4
 					});
 				});
 			});
