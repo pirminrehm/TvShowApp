@@ -273,7 +273,7 @@ exports.addSeriesToList = function(req, res){
 			}
 
 			if(foundInUsersList){				
-				res.jsonp({"error":"Series already in users list"});
+				res.status(500).jsonp({"error":"Series already in users list"});
 			}
 			else{
 				if(clog) console.log('Series is NOT in users list');
