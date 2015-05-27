@@ -19,6 +19,20 @@ var mongoStart = require('../bin/mongoStart');
 
 
 
+/* Account overview
+
+acc1 = validated, test1, 0 series
+acc4= acc1 + houseOfCards
+acc6 = acc4 + himym
+
+acc2 = not validated, test2, 0 series
+acc5 = acc2 + validated
+acc3 = acc2 + validated + house of Cards (index 1 and 2 are true)
+acc7 = acc3 +himym (index 1 and 2 are true)
+
+*/
+
+
 
 /******************************
 ====== config variables =======
@@ -265,12 +279,10 @@ describe('Test:', function() {
 
 
 	describe('User Operations'.yellow, function() {
-		//each user operations test has user 1 
-		beforeEach(function(done) {
-			insert.user (data.acc1, function() { done(); });
-		});
-
 		describe('add series'.yellow, function() {	
+			beforeEach(function(done) {
+				insert.user (data.acc1, function() { done(); });
+			});
 			describe('which is already in the mongo', function() {	
 				beforeEach(function(done) {
 					insert.series (data.houseOfCards, function() {  done(); });
@@ -284,13 +296,36 @@ describe('Test:', function() {
 			});
 			describe('which is not yet in the mongo', function() {	
 				it('should add a new series to user 1', function(done) {
-					req.get("", "/usr/token/"+ data.acc4.token + "/series/"+ data.houseOfCards.Series.id, 200, function(body) {
+					req.get("", "/usr/token/"+ data.acc1.token + "/series/"+ data.houseOfCards.Series.id, 200, function(body) {
 						should.equal(body.series.length, 1); 
 						myAssert(body, data.acc4, function() {	 done(); });  //acc1 + series = acc4
 					});
 				});
 			});
 			describe('failures', function() {	
+				//special case: just possible if a series is deleted from the mongo, but the user hat it still
+				describe('add series again which is not yet in the mongo', function() {
+					beforeEach(function(done) {
+						insert.user (data.acc3, function() {  done();  }); //acc3 = user2 but verified and with one series
+					});
+					it('should try to add a series again', function(done) {
+						req.get("", "/usr/token/"+ data.acc3.token + "/series/"+data.acc3.series[0].id, 500, function(body) {
+							myAssert(body.error, "Series already in users list", function() { done(); });	
+						});
+					});
+				});
+				//common case
+				describe('add series again which is alreade in the mongo', function() {
+					beforeEach(function(done) {
+						insert.user (data.acc3, function() { insert.series (data.houseOfCards, function() {  done(); }); }); //acc3 = acc2 but verified and with one series
+					});
+					it('should try to add a series again', function(done) {
+						req.get("", "/usr/token/"+ data.acc3.token + "/series/"+data.acc3.series[0].id, 500, function(body) {
+							myAssert(body.error, "Series already in users list", function() { done(); });	
+						});
+					});
+				});
+
 				it('should try to get a series with wrong id', function(done) {
 					req.get("", "/usr/token/"+ data.acc1.token + "/series/1", 500, function(body) {
 						myAssert(body.error, "Error: seriesId not found", function() { done(); });	
@@ -309,16 +344,27 @@ describe('Test:', function() {
 		describe('remove series'.yellow, function() {	
 			describe('from user 2', function() {
 				beforeEach(function(done) {
-					insert.user (data.acc3, function() { done(); }); //acc3 = user2 but verified and with one series
+					insert.user (data.acc6, function() { done(); }); //acc3 = user2 but verified and with one series
 				});
-				it('should remove a series from user 2', function(done) {
-					req.delete("", "/usr/token/"+ data.acc3.token + "/series/"+ data.houseOfCards.Series.id, 200, function(body) {
-						should.equal(body.series.length, 0); done();
+				it('should remove a series from user 1', function(done) {
+					req.delete("", "/usr/token/"+ data.acc6.token + "/series/"+ data.acc6.series[1].id, 200, function(body) {
+						myAssert(body, data.acc4, function() { done(); }); //acc 3 - series = acc5
+					});
+				});
+
+				it('should remove two series from user 1', function(done) {
+					req.delete("", "/usr/token/"+ data.acc6.token + "/series/"+ data.acc6.series[1].id, 200, function(body) {
+						req.delete("", "/usr/token/"+ data.acc6.token + "/series/"+ data.acc6.series[0].id, 200, function(body) {
+							myAssert(body, data.acc1, function() { done(); }); //acc 3 - series = acc5
+						});
 					});
 				});
 			});	
 
-			describe('failures', function() {	
+			describe('failures', function() {
+				beforeEach(function(done) {
+					insert.user (data.acc1, function() { done(); });
+				});	
 				it('should try to remove a series with wrong id', function(done) {
 					req.delete("", "/usr/token/"+ data.acc1.token + "/series/1", 500, function(body) {
 						myAssert(body.error, "Error: seriesId not found", function() { done(); });	
@@ -334,10 +380,13 @@ describe('Test:', function() {
 		});
 
 		describe('get user'.yellow, function() {
+			beforeEach(function(done) {
+				insert.user (data.acc6, function() { done(); });
+			});
 			describe('successfull', function() {	
 				it('should get the whole user', function(done) {
-					req.get("", "/usr/token/"+ data.acc1.token + "/user/all", 200, function(body) {
-						myAssert (body,data.acc1, function () {done() ;});
+					req.get("", "/usr/token/"+ data.acc6.token + "/user/all", 200, function(body) {
+						myAssert (body,data.acc6, function () {done() ;});
 					});
 				});
 			});
@@ -352,28 +401,58 @@ describe('Test:', function() {
 
 		describe('mark an episode'.yellow, function() {	
 			beforeEach(function(done) {
-				insert.user (data.acc3, function() { done(); }); //acc3 = user2 but verified and with one series
+				insert.user (data.acc7, function() { done(); }); 
 			});
 
 			describe('as watched', function() {
-				it('should mark an episode as watched', function(done) {
-					req.put("", "/usr/token/"+ data.acc3.token + "/watched/"+ true +"/episode/"+ data.acc3.series[0].episodes[0].id , 200, function(body) {
+				it('should mark an episode (index:0) from an series (index:0) as watched', function(done) {
+					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ true +"/episode/"+ data.acc7.series[0].episodes[0].id , 200, function(body) {
 						myAssert (body.series[0].episodes[0].watched, true, function () {done() ;});
+					});
+				});
+				it('should mark an episode (index:5) from an series (index:0) as watched', function(done) {
+					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ true +"/episode/"+ data.acc7.series[0].episodes[5].id , 200, function(body) {
+						myAssert (body.series[0].episodes[5].watched, true, function () {done() ;});
+					});
+				});
+				it('should mark an episode (index:1) from an series (index:1) as watched', function(done) {
+					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ true +"/episode/"+ data.acc7.series[1].episodes[1].id , 200, function(body) {
+						myAssert (body.series[1].episodes[1].watched, true, function () {done() ;});
+					});
+				});
+				it('should mark an episode (index:6) from an series (index:1) as watched', function(done) {
+					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ true +"/episode/"+ data.acc7.series[1].episodes[6].id , 200, function(body) {
+						myAssert (body.series[1].episodes[6].watched, true, function () {done() ;});
 					});
 				});
 			});
 
 			describe('as unwatched', function() {
-				it('should mark an episode as unwatched', function(done) {
-					req.put("", "/usr/token/"+ data.acc3.token + "/watched/"+ false +"/episode/"+ data.acc3.series[0].episodes[1].id , 200, function(body) {
+				it('should mark an episode (index:1) from an series (index:0) as unwatched', function(done) {
+					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ false +"/episode/"+ data.acc7.series[0].episodes[1].id , 200, function(body) {
 						myAssert (body.series[0].episodes[1].watched, false, function () {done() ;});
+					});
+				});
+				it('should mark an episode (index:2) from an series (index:0) as unwatched', function(done) {
+					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ false +"/episode/"+ data.acc7.series[0].episodes[2].id , 200, function(body) {
+						myAssert (body.series[0].episodes[2].watched, false, function () {done() ;});
+					});
+				});
+				it('should mark an episode (index:1) from an series (index:1) as unwatched', function(done) {
+					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ false +"/episode/"+ data.acc7.series[1].episodes[1].id , 200, function(body) {
+						myAssert (body.series[1].episodes[1].watched, false, function () {done() ;});
+					});
+				});
+				it('should mark an episode (index:2) from an series (index:1) as unwatched', function(done) {
+					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ false +"/episode/"+ data.acc7.series[1].episodes[2].id , 200, function(body) {
+						myAssert (body.series[1].episodes[2].watched, false, function () {done() ;});
 					});
 				});
 			});
 
 			describe('failures', function() {
 				it('should try to mark an episode as unwatched with wrong episode id', function(done) {
-					req.put("", "/usr/token/"+ data.acc3.token + "/watched/"+ false +"/episode/"+ "00" , 500, function(body) {
+					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ false +"/episode/"+ "00" , 500, function(body) {
 						myAssert (body.error,"Error: episodeId not found", function () {done() ;});
 					});
 				});
