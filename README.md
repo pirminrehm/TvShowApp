@@ -93,6 +93,8 @@ Status: 500, {"error" : ErrorStack }
 ```
 
 
+
+
 #### User operations
 Prerouting is still /usr
 ###### Errors, which can always occur:
@@ -107,25 +109,32 @@ Status: 500, {"error" : ErrorStack }
 
 
 ##### User adds new series to his list
-`POST  /token/:token/series/:seriesId`
+`GET  /token/:token/series/:seriesId`
 * downloads the whole series from TvDatabase and stores it into our local MongoDB
-* adds the new series to User.series array (watched is by default false)
+* adds the new series to User.series array (watched attribut of the episodes is false)
 * **Return:** User
 
 ###### Errors: 
-seriesId not found:
+seriesId not found (TvD returns a 404 error):
 ```
-Status: 500, { "error" : "Error: seriesId not found" }
+Status: 500, {"error" : "Error: seriesId not found"}
 ```
-TvDataBase error:
+cannot update user:
 ```
-Status: 500, { "error" : "Error: cannot retrieve series from TvDataBase" }
+Status: 500, {"error" : "Error: update user failed (added series)"}
 ```
-cannot insert series into user:
+cannot parse the response of TvD into JSON
 ```
-Status: 500, { "error" : "Error: cannot insert series into user" }
+Status: 500, {"error" : "Error: parsing response from TvD into JSON failed"}
 ```
-
+cannot store the downloaded series from TvD in our local DB
+```
+Status: 500, {"error" : "Error: store series retrieved from TvD failed"}
+```
+user has this series already in his list
+```
+Status: 500, {"error":"Series already in users list"}
+```
 
 ##### User removes series from his list
 `DELETE  /token/:token/series/:seriesId`
@@ -137,7 +146,10 @@ seriesId not found:
 ```
 Status: 500, { "error" : "Error: seriesId not found" }
 ```
-
+cannot update user:
+```
+Status: 500, {"error" : "Error: update user failed (delete series)"}
+```
 
 ##### Get user information
 `GET  /token/:token/user/all`
@@ -157,9 +169,9 @@ Status: 500, { "error" : "Error: User not found" }
 * **Return:** User
 
 ###### Errors:
-update failed:
+cannot update user:
 ```
-Status: 500, { "error" : "Error: update of User failed" }
+Status: 500, { "error" : "Error: update user failed (mark episode)" }
 ```
 episodeId not found:
 ```
