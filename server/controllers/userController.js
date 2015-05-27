@@ -235,7 +235,7 @@ function addSeriesToUser(series2Store,user,res){
 	};
 
 	user.series.push(userSeries);
-	saveUser(user, res, "Success: update user (added series)", "Error: update user failed");
+	saveUser(user, res, "Success: update user (added series)", "Error: update user failed (added series)");
 }
 
 
@@ -302,7 +302,7 @@ exports.addSeriesToList = function(req, res){
 												addSeriesToUser(storedSeries, user, res);
 											}
 											else if(storedSeries === null){
-												res.status(500).jsonp({"error" : "Error: save series from TvD failed"});
+												res.status(500).jsonp({"error" : "Error: store series retrieved from TvD failed"});
 											}
 											else{
 												res.status(500).jsonp({"error" : errSaveSeries});
