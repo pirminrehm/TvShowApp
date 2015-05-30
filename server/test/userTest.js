@@ -224,6 +224,7 @@ beforeEach(function (done) {
 //main describe over all Tests 
 describe('Test:', function() {
 	describe('User Registration'.yellow, function() {
+		this.timeout(5000);
 		it('should post the mail tvshowapp-test1@7kw.de', function(done){ 
 			req.post(data.acc1, "/usr/register", 200, function(body) {
 				myAssert (body.message, "You should recieve an Email with your login token", function () {done();});
