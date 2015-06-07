@@ -18,8 +18,14 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
+<!--Just some Tests
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="lib/angular/angular.min.js"></script>
+<script src="app/app.js"></script>
+
 <!-- Lets start with the body -->
-<body ng-app="series">
+<body ng-app="tvshowapp">
 
 <!-- Top Navigation -->
 <nav class="navbar navbar-default">
@@ -49,9 +55,20 @@
 </nav>
 <!-- End of Top Navigation -->
 
+
+
 <!-- Main Content -->
 <div class="container-fluid" ng-controller="HomeController">
+
+	<div ng-click="addSeries()">Add new series</div>
+	<div id="id01">
+
+	</div>
+
 	<div class="row">
+
+		<div ng-repeat="card in cards" my-card="card"></div>
+
 		<div class="col-xs-12 col-sm-6 col-md-4">
 			<div class="progress">
 				<!--
@@ -332,12 +349,6 @@ $('#the-basics .typeahead').typeahead({
 
 
 
-
-    <!--Just some Tests
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="lib/angular/angular.min.js"></script>
-    <script src="app/app.js"></script>
 
 
 </body>

@@ -29,7 +29,7 @@ body {
 
 /* Progressbar */
 .progress {
-	height: 5px;
+	height: 10px;
 	margin: 0px;
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
@@ -40,6 +40,7 @@ body {
 .series {
 	height: 150px;
 	background: white;
+	background-size: 100%;
 	margin-bottom: 30px;
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
@@ -155,6 +156,10 @@ body {
 	margin-bottom: -1px;
 	background-color: #fff;
 	border: 1px solid #ddd;
+}
+.season_list li:hover {
+	cursor: pointer;
+	background-color: #f6f6f6;
 }
 
 .season_list li > h4 {

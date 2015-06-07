@@ -1,26 +1,16 @@
 $(document).ready(function () {
 
 
+
+
 /*
 	ProgressBar Function
 	If User clicks on the +1 Button, the progress bar fills itself
-*/	
-	$('.label-warning').click(function () {	
-		var progressBar = $(this).closest(".col-xs-12").find('.progress-bar');
-		//get number of episodes in current season
-		//var nrTotal = ...
-		//get new current percentage
-		//var curPerc = curEpisode / nrTotal;
-		var newPerc = parseInt($(progressBar).attr("aria-valuenow")) + 10;
-		if(newPerc >= 100){
-			newPerc = 100;
-			$(progressBar).removeClass('progress-bar-warning').addClass('progress-bar-success');
-			$(this).removeClass('label-warning').addClass('label-success');
-			$(this).html('<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
-		}
-		$(progressBar).attr("aria-valuenow", newPerc);
-		$(progressBar).css({width: newPerc + "%"});
+*/
+	$('.label-warning').click(function () {
+		progressBarUpdate(this);
 	});
+
 
 /*
 	NewList Function
@@ -35,7 +25,7 @@ $(document).ready(function () {
 */
 
 	/* SpoilerDescription Function */
-	$('.season_list div input').click(function (e) {
+	$('.season_list div input').click(function () {
 		var returnVal = confirm("Are you sure?");
 		if(returnVal == true){
 			var newBool = $(this).is(":checked");
@@ -107,3 +97,22 @@ $(document).ready(function () {
 	};
 
 });
+
+function progressBarUpdate(context){
+	var progressBar = $(context).closest(".col-xs-12").find('.progress-bar');
+	//get number of episodes in current season
+	//var nrTotal = ...
+	//get new current percentage
+	//var curPerc = curEpisode / nrTotal;
+	var newPerc = parseInt($(progressBar).attr("aria-valuenow")) + 10;
+	if(newPerc >= 100){
+		//progressBarFull(context);
+		newPerc = 100;
+		$(progressBar).removeClass('progress-bar-warning').addClass('progress-bar-success');
+		$(context).removeClass('label-warning').addClass('label-success');
+		$(context).html('<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
+	}
+	$(progressBar).attr("aria-valuenow", newPerc);
+	$(progressBar).css({width: newPerc + "%"});
+}
+
