@@ -227,13 +227,13 @@ describe('Test:', function() {
 		this.timeout(5000);
 		it('should post the mail tvshowapp-test1@7kw.de', function(done){ 
 			req.post(data.acc1, "/usr/register", 200, function(body) {
-				myAssert (body.message, "You should recieve an Email with your login token", function () {done();});
+				myAssert (body.message, "You should recieve an Email with your login token",  done);
 			});
 		});
 
 		it('should post the mail tvshowapp-test2@7kw.de', function(done) {
 			req.post(data.acc2, "/usr/register", 200, function(body) {
-				myAssert (body.message, "You should recieve an Email with your login token", function () {done();});
+				myAssert (body.message, "You should recieve an Email with your login token",  done);
 			});
 		});
 
@@ -244,7 +244,7 @@ describe('Test:', function() {
 
 			it('should not create an account for tvshowapp-test1@7kw.de', function(done) {
 				req.post(data.acc1, "/usr/register", 500, function(body) {
-					myAssert (body.error, "For this email an account already exists", function () {done() ;});
+					myAssert (body.error, "For this email an account already exists",  done);
 				});
 			});
 		});
@@ -253,26 +253,26 @@ describe('Test:', function() {
 
 	describe('User Verification'.yellow, function() {
 		beforeEach(function(done) {
-			insert.user (data.acc1, function() { insert.user (data.acc2, function() { done(); }); });
+			insert.user (data.acc1, function() { insert.user (data.acc2,  done); });
 		});
 			
 		it('should verify tvshowapp-test2@7kw.de', function(done) {
 			req.get("", "/usr/register/verify/"+data.acc2.token, 200, function(body) {
 				var valUser = data.acc2;
 				valUser.validated = true;
-				myAssert (body, valUser, function () {done() ;});
+				myAssert (body, valUser,  done);
 			});
 		});
 
 		it('should not verify tvshowapp-test1@7kw.de because it already is', function(done) {
 			req.get("", "/usr/register/verify/"+data.acc1.token, 500, function(body) {
-				myAssert (body.error, "Your token is already validated for " + data.acc1.email, function () {done() ;});
+				myAssert (body.error, "Your token is already validated for " + data.acc1.email,  done);
 			});
 		});
 
 		it('should not verify an not existing token', function(done) {
 			req.get("", "/usr/register/verify/"+"ab", 500, function(body) {
-				myAssert (body.error, "We could't find your user token", function () {done() ;});
+				myAssert (body.error, "We could't find your user token",  done);
 			});
 		});
 
@@ -282,16 +282,16 @@ describe('Test:', function() {
 	describe('User Operations'.yellow, function() {
 		describe('add series'.yellow, function() {	
 			beforeEach(function(done) {
-				insert.user (data.acc1, function() { done(); });
+				insert.user (data.acc1,  done);
 			});
 			describe('which is already in the mongo', function() {	
 				beforeEach(function(done) {
-					insert.series (data.houseOfCards, function() {  done(); });
+					insert.series (data.houseOfCards, done);
 				});
 				it('should add a new series to user 1', function(done) {
 					req.get("", "/usr/token/"+ data.acc1.token + "/series/"+ data.houseOfCards.Series.id, 200, function(body) {
 						should.equal(body.series.length, 1);
-						myAssert(body, data.acc4, function() {	 done(); }); //acc1 + series = acc4
+						myAssert(body, data.acc4,  done); //acc1 + series = acc4
 					});
 				});
 			});
@@ -299,7 +299,7 @@ describe('Test:', function() {
 				it('should add a new series to user 1', function(done) {
 					req.get("", "/usr/token/"+ data.acc1.token + "/series/"+ data.houseOfCards.Series.id, 200, function(body) {
 						should.equal(body.series.length, 1); 
-						myAssert(body, data.acc4, function() {	 done(); });  //acc1 + series = acc4
+						myAssert(body, data.acc4,  done);  //acc1 + series = acc4
 					});
 				});
 			});
@@ -307,11 +307,11 @@ describe('Test:', function() {
 				//special case: just possible if a series is deleted from the mongo, but the user hat it still
 				describe('add series again which is not yet in the mongo', function() {
 					beforeEach(function(done) {
-						insert.user (data.acc3, function() {  done();  }); //acc3 = user2 but verified and with one series
+						insert.user (data.acc3,  done);//acc3 = user2 but verified and with one series
 					});
 					it('should try to add a series again', function(done) {
 						req.get("", "/usr/token/"+ data.acc3.token + "/series/"+data.acc3.series[0].id, 500, function(body) {
-							myAssert(body.error, "Series already in users list", function() { done(); });	
+							myAssert(body.error, "Series already in users list",  done);	
 						});
 					});
 				});
@@ -322,20 +322,20 @@ describe('Test:', function() {
 					});
 					it('should try to add a series again', function(done) {
 						req.get("", "/usr/token/"+ data.acc3.token + "/series/"+data.acc3.series[0].id, 500, function(body) {
-							myAssert(body.error, "Series already in users list", function() { done(); });	
+							myAssert(body.error, "Series already in users list",  done);	
 						});
 					});
 				});
 
 				it('should try to get a series with wrong id', function(done) {
 					req.get("", "/usr/token/"+ data.acc1.token + "/series/1", 500, function(body) {
-						myAssert(body.error, "Error: seriesId not found", function() { done(); });	
+						myAssert(body.error, "Error: seriesId not found", done);
 					});
 				});
 
 				it('should try to get a series with wrong token', function(done) {
 					req.get("", "/usr/token/"+ "blub" + "/series/"+ data.houseOfCards.Series.id, 500, function(body) {
-						myAssert(body.error, "We could't find your user token", function() { done(); });	
+						myAssert(body.error, "We could't find your user token", done);
 					});
 				});
 			});
@@ -349,14 +349,14 @@ describe('Test:', function() {
 				});
 				it('should remove a series from user 1', function(done) {
 					req.delete("", "/usr/token/"+ data.acc6.token + "/series/"+ data.acc6.series[1].id, 200, function(body) {
-						myAssert(body, data.acc4, function() { done(); }); //acc 3 - series = acc5
+						myAssert(body, data.acc4,  done); //acc 3 - series = acc5
 					});
 				});
 
 				it('should remove two series from user 1', function(done) {
 					req.delete("", "/usr/token/"+ data.acc6.token + "/series/"+ data.acc6.series[1].id, 200, function(body) {
 						req.delete("", "/usr/token/"+ data.acc6.token + "/series/"+ data.acc6.series[0].id, 200, function(body) {
-							myAssert(body, data.acc1, function() { done(); }); //acc 3 - series = acc5
+							myAssert(body, data.acc1, done); //acc 3 - series = acc5
 						});
 					});
 				});
@@ -368,13 +368,13 @@ describe('Test:', function() {
 				});	
 				it('should try to remove a series with wrong id', function(done) {
 					req.delete("", "/usr/token/"+ data.acc1.token + "/series/1", 500, function(body) {
-						myAssert(body.error, "Error: seriesId not found", function() { done(); });	
+						myAssert(body.error, "Error: seriesId not found",  done);
 					});
 				});
 
 				it('should try to remove a series with wrong token', function(done) {
 					req.delete("", "/usr/token/"+ "blub" + "/series/"+ data.houseOfCards.Series.id, 500, function(body) {
-						myAssert(body.error, "We could't find your user token", function() { done(); });	
+						myAssert(body.error, "We could't find your user token",  done);
 					});
 				});
 			});
@@ -382,19 +382,19 @@ describe('Test:', function() {
 
 		describe('get user'.yellow, function() {
 			beforeEach(function(done) {
-				insert.user (data.acc6, function() { done(); });
+				insert.user (data.acc6,  done);
 			});
 			describe('successfull', function() {	
 				it('should get the whole user', function(done) {
 					req.get("", "/usr/token/"+ data.acc6.token + "/user/all", 200, function(body) {
-						myAssert (body,data.acc6, function () {done() ;});
+						myAssert (body,data.acc6,  done);
 					});
 				});
 			});
 			describe('failures', function() {	
 				it('should try to get the user with wrong token', function(done) {
 					req.get("", "/usr/token/"+ "blub" + "/user/all", 500, function(body) {
-						myAssert(body.error, "Error: User not found", function() { done(); });	
+						myAssert(body.error, "Error: User not found",  done);
 					});
 				});
 			});
@@ -402,28 +402,28 @@ describe('Test:', function() {
 
 		describe('mark an episode'.yellow, function() {	
 			beforeEach(function(done) {
-				insert.user (data.acc7, function() { done(); }); 
+				insert.user (data.acc7,  done);
 			});
 
 			describe('as watched', function() {
 				it('should mark an episode (index:0) from an series (index:0) as watched', function(done) {
 					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ true +"/episode/"+ data.acc7.series[0].episodes[0].id , 200, function(body) {
-						myAssert (body.series[0].episodes[0].watched, true, function () {done() ;});
+						myAssert (body.series[0].episodes[0].watched, true,  done);
 					});
 				});
 				it('should mark an episode (index:5) from an series (index:0) as watched', function(done) {
 					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ true +"/episode/"+ data.acc7.series[0].episodes[5].id , 200, function(body) {
-						myAssert (body.series[0].episodes[5].watched, true, function () {done() ;});
+						myAssert (body.series[0].episodes[5].watched, true, done);
 					});
 				});
 				it('should mark an episode (index:1) from an series (index:1) as watched', function(done) {
 					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ true +"/episode/"+ data.acc7.series[1].episodes[1].id , 200, function(body) {
-						myAssert (body.series[1].episodes[1].watched, true, function () {done() ;});
+						myAssert (body.series[1].episodes[1].watched, true,  done);
 					});
 				});
 				it('should mark an episode (index:6) from an series (index:1) as watched', function(done) {
 					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ true +"/episode/"+ data.acc7.series[1].episodes[6].id , 200, function(body) {
-						myAssert (body.series[1].episodes[6].watched, true, function () {done() ;});
+						myAssert (body.series[1].episodes[6].watched, true,  done);
 					});
 				});
 			});
@@ -431,22 +431,22 @@ describe('Test:', function() {
 			describe('as unwatched', function() {
 				it('should mark an episode (index:1) from an series (index:0) as unwatched', function(done) {
 					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ false +"/episode/"+ data.acc7.series[0].episodes[1].id , 200, function(body) {
-						myAssert (body.series[0].episodes[1].watched, false, function () {done() ;});
+						myAssert (body.series[0].episodes[1].watched, false,  done);
 					});
 				});
 				it('should mark an episode (index:2) from an series (index:0) as unwatched', function(done) {
 					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ false +"/episode/"+ data.acc7.series[0].episodes[2].id , 200, function(body) {
-						myAssert (body.series[0].episodes[2].watched, false, function () {done() ;});
+						myAssert (body.series[0].episodes[2].watched, false,  done);
 					});
 				});
 				it('should mark an episode (index:1) from an series (index:1) as unwatched', function(done) {
 					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ false +"/episode/"+ data.acc7.series[1].episodes[1].id , 200, function(body) {
-						myAssert (body.series[1].episodes[1].watched, false, function () {done() ;});
+						myAssert (body.series[1].episodes[1].watched, false,  done);
 					});
 				});
 				it('should mark an episode (index:2) from an series (index:1) as unwatched', function(done) {
 					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ false +"/episode/"+ data.acc7.series[1].episodes[2].id , 200, function(body) {
-						myAssert (body.series[1].episodes[2].watched, false, function () {done() ;});
+						myAssert (body.series[1].episodes[2].watched, false,  done);
 					});
 				});
 			});
@@ -454,13 +454,13 @@ describe('Test:', function() {
 			describe('failures', function() {
 				it('should try to mark an episode as unwatched with wrong episode id', function(done) {
 					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ false +"/episode/"+ "00" , 500, function(body) {
-						myAssert (body.error,"Error: episodeId not found", function () {done() ;});
+						myAssert (body.error,"Error: episodeId not found",  done);
 					});
 				});
 
 				it('should try to mark an episode as unwatched with wrong token', function(done) {
 					req.put("", "/usr/token/"+ "blub" + "/watched/"+ false +"/episode/"+ "00" , 500, function(body) {
-						myAssert (body.error,"We could't find your user token", function () {done() ;});
+						myAssert (body.error,"We could't find your user token",  done);
 					});
 				});
 
@@ -480,19 +480,19 @@ describe('Test:', function() {
 			describe('successfull', function() {
 				it('should get meta infos about a series', function(done) {
 					req.get("", "/series/token/"+ data.acc1.token + "/series/"+data.houseOfCards.Series.id+"/details", 200, function(body) {
-						myAssert (body, data.houseOfCards.Series, function () {done() ;});
+						myAssert (body, data.houseOfCards.Series,  done);
 					});
 				});
 			});
 			describe('failures', function() {
 				it('should try to get meta infos about a series with a wrong series id', function(done) {
 					req.get("", "/series/token/"+ data.acc1.token + "/series/"+"00"+"/details", 500, function(body) {
-						myAssert (body.error, "Error: seriesId not found" , function () {done() ;});
+						myAssert (body.error, "Error: seriesId not found" ,  done);
 					});
 				});
 				it('should try to get meta infos about a series with wrong token', function(done) {
 					req.get("", "/series/token/"+ "blub" + "/series/"+"00"+"/details", 500, function(body) {
-						myAssert (body.error,"We could't find your user token", function () {done() ;});
+						myAssert (body.error,"We could't find your user token", done);
 					});
 				});
 			});
@@ -502,7 +502,7 @@ describe('Test:', function() {
 			describe('successfull', function() {
 				it('should get meta infos about an episode', function(done) {
 					req.get("", "/series/token/"+ data.acc1.token + "/episode/"+ data.acc3.series[0].episodes[0].id +"/details", 200, function(body) {
-						myAssert (body, data.houseOfCards.Episode[0], function () {done() ;});
+						myAssert (body, data.houseOfCards.Episode[0],  done);
 					});
 				});
 			});
@@ -510,12 +510,12 @@ describe('Test:', function() {
 			describe('failures', function() {
 				it('should try to get meta infos about an episode with a wrong series id', function(done) {
 					req.get("", "/series/token/"+ data.acc1.token + "/episode/"+"00"+"/details", 500, function(body) {
-						myAssert (body.error, "Error: episodeId not found" , function () {done() ;});
+						myAssert (body.error, "Error: episodeId not found" ,  done);
 					});
 				});
 				it('should try to get meta infos about an episode with wrong token', function(done) {
 					req.get("", "/series/token/"+ "blub" + "/episode/"+"00"+"/details", 500, function(body) {
-						myAssert (body.error,"We could't find your user token", function () {done() ;});
+						myAssert (body.error,"We could't find your user token",  done);
 					});
 				});
 			});
