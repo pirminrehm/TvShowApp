@@ -1,0 +1,32 @@
+<div class="col-xs-12 col-sm-6 col-md-4">
+	<div class="progress">
+		<div class="progress-bar" ng-class="aCard.percWatched < 100 ? 'progress-bar-warning' : 'progress-bar-success'" role="progressbar" aria-valuenow="{{ aCard.percWatched }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ aCard.percWatched }}%;">
+		</div>
+	</div>
+	<div class="series" style="background-image:url(http://thetvdb.com/banners/fanart/original/262980-11.jpg);"> 
+		<div class="series-inner"> 
+			<div class="series-inner-title"> 
+				<div class="left"> 
+					<h2 class="normal">{{aCard.title}}</h2> 
+					<p class="normal">{{aCard.episodeNr}}: {{aCard.episodeTitle}}</p> 
+				</div> ' 
+				<div class="right"> 
+				
+		
+				
+				<span ng-if="aCard.percWatched < 100" class="label label-warning" onclick="progressBarUpdate(this)">+1</span> 
+				
+			
+		<span ng-if="aCard.percWatched >= 100" class="label label-success" onclick="progressBarUpdate(this)"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span>
+		
+		
+				
+					<!--'<h4><span class="label label-warning" onclick="progressBarUpdate(this)">+1</span></h4> ' 
+					
+					//'<h4 ng-bind-html="progressBarHtml"></h4> ' -->
+				</div> 
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+</div>
