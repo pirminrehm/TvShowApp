@@ -207,17 +207,12 @@ before(function (done) {
 });
 
 after(function (done){
-	mongoose.connection.db.dropDatabase(function(){
-		insert.user (data.accTest, function() { 
-			server.close(function() {
-				console.log("  Success: close Connection \n".green);  
-				done();
-			});
+	insert.user (data.accTest, function() { 
+		server.close(function() {
+			console.log("  Success: close Connection \n".green);  
+			done();
 		});
-	});
-
-
-	
+	});	
 });
 
 beforeEach(function (done) {
