@@ -53,7 +53,7 @@ body {
 }
 
 .series-inner-title{
-	padding: 90px 0px 0px  0px;
+	padding: 0px;
 } 
 
 .series-inner-title .left {
@@ -61,8 +61,9 @@ body {
 }
 
 .series-inner-title .right {
-	padding-right: 10px;
-	padding-top: 17px;
+	position: absolute;
+	top: 117px;
+	right: 25px;
 }
 
 .series-inner-title .left p, .series-inner-title .left h2 {
@@ -75,10 +76,7 @@ body {
 .right { float: right; }
 .clear { clear: both; }
 
-.left > h2 {
-	margin: 0px;
-	padding: 0px;
-}
+
 
 /* Login */
 .login {
@@ -199,6 +197,31 @@ body {
 /* BUTTON FUNCTIONALITY */
 .label:hover {
 	cursor: pointer;
+}
+
+/*
+	Neue Styles für längere Episodennamen
+*/
+.left > h2 { margin: 0px; padding: 0px; }
+
+.left > h2.normal {
+	font-size: 30px;
+	margin-top: 90px;
+}
+
+.left > h2.small {
+	font-size: 24px;
+	padding-top: 6px;
+	margin-top: 90px;
+	/* Gibt dir ein paar Zeichen mehr */
+}
+
+.left > p.normal {
+
+}
+
+.left > p.small {
+
 }
 
 

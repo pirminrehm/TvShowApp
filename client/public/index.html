@@ -89,12 +89,12 @@
 								underneath should be the episode number and name.
 								TODO: wrap them in a p
 							-->
-							<h2>House of Cards</h2>
+							<h2 class="small">Diese Serie hat enen</h2>
 							<!--
 								TODO: Implement some magic, that only allows a maximum of XX characters
 								OR: If characters to long, apply new css that it fits? more margin-bottom
 							-->
-							<p>S03E01: {{message}}</p>
+							<p class="normal">S03E01: {{message}} Was m</p>
 						</div>
 						<div class="right">
 							<!--
@@ -129,8 +129,8 @@
 					<div class="series-inner">
 					<div class="series-inner-title">
 						<div class="left">
-							<h2>One Piece</h2>
-							<p>S17E01: Episodentitel</p>
+							<h2 class="normal">One Piece</h2>
+							<p class="normal">S17E01: Episodentitel</p>
 						</div>
 						<div class="right">
 							<h4><span class="label label-warning">+1</span></h4>
@@ -150,8 +150,8 @@
 					<div class="series-inner">
 					<div class="series-inner-title">
 						<div class="left">
-							<h2>One Piece</h2>
-							<p>S17E01: Episodentitel</p>
+							<h2 class="normal">One Piece</h2>
+							<p class="normal">S17E01: Episodentitel</p>
 						</div>
 						<div class="right">
 							<h4><span class="label label-warning">+1</span></h4>
@@ -238,6 +238,30 @@
 	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/typeahead.bundle.js"></script>
 	<script type="text/javascript">
+
+
+	function checkStringSize() {
+		// var maxNormal = 13;
+		// var maxLong = 21-3;
+
+		// aCard.title
+		// aCard.episodeTitle
+
+		// Problem: Div kann nicht nach oben wachsen. 
+
+		// // Überprüfen ob h2 oder p
+		// // Alle Seriennamen aus der json lesen
+		// // Länge des Seriennamens checken
+		// // Wenn <= 13 alles okay
+		// // Wenn 13 < x <= 18 oder so mache das
+		// // Wenn >= 18 String kürzen
+		// var simpleString = "Paul Pauline Apostel Paulus Postpaket";
+		// var ausschnitt = simpleString.slice(0, maxLong);
+		// var bla = document.getElementById("seri_title_normal").innerHTML = ausschnitt + "...";
+	}
+
+
+
 
 	function yay() {
 		alert("FICK DICH DONNER"); 
