@@ -263,23 +263,7 @@
 
 
 
-	function yay() {
-		alert("FICK DICH DONNER"); 
-		var email = mailingfield.elements["mail-adress"].value;
-		var jsonFile = '{ "email" : "' + email + '"}';
-		
-		$.ajax({
-			type: "POST",
-			url: "localhost:3000/usr/register",
-			data: jsonFile,
-			dataType: "json",
-			success: function(data){
-				alert('yay');
-			},
-		});
 
-		alert("!");
-	}
 
 /* PIRMIN JSON */
 	// $.("#new_list").click(function () {

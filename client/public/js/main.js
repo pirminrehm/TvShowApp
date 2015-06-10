@@ -15,6 +15,23 @@ $(document).ready(function () {
 /*
 	NewList Function
 */
+	function newList() {
+		// alert("FICK DICH DONNER"); 
+		// var email = mailingfield.elements["mail-adress"].value;
+		// var jsonFile = '{ "email" : "' + email + '"}';
+		
+		// $.ajax({
+		// 	type: "POST",
+		// 	url: "localhost:3000/usr/register",
+		// 	data: jsonFile,
+		// 	dataType: "json",
+		// 	success: function(data){
+		// 		alert('yay');
+		// 	},
+		// });
+
+		// alert("!");
+	}
 
 /*
 	SpoilerDescription Function
@@ -38,6 +55,7 @@ $(document).ready(function () {
 	});
 	
 	/* Checkbox Function */
+	/* BUG: Only check all the boxes of ONE Season */
 	$('.season_list li').click(function (e) {
 		if(e.target.className != 'checkbox'){
 			if (!$(this).hasClass('active')) {
