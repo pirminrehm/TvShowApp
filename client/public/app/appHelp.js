@@ -1,9 +1,15 @@
 
 
-function Series(title, episodeAllCount, eipsodeWatchedCount, curEpisodeName) {
+function Series(id, title, episodeAllCount, eipsodeWatchedCount, curEpisodeName) {
 
 	//alert(episodeAllCount);
+	this._id = id;
+	this.episodeAllCount = episodeAllCount;
+	this.eipsodeWatchedCount = eipsodeWatchedCount;
+	this.incrementAmount = (1/episodeAllCount) * 100;
+	//alert(incrementAmount);
 	this.percWatched = (eipsodeWatchedCount/episodeAllCount) * 100;
+	
 	this.progressBar = this.percWatched >= 100 ?
 		'<span class="label label-warning" onclick="progressBarUpdate(this)">+1</span>' :
 		'<span class="label label-success" onclick="progressBarUpdate(this)"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span>';
@@ -11,6 +17,8 @@ function Series(title, episodeAllCount, eipsodeWatchedCount, curEpisodeName) {
 	this.title = title;
 	this.episodeNr = 'S010101';
 	this.episodeTitle = 'testTitle';
+	
+	
 	/*
 	 //'<span class="label label-warning" onclick="progressBarUpdate(this, true)">+1</span>' +
 

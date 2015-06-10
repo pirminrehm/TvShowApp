@@ -7,17 +7,20 @@
 		<div class="series-inner"> 
 			<div class="series-inner-title"> 
 				<div class="left"> 
-					<h2 class="normal">{{aCard.title}}</h2> 
+					<h2 class="normal">{{my-card.title}}</h2> 
 					<p class="normal">{{aCard.episodeNr}}: {{aCard.episodeTitle}}</p> 
+					<p>msg: {{msg}}</p>
 				</div> ' 
 				<div class="right"> 
 				
 		
-				
-				<span ng-if="aCard.percWatched < 100" class="label label-warning" onclick="progressBarUpdate(this)">+1</span> 
+				<span class="label label-warning" ng-click="progressBarUpdate()">+1</span> 
+				<!--<span ng-if="aCard.percWatched < 100" class="label label-warning" ng-click="progressBarUpdate(this, aCard.incrementAmount)">+1</span> -->
 				
 			
-		<span ng-if="aCard.percWatched >= 100" class="label label-success" onclick="progressBarUpdate(this)"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span>
+		<span ng-if="aCard.percWatched >= 100" class="label label-success">
+			<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+		</span>
 		
 		
 				

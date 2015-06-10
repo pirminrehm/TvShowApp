@@ -116,13 +116,15 @@ $(document).ready(function () {
 
 });
 
-function progressBarUpdate(context){
+
+function progressBarUpdate(context, incrementAmount){
+alert(incrementAmount);
 	var progressBar = $(context).closest(".col-xs-12").find('.progress-bar');
 	//get number of episodes in current season
 	//var nrTotal = ...
 	//get new current percentage
 	//var curPerc = curEpisode / nrTotal;
-	var newPerc = parseInt($(progressBar).attr("aria-valuenow")) + 10;
+	var newPerc = parseInt($(progressBar).attr("aria-valuenow")) + incrementAmount;
 	if(newPerc >= 100){
 		//progressBarFull(context);
 		newPerc = 100;
