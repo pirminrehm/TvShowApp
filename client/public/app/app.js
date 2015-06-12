@@ -5,7 +5,11 @@ app.config(function($routeProvider) {
 		.when("/welcome", {
 			templateUrl: "/app/templates/testWelcome.html",
 			controller: "TestWelcomeController"
-		})		
+		})
+		.when("/user/:token", {
+			templateUrl: "/app/templates/user.html",
+			controller: "UserController"
+		})
 		.otherwise({redirectTo: '/welcome'});
 		
 

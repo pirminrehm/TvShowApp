@@ -1,0 +1,44 @@
+<div ng-click="addSeries()">Add new series in user.html</div>
+
+<div ng-repeat="card in cards">
+		
+		
+		
+		
+		
+		
+		
+		<div id="{{card._id}}" class="col-xs-12 col-sm-6 col-md-4">
+	<div class="progress">
+		<div class="progress-bar" ng-class="card.percWatched < 100 ? 'progress-bar-warning' : 'progress-bar-success'" role="progressbar" aria-valuenow="{{ card.percWatched }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ card.percWatched }}%;">
+		</div>
+	</div>
+	<div class="series" style="background-image:url(http://thetvdb.com/banners/fanart/original/262980-11.jpg);"> 
+		<div class="series-inner"> 
+			<div class="series-inner-title"> 
+				<div class="left"> 
+					<h2 class="normal">{{card.title}}</h2> 
+					<p class="normal">{{card.episodeNr}}: {{card.episodeTitle}}</p> 
+				</div> ' 
+				<div class="right"> 
+				
+		
+				<span class="label label-warning" ng-click="progressBarUpdate(card._id, card.incrementAmount)">+1</span> 
+				<!--<span ng-if="card.percWatched < 100" class="label label-warning" ng-click="progressBarUpdate(this, card.incrementAmount)">+1</span> -->
+				
+			
+		<span ng-if="card.percWatched >= 100" class="label label-success">
+			<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+		</span>
+		
+		
+				
+					<!--'<h4><span class="label label-warning" onclick="progressBarUpdate(this)">+1</span></h4> ' 
+					
+					//'<h4 ng-bind-html="progressBarHtml"></h4> ' -->
+				</div> 
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+</div>

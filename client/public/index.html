@@ -22,8 +22,8 @@
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="lib/angular/angular.min.js"></script>
-<script src="app/appHelp.js"></script>
-<script src="app/appMain.js"></script>
+ <script src="app/appHelp.js"></script>
+<!--<script src="app/appMain.js"></script> -->
 
 <!-- Lets start with the body -->
 <body ng-app="tvshowapp">
@@ -39,6 +39,7 @@
 
 
 	<script src="app/controllers/testWelcomeController.js"></script>
+	<script src="app/controllers/UserController.js"></script>
 
 
 
@@ -86,7 +87,8 @@
 
 
 <!-- Main Content -->
-<div class="container-fluid" ng-controller="HomeController">
+<!-- <div class="container-fluid" ng-controller="HomeController"> -->
+<div class="container-fluid" >
 
 	<div ng-click="addSeries()">Add new series</div>
 	<div id="id01">
