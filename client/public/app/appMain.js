@@ -31,7 +31,7 @@ app.controller("HomeController", function($scope, $http){
 	
 	$scope.progressBarUpdate = function(id, incrementAmount){
 		//console.log(incrementAmount);
-		console.log(id);
+		
 		
 	
 		//alert(incrementAmount);
@@ -42,13 +42,14 @@ app.controller("HomeController", function($scope, $http){
 	//get new current percentage
 	//var curPerc = curEpisode / nrTotal;
 	var newPerc = parseInt($(progressBar).attr("aria-valuenow")) + incrementAmount;
+	console.log(newPerc);
 	//console.log(newPerc);
 	if(newPerc >= 100){
 		//progressBarFull(id);
 		newPerc = 100;
 		$(progressBar).removeClass('progress-bar-warning').addClass('progress-bar-success');
-		$(id).removeClass('label-warning').addClass('label-success');
-		$(id).html('<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
+		//$(id).removeClass('label-warning').addClass('label-success');
+		//$(id).html('<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
 	}
 	$(progressBar).attr("aria-valuenow", newPerc);
 	$(progressBar).css({width: newPerc + "%"});
