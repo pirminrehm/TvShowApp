@@ -46,14 +46,19 @@
 					<p class="normal">{{card.episodeNr}}: {{card.episodeTitle}}</p> 
 				</div> ' 
 				<div class="right"> 
-				
+				<h4>
 		
-				<span class="label label-warning" ng-click="progressBarUpdate(card._id, card.incrementAmount)">+1</span> 
+				<!--<span ng-show="card.percWatched < 100" class="label label-warning" >
+				+1
+				</span> -->
 				<!--<span ng-if="card.percWatched < 100" class="label label-warning" ng-click="progressBarUpdate(this, card.incrementAmount)">+1</span> -->
 				
 			
-		<span ng-if="card.percWatched >= 100" class="label label-success">
-			<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+		<span ng-class="card.percWatched < 100 ? 'label-warning' : 'label-success'" class="label" ng-click="progressBarUpdate(card._id, card.incrementAmount)">
+		
+			<span class="plusOne">+1</span>
+			<span class="glyphicon glyphicon-ok"></span>
+			
 		</span>
 		
 		
@@ -61,6 +66,7 @@
 					<!--'<h4><span class="label label-warning" onclick="progressBarUpdate(this)">+1</span></h4> ' 
 					
 					//'<h4 ng-bind-html="progressBarHtml"></h4> ' -->
+					</h4>
 				</div> 
 				<div class="clear"></div>
 			</div>

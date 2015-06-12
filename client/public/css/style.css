@@ -200,6 +200,12 @@ body {
 .label:hover {
 	cursor: pointer;
 }
+.label-success  > .plusOne, .label-warning > .glyphicon {
+display: none;
+}
+.label-warning > .plusOne, .label-success > .glyphicon {
+display: inline;
+}
 
 /*
 	Neue Styles für längere Episodennamen

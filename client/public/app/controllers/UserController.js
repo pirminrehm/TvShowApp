@@ -10,7 +10,7 @@ app.controller('UserController', ['$scope','$routeParams', function($scope,$rout
 		console.log("test1");
 		//var arr = JSON.parse(jsonData);
 
-		alert(object.series[0]._id);
+		//alert(object.series[0]._id);
 
 		for(var i = 0; i < object.series.length; i++) {
 			var episodeAllCount = 0;
@@ -47,8 +47,8 @@ app.controller('UserController', ['$scope','$routeParams', function($scope,$rout
 		//progressBarFull(id);
 		newPerc = 100;
 		$(progressBar).removeClass('progress-bar-warning').addClass('progress-bar-success');
-		$(id).removeClass('label-warning').addClass('label-success');
-		$(id).html('<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
+		
+		$("#" + id).find('.label').removeClass('label-warning').addClass('label-success');
 	}
 	$(progressBar).attr("aria-valuenow", newPerc);
 	$(progressBar).css({width: newPerc + "%"});

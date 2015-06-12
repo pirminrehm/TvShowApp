@@ -48,7 +48,7 @@ var object = {
                 [
                     {
                         "id": 4411361,
-                        "watched": false,
+                        "watched": true,
                         "_id": "557435e39c840bbc0c2473ac"
                     },
                     {

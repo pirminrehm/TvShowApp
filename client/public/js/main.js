@@ -115,7 +115,7 @@ $(document).ready(function () {
 
 });
 
-
+/*
 function progressBarUpdate(context, incrementAmount){
 alert(incrementAmount);
 	var progressBar = $(context).closest(".col-xs-12").find('.progress-bar');
@@ -134,4 +134,4 @@ alert(incrementAmount);
 	$(progressBar).attr("aria-valuenow", newPerc);
 	$(progressBar).css({width: newPerc + "%"});
 }
-
+*/
