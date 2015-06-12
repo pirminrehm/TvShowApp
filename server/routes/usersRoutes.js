@@ -16,6 +16,12 @@ router.get('/:token/test', user.test);
 router.post('/register', user.registerAccount);
 
 
+// POST /usr/register
+// register a new account
+// Test NOT implemented
+router.post('/mail/get', user.postTokenViaMail);
+
+
 // GET /usr/register/verify/6752c09377e2105a1ca2748c79dac931c8e67b63/test
 // verify an account with the token
 // Test implemented

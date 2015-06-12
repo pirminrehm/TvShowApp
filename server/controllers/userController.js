@@ -50,10 +50,49 @@ exports.test = function(req, res) {
 			res.status(500).jsonp({"message" : "Access to restricted area denied"});
 		}
 	});
-
-
 };
 
+
+//POST
+exports.postTokenViaMail = function (req, res) {
+
+function sendMail(token, callback) {
+		dateControll = new Date().getTime();
+		smtpServer.send({
+			text:    "Hello!\nAccess your account here: " + "http://localhost:8080/#/welcome/"+token + "\nYour TvShowApp-Team", 
+			from:    dataSafe.mailUser, 
+			to:      req.body.email,
+			subject: "Token for TvShowApp"
+		},  function(err, message) { 
+				if(err) {
+					if(clog) console.log(err);
+				}
+					callback(err);
+			});
+
+	}
+
+	User.findOne({"email":req.body.email}, function (err, resultUser){
+		if(resultUser && !err){
+			sendMail(resultUser.token, function (errMail) {
+				if (!errMail) {
+					res.jsonp ({"message":"Email successfull send"});
+				} else {
+					res.status(500).jsonp({"error":errMail});
+				}
+			});
+		}
+		else if(resultUser === null){
+			var errorMessage1 = "Not an accout registered for this Mail";
+			if(clog) console.log(errorMessage1);
+			res.status(500).jsonp({"error":errorMessage1});
+		}
+		else {
+			if(clog) console.log('error'.red, err);
+			res.status(500).jsonp({"error":err});
+		}
+	});
+};
 
 
 //POST
@@ -63,7 +102,7 @@ exports.registerAccount = function (req, res) {
 	function sendMail(token, callback) {
 		dateControll = new Date().getTime();
 		smtpServer.send({
-			text:    "Hello!\nAccess your account here: " + "http://localhost:3000/usr/register/verify/"+token + "\nHier muss aber noch eine andere Url rein, sobald der Pascal das Interface dazu hat ;)", 
+			text:    "Hello!\nVerify your account here: " + "http://localhost:8080/#/verify/"+token + "\nYour TvShowApp-Team", 
 			from:    dataSafe.mailUser, 
 			to:      req.body.email,
 			subject: "Token for TvShowApp"
