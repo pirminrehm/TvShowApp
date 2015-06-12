@@ -1,14 +1,39 @@
+<!-- Top Navigation -->
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+
+		<div class="right">
+			<!-- Brand Name - TVShowApp -->
+			<div id="brand">
+				<a class="navbar-brand" href="#">TVShowApp</a>
+			</div>
+
+			<!-- Search -->
+			<div id="search" class="input-group">
+				<input id="search_bar" type="text" class="form-control" placeholder="Search for...">
+				<span class="input-group-btn">
+					<button id="search_button" class="btn btn-default" type="button">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</button>
+				</span>
+			</div>
+
+			<!-- List of found series -->
+
+		</div>
+
+    </div>
+</nav>
+<!-- End of Top Navigation -->
+
+<div class="container-fluid" >
+<div class="row">
+
 <div ng-click="addSeries()">Add new series in user.html</div>
 
 <div ng-repeat="card in cards">
 		
-		
-		
-		
-		
-		
-		
-		<div id="{{card._id}}" class="col-xs-12 col-sm-6 col-md-4">
+<div id="{{card._id}}" class="col-xs-12 col-sm-6 col-md-4">
 	<div class="progress">
 		<div class="progress-bar" ng-class="card.percWatched < 100 ? 'progress-bar-warning' : 'progress-bar-success'" role="progressbar" aria-valuenow="{{ card.percWatched }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ card.percWatched }}%;">
 		</div>
@@ -42,3 +67,35 @@
 		</div>
 	</div>
 </div>
+</div>
+</div>
+
+
+
+
+<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-4">
+
+			<ul class="season_list">
+				<div>
+					<h4>Staffelauswahl</h4>
+					<input type="checkbox">
+				</div>
+				<li>
+					<h4>Season 1</h4>
+					<input class="checkbox" type="checkbox">
+					<p>In Season1 passieren faszinierende Dinge! Manche davon sind sogar so gruselig, dass Jörg sich manchmal in die<br>HOSE SCHEISST!</p>
+				</li>
+				<li class="active">
+					<h4>Season 2</h4>
+					<input class="checkbox" type="checkbox">
+					<p>In Season2 passieren unglaubliche Dinge!</p>
+				</li>
+			</ul>
+
+		</div>
+	</div>
+	
+	
+	
+	<script type="text/javascript" src="js/main.js"></script>

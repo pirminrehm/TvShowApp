@@ -2,14 +2,13 @@ $(document).ready(function () {
 
 
 
-
 /*
 	ProgressBar Function
 	If User clicks on the +1 Button, the progress bar fills itself
 */
-	$('.label-warning').click(function () {
+	/*$('.label-warning').click(function () {
 		progressBarUpdate(this);
-	});
+	});*/
 
 
 /*
