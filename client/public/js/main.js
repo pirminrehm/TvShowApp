@@ -74,23 +74,23 @@ $(document).ready(function () {
 	Open and closes the search box
 */
 	$('#search_button').click(function() {
-		if($('#search_bar').hasClass('active')){
-			search();
-		} else {
-			$('#search_button .glyphicon').removeClass('glyphicon-plus');
-			$('#search_button .glyphicon').addClass('glyphicon-search');
-			$('#search_bar').addClass('active');
-			$('#search_button').css('border-top-left-radius', '0px');
-			$('#search_button').css('border-bottom-left-radius', '0px');
-		}
+		// if($('#search_bar').hasClass('active')){
+		// 	search();
+		// } else {
+			// $('#search_button .glyphicon').removeClass('glyphicon-plus');
+			// $('#search_button .glyphicon').addClass('glyphicon-search');
+			// $('#search_bar').addClass('active');
+			// $('#search_button').css('border-top-left-radius', '0px');
+			// $('#search_button').css('border-bottom-left-radius', '0px');
+		// }
 	});
 
 	/* Small function, that detects if the user uses the enter button */
-	$("#search_bar").keyup(function (e) {
-    	if (e.keyCode == 13) {
-        	search();
-    	}
-	});
+	// $("#search_bar").keyup(function (e) {
+ //    	if (e.keyCode == 13) {
+ //        	search();
+ //    	}
+	// });
 
 	$(document.body).click(function(e){
 		var $box = $('#search');
@@ -109,10 +109,7 @@ $(document).ready(function () {
 	  }
 	};
 
-	function search() {
-		alert("Suche geht noch nicht, Bruder");
-	};
-
+	
 });
 
 /*

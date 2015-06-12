@@ -1,10 +1,45 @@
 var app = angular.module('tvshowapp');
 
-app.controller('UserController', ['$scope','$routeParams', function($scope,$routeParams){
+app.controller('UserController', ['$scope','$routeParams','SearchService', function($scope,$routeParams,SearchService){
 	
 	$scope.cards = [];
 
+	var token = $routeParams.token;
+
 	console.log("in UserController");
+
+
+	$scope.search = function(){
+		
+		
+
+
+		if($('#search_bar').hasClass('active')){
+			// alert("in search");
+			console.log('searchString', $scope.searchString);
+
+			SearchService.searchNewSeries(token,$scope.searchString)
+				.then(function (res){
+					console.log('res', res);
+				}, function (err){
+					$scope.err = err;
+				});
+
+
+
+		}
+		else{
+			$('#search_button .glyphicon').removeClass('glyphicon-plus');
+			$('#search_button .glyphicon').addClass('glyphicon-search');
+			$('#search_bar').addClass('active');
+			$('#search_button').css('border-top-left-radius', '0px');
+			$('#search_button').css('border-bottom-left-radius', '0px');
+		}
+
+
+
+
+	};
 
 	$scope.addSeries = function() {
 		console.log("test1");

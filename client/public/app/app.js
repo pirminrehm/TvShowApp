@@ -1,5 +1,10 @@
 var app = angular.module('tvshowapp', ["ngRoute"]);
 
+var config = {
+	"restUrl" : "http://localhost:3000"
+};
+
+
 app.config(function($routeProvider) {
 	$routeProvider
 		.when("/welcome", {

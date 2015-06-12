@@ -9,17 +9,20 @@
 			</div>
 
 			<!-- Search -->
+			<form ng-submit="search()">
+				
+			
 			<div id="search" class="input-group">
-				<input id="search_bar" type="text" class="form-control" placeholder="Search for...">
+				<input id="search_bar" type="text" class="form-control" placeholder="Search for..." ng-model="searchString">
 				<span class="input-group-btn">
-					<button id="search_button" class="btn btn-default" type="button">
+					<button id="search_button" class="btn btn-default" type="button" ng-click="search()">
 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 					</button>
 				</span>
 			</div>
 
 			<!-- List of found series -->
-
+			</form>
 		</div>
 
     </div>
