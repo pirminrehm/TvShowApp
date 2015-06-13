@@ -3,6 +3,7 @@ var app = angular.module('tvshowapp');
 app.controller('UserController', ['$scope','$routeParams','SearchService', function($scope,$routeParams,SearchService){
 	
 	$scope.cards = [];
+	$scope.searchResults = [];
 
 	var token = $routeParams.token;
 
@@ -20,7 +21,8 @@ app.controller('UserController', ['$scope','$routeParams','SearchService', funct
 
 			SearchService.searchNewSeries(token,$scope.searchString)
 				.then(function (res){
-					console.log('res', res);
+				$scope.addSearchSeries(res);
+					//console.log('res', res);
 				}, function (err){
 					$scope.err = err;
 				});
@@ -40,33 +42,71 @@ app.controller('UserController', ['$scope','$routeParams','SearchService', funct
 
 
 	};
-
-	$scope.addSeries = function() {
-		console.log("test1");
+	
+	$scope.addSearchSeries = function(seriesArray) {
+		console.log("arr", seriesArray);
 		//var arr = JSON.parse(jsonData);
 
-		//alert(object.series[0]._id);
 
-		for(var i = 0; i < object.series.length; i++) {
+
+		for(var i = 0; i < seriesArray.Series.length; i++) {
+			$scope.searchResults.push(new SearchResult(seriesArray.Series[i].id, seriesArray.Series[i].SeriesName));
+
+		}
+	};
+
+	
+	
+	$scope.addSeriesToMyList = function(seriesArray) {
+		console.log("addSeries", seriesArray);
+		//var arr = JSON.parse(jsonData);
+
+seriesArray = exampleSeriesArray;
+
+		for(var i = 0; i < seriesArray.series.length; i++) {
 			var episodeAllCount = 0;
 			var eipsodeWatchedCount = 0;
 			var curEpisodeName = "";
-			for(var j = 0; j < object.series[i].episodes.length; j++) {
+			for(var j = 0; j < seriesArray.series[i].episodes.length; j++) {
 				episodeAllCount++;
-				if(object.series[i].episodes[j].watched){
+				if(seriesArray.series[i].episodes[j].watched){
 					eipsodeWatchedCount++;
-					curEpisodeName = object.series[i].episodes[j].id;
+					curEpisodeName = seriesArray.series[i].episodes[j].id;
 				}
 			}
 
-			$scope.cards.push(new Series(object.series[i]._id, object.series[i].name, episodeAllCount, eipsodeWatchedCount, curEpisodeName));
+			$scope.cards.push(new Series(seriesArray.series[i]._id, seriesArray.series[i].name, episodeAllCount, eipsodeWatchedCount, curEpisodeName));
+
+		}
+	};
+	
+	
+	$scope.addAllSeries = function(seriesArray) {
+		console.log("addSeries", seriesArray);
+		//var arr = JSON.parse(jsonData);
+
+seriesArray = exampleSeriesArray;
+
+		for(var i = 0; i < seriesArray.series.length; i++) {
+			var episodeAllCount = 0;
+			var eipsodeWatchedCount = 0;
+			var curEpisodeName = "";
+			for(var j = 0; j < seriesArray.series[i].episodes.length; j++) {
+				episodeAllCount++;
+				if(seriesArray.series[i].episodes[j].watched){
+					eipsodeWatchedCount++;
+					curEpisodeName = seriesArray.series[i].episodes[j].id;
+				}
+			}
+
+			$scope.cards.push(new Series(seriesArray.series[i]._id, seriesArray.series[i].name, episodeAllCount, eipsodeWatchedCount, curEpisodeName));
 
 		}
 	};
 	
 	$scope.progressBarUpdate = function(id, incrementAmount){
-		//console.log(incrementAmount);
-		console.log(id);
+		console.log(incrementAmount);
+		
 		
 	
 		//alert(incrementAmount);
@@ -76,7 +116,8 @@ app.controller('UserController', ['$scope','$routeParams','SearchService', funct
 	//var nrTotal = ...
 	//get new current percentage
 	//var curPerc = curEpisode / nrTotal;
-	var newPerc = parseInt($(progressBar).attr("aria-valuenow")) + incrementAmount;
+	var newPerc = parseFloat($(progressBar).attr("aria-valuenow")) + incrementAmount;
+	console.log(newPerc);
 	//console.log(newPerc);
 	if(newPerc >= 100){
 		//progressBarFull(id);

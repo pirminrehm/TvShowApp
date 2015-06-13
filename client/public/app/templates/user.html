@@ -29,8 +29,19 @@
 </nav>
 <!-- End of Top Navigation -->
 
+
+
 <div class="container-fluid" >
 <div class="row">
+
+<div ng-repeat="result in searchResults">
+<div class="searchResult">
+<p>{{result.id}}</p>
+<p>{{result.title}}</p>
+<p ng-click="addSeriesToMyList(result)">ADD SERIES TO MY LIST</p>
+</div>
+</div>
+
 
 <div ng-click="addSeries()">Add new series in user.html</div>
 

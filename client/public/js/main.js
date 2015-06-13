@@ -1,15 +1,25 @@
+
+
+
 $(document).ready(function () {
 
 
-
-/*
-	ProgressBar Function
-	If User clicks on the +1 Button, the progress bar fills itself
+var allSeriesNames = [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ];
+$( "#search_bar" ).autocomplete({
+  source: allSeriesNames
+});
+/* evtl TODO: weil searchString nicht updated wird, wenn autocomplete selected wird
+$( ".search_bar" ).autocomplete({
+  select: function( event, ui ) {
+  
+  }
+});
 */
-	/*$('.label-warning').click(function () {
-		progressBarUpdate(this);
-	});*/
 
+
+
+
+	
 
 /*
 	NewList Function
