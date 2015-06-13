@@ -8,12 +8,16 @@ var config = {
 app.config(function($routeProvider) {
 	$routeProvider
 		.when("/welcome", {
-			templateUrl: "/app/templates/testWelcome.html",
-			controller: "TestWelcomeController"
+			templateUrl: "/app/templates/welcome.html",
+			controller: "WelcomeController"
 		})
 		.when("/user/:token", {
 			templateUrl: "/app/templates/user.html",
 			controller: "UserController"
+		})
+		.when("/mail", {
+			templateUrl: "/app/templates/mail.html",
+			controller: "MailController"
 		})
 		.otherwise({redirectTo: '/welcome'});
 		
