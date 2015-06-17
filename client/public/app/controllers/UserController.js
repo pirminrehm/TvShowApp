@@ -57,11 +57,16 @@ app.controller('UserController', ['$scope','$routeParams','SearchService', funct
 
 	
 	
-	$scope.addSeriesToMyList = function(seriesArray) {
-		console.log("addSeries", seriesArray);
+	$scope.addSeriesToMyList = function(seriesId) {
+		console.log("addSeries", seriesId);
 		//var arr = JSON.parse(jsonData);
+		
+		
+		"http://localhost:3000/usr/token/79c25df0ec4bf2d92872a299c299685f426a3602/series/" + seriesId
+		
+		
 
-seriesArray = exampleSeriesArray;
+		seriesArray = exampleSeriesArray;
 
 		for(var i = 0; i < seriesArray.series.length; i++) {
 			var episodeAllCount = 0;
