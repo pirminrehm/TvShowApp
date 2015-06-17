@@ -15,6 +15,7 @@ var EpisodeSchema = new Schema({
 var SeriesSchema = new Schema({
  	name: String,
  	id: String,
+ 	bannerUrl: String,
  	episodes: [EpisodeSchema]
 
   });

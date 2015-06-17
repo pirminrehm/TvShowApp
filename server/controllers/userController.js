@@ -15,13 +15,7 @@ var dataSafe = require('../../private/dataSafe.json');
 var User = mongoose.model('User');
 var Series = mongoose.model('Series');
 
-/*
-==========================================
-============ ATTENTION ===================
-==========================================
-code just for testing in usa at restigsterAccount
 
-*/
 
 
 //logging in der console???
@@ -149,21 +143,30 @@ exports.registerAccount = function (req, res) {
 
 
 	function checkMail (callback) {
-		User.findOne({"email":req.body.email}, function (err, resultMail){
-			if(resultMail && !err){
-				if(clog) console.log("duplicated mail");
-				callback(false, "duplicated");
-			}
-			else if(resultMail === null){
-				if(clog) console.log("correct mail");
-				callback(true, "");
+		if(_.has(req.body, "email")) {
+			if (/\S/.test(req.body.email)) {
+				User.findOne({"email":req.body.email}, function (err, resultMail){
+					if(resultMail && !err){
+						if(clog) console.log("duplicated mail");
+						callback(false, "duplicated");
+					}
+					else if(resultMail === null){
+						if(clog) console.log("correct mail");
+						callback(true, "");
 
+					}
+					else {
+						if(clog) console.log("err: ", err);
+						callback(false, err);
+					}
+				});
+			} else {
+				callback (false, "invalide email")
 			}
-			else {
-				if(clog) console.log("err: ", err);
-				callback(false, err);
-			}
-		});
+		} else {
+			callback (false, "invalide email")
+		}
+
 	}
 
 
@@ -192,8 +195,6 @@ exports.registerAccount = function (req, res) {
 								insertUser(token, function(err, storedUser){
 									if (storedUser && !err) {
 										if(clog) console.log('Success: insert user');
-										//just for testing!!!!
-										//res.jsonp(storedUser);
 										res.jsonp({"message" : "You should recieve an Email with your login token"});
 									} 
 									else if(storedUser === null){
@@ -270,6 +271,7 @@ function addSeriesToUser(series2Store,user,res){
 	var userSeries = {
 		"name" : series2Store.Series.SeriesName,
 		"id" : series2Store.Series.id,
+		"bannerUrl" : "http://thetvdb.com/banners/" + series2Store.Series.fanart,
 		"episodes" : userSeriesEpisodes
 	};
 
@@ -281,7 +283,7 @@ function addSeriesToUser(series2Store,user,res){
 function saveUser(user, res, logTextSucces, resTextError){
 	user.save(function (errSave, storedUser){
 		if (storedUser && !errSave){
-			console.log(logTextSucces);
+			if (clog) console.log(logTextSucces);
 			// console.log('storedUser', storedUser);
 			res.jsonp(storedUser);
 		}
