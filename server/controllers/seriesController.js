@@ -15,7 +15,8 @@ var clog = false;
 
 exports.search = function(req, res){
 
-	var url = "http://www.thetvdb.com/api/GetSeries.php?seriesname=" + req.params.searchString + "&language=fr";
+	// var url = "http://www.thetvdb.com/api/GetSeries.php?seriesname=" + req.params.searchString + "&language=fr";
+	var url = "http://www.thetvdb.com/api/GetSeries.php?seriesname=" + req.params.searchString;
 
 	console.log('url', url);
 

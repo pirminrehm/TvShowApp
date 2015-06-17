@@ -1,34 +1,45 @@
 var app = angular.module('tvshowapp');
 
-app.controller('UserController', ['$scope','$routeParams','SearchService', function($scope,$routeParams,SearchService){
+app.controller('UserController', ['$scope','$routeParams','SearchService','UserService', function($scope,$routeParams,SearchService,UserService){
 	
 	$scope.cards = [];
 	$scope.searchResults = [];
 
 	var token = $routeParams.token;
 
-	console.log("in UserController");
+
+	UserService.getUser(token)
+		.then(function (res){
+			for(var i=0; i<res.series.length; i++){
+				createNewSeries(res.series[i]);
+			}
+		}, function (err){
+			$scope.err = err;
+		});
 
 
 	$scope.search = function(){
-		
-		
-
 
 		if($('#search_bar').hasClass('active')){
-			// alert("in search");
-			console.log('searchString', $scope.searchString);
-
+			// console.log('searchString', $scope.searchString);
 			SearchService.searchNewSeries(token,$scope.searchString)
 				.then(function (res){
-				$scope.addSearchSeries(res);
-					//console.log('res', res);
+					// console.log('res in $scope.search', res);
+					$scope.searchResults = [];
+					if(Array.isArray(res.Series)){
+						$scope.searchResults = res.Series;
+					}
+					else if(res.Series){
+						$scope.searchResults[0] = res.Series;
+					}
+					else{
+						$scope.searchResults = [];
+						console.log('no search result');
+						alert('no search result');
+					}
 				}, function (err){
 					$scope.err = err;
 				});
-
-
-
 		}
 		else{
 			$('#search_button .glyphicon').removeClass('glyphicon-plus');
@@ -37,77 +48,82 @@ app.controller('UserController', ['$scope','$routeParams','SearchService', funct
 			$('#search_button').css('border-top-left-radius', '0px');
 			$('#search_button').css('border-bottom-left-radius', '0px');
 		}
-
-
-
-
 	};
-	
-	$scope.addSearchSeries = function(seriesArray) {
-		console.log("arr", seriesArray);
-		//var arr = JSON.parse(jsonData);
-
-
-
-		for(var i = 0; i < seriesArray.Series.length; i++) {
-			$scope.searchResults.push(new SearchResult(seriesArray.Series[i].id, seriesArray.Series[i].SeriesName));
-
-		}
-	};
-
 	
 	
 	$scope.addSeriesToMyList = function(seriesId) {
-		console.log("addSeries", seriesId);
-		//var arr = JSON.parse(jsonData);
 		
-		
-		"http://localhost:3000/usr/token/79c25df0ec4bf2d92872a299c299685f426a3602/series/" + seriesId
-		
-		
-
-		seriesArray = exampleSeriesArray;
-
-		for(var i = 0; i < seriesArray.series.length; i++) {
-			var episodeAllCount = 0;
-			var eipsodeWatchedCount = 0;
-			var curEpisodeName = "";
-			for(var j = 0; j < seriesArray.series[i].episodes.length; j++) {
-				episodeAllCount++;
-				if(seriesArray.series[i].episodes[j].watched){
-					eipsodeWatchedCount++;
-					curEpisodeName = seriesArray.series[i].episodes[j].id;
-				}
-			}
-
-			$scope.cards.push(new Series(seriesArray.series[i]._id, seriesArray.series[i].name, episodeAllCount, eipsodeWatchedCount, curEpisodeName));
-
-		}
+		UserService.addSeriesToList(token, seriesId)
+			.then(function (res){
+				createNewSeries(res);
+			}, function (err){
+				$scope.err = err;
+			});	
 	};
+
+
+	function createNewSeries(series){
+		
+		var episodeAllCount = 0;
+		var eipsodeWatchedCount = 0;
+		var curEpisodeName = "";
+		for(var j = 0; j < series.episodes.length; j++) {
+			episodeAllCount++;
+			if(series.episodes[j].watched){
+				eipsodeWatchedCount++;
+				curEpisodeName = series.episodes[j].id;
+			}
+		}
+		$scope.cards.push(new Series(series.id, series.name, series.bannerUrl,episodeAllCount, eipsodeWatchedCount, curEpisodeName));
+	}
 	
 	
-	$scope.addAllSeries = function(seriesArray) {
-		console.log("addSeries", seriesArray);
-		//var arr = JSON.parse(jsonData);
+// $scope.addSearchSeries = function(seriesArray) {
+// 	console.log("seriesArray in addSearchSeries", seriesArray);
+// 	for(var i = 0; i < seriesArray.Series.length; i++) {
+// 		$scope.searchResults.push(new SearchResult(seriesArray.Series[i].id, seriesArray.Series[i].SeriesName));
 
-seriesArray = exampleSeriesArray;
+// 	}
+// };
 
-		for(var i = 0; i < seriesArray.series.length; i++) {
-			var episodeAllCount = 0;
-			var eipsodeWatchedCount = 0;
-			var curEpisodeName = "";
-			for(var j = 0; j < seriesArray.series[i].episodes.length; j++) {
-				episodeAllCount++;
-				if(seriesArray.series[i].episodes[j].watched){
-					eipsodeWatchedCount++;
-					curEpisodeName = seriesArray.series[i].episodes[j].id;
-				}
-			}
 
-			$scope.cards.push(new Series(seriesArray.series[i]._id, seriesArray.series[i].name, episodeAllCount, eipsodeWatchedCount, curEpisodeName));
+	// function addUserDataToMainList(user){
+	// 	for(var i = 0; i < user.series.length; i++) {
+	// 		var episodeAllCount = 0;
+	// 		var eipsodeWatchedCount = 0;
+	// 		var curEpisodeName = "";
+	// 		for(var j = 0; j < user.series[i].episodes.length; j++) {
+	// 			episodeAllCount++;
+	// 			if(user.series[i].episodes[j].watched){
+	// 				eipsodeWatchedCount++;
+	// 				curEpisodeName = user.series[i].episodes[j].id;
+	// 			}
+	// 		}
 
-		}
-	};
+	// 		$scope.cards.push(new Series(user.series[i].id, user.series[i].name, episodeAllCount, eipsodeWatchedCount, curEpisodeName));
+
+	// 	}
+	// }
+
+
+	// function addSeriesToMainList(user){
+	// 	for(var i = 0; i < user.series.length; i++) {
+	// 		var episodeAllCount = 0;
+	// 		var eipsodeWatchedCount = 0;
+	// 		var curEpisodeName = "";
+	// 		for(var j = 0; j < user.series[i].episodes.length; j++) {
+	// 			episodeAllCount++;
+	// 			if(user.series[i].episodes[j].watched){
+	// 				eipsodeWatchedCount++;
+	// 				curEpisodeName = user.series[i].episodes[j].id;
+	// 			}
+	// 		}
+
+	// 		$scope.cards.push(new Series(user.series[i].id, user.series[i].name, episodeAllCount, eipsodeWatchedCount, curEpisodeName));
+
+	// 	}
+	// }
+
 	
 	$scope.progressBarUpdate = function(id, incrementAmount){
 		console.log(incrementAmount);

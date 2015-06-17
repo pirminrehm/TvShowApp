@@ -7,7 +7,9 @@ var Schema = mongoose.Schema;
 
 var EpisodeSchema = new Schema({
  	id: Number,
- 	watched: Boolean
+ 	watched: Boolean,
+ 	name: String,
+ 	season: String
  });
 
 

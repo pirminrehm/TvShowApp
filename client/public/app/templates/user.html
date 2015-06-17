@@ -37,11 +37,12 @@
 <div ng-repeat="result in searchResults">
 <div class="searchResult">
 <p>{{result.id}}</p>
-<p>{{result.title}}</p>
+<p>{{result.SeriesName}}</p>
 <p ng-click="addSeriesToMyList(result.id)">ADD SERIES TO MY LIST</p>
 </div>
 </div>
 
+<!-- <div ng-if="searchResults.length == 0"><p>No search result</p></div> -->
 
 <div ng-click="addSeries()">Add new series in user.html</div>
 
@@ -52,7 +53,8 @@
 		<div class="progress-bar" ng-class="card.percWatched < 100 ? 'progress-bar-warning' : 'progress-bar-success'" role="progressbar" aria-valuenow="{{ card.percWatched }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ card.percWatched }}%;">
 		</div>
 	</div>
-	<div class="series" style="background-image:url(http://thetvdb.com/banners/fanart/original/262980-11.jpg);"> 
+	<!-- <div class="series" style="background-image:url(http://thetvdb.com/banners/fanart/original/262980-11.jpg);">  -->
+	<div class="series" style="background-image:url({{card.bannerUrl}});"> 
 		<div class="series-inner"> 
 			<div class="series-inner-title"> 
 				<div class="left"> 

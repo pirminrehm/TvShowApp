@@ -263,7 +263,9 @@ function addSeriesToUser(series2Store,user,res){
 	for(var i=0; i<series2Store.Episode.length; i++){
 		var episode = {
 			"id" : series2Store.Episode[i].id,
-			"watched" : false
+			"watched" : false,
+			"name" : series2Store.Episode[i].EpisodeName,
+			"season" : series2Store.Episode[i].seasonid
 		};
 		userSeriesEpisodes.push(episode);
 	}
@@ -271,13 +273,48 @@ function addSeriesToUser(series2Store,user,res){
 	var userSeries = {
 		"name" : series2Store.Series.SeriesName,
 		"id" : series2Store.Series.id,
-		"bannerUrl" : "http://thetvdb.com/banners/" + series2Store.Series.fanart,
+		"bannerUrl" : "",
 		"episodes" : userSeriesEpisodes
 	};
 
+	if(series2Store.Series.fanart){
+		userSeries.bannerUrl = "http://thetvdb.com/banners/" + series2Store.Series.fanart;
+	}
+	else if(series2Store.Series.banner){
+		userSeries.bannerUrl = "http://thetvdb.com/banners/" + series2Store.Series.banner;	
+	}
+	else{
+		userSeries.bannerUrl = "";
+	}
+
 	user.series.push(userSeries);
-	saveUser(user, res, "Success: update user (added series)", "Error: update user failed (added series)");
+	saveUserReturnSeries(user, res, series2Store.Series.id, "Success: update user (added series)", "Error: update user failed (added series)");
 }
+
+
+function saveUserReturnSeries(user, res, seriesId, logTextSucces, resTextError){
+	user.save(function (errSave, storedUser){
+		if (storedUser && !errSave){
+			if (clog) console.log(logTextSucces);
+
+			for(var i=0; i<storedUser.series.length; i++){
+				if(storedUser.series[i].id == seriesId){
+					res.jsonp(storedUser.series[i]);
+					return;
+				}
+			}
+
+			res.status(500).jsonp({"error" : resTextError});
+		}
+		else if(storedUser === null){
+			res.status(500).jsonp({"error" : resTextError});
+		}
+		else {
+			res.status(500).jsonp({"error" : errSave});
+		}
+	});
+}
+
 
 
 function saveUser(user, res, logTextSucces, resTextError){

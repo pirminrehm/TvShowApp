@@ -1,11 +1,12 @@
 
 
-function Series(id, title, episodeAllCount, eipsodeWatchedCount, curEpisodeName) {
+function Series(id, title, bannerUrl,episodeAllCount, eipsodeWatchedCount, curEpisodeName) {
 
 	//alert(episodeAllCount);
 	this._id = id;
 	this.episodeAllCount = episodeAllCount;
 	this.eipsodeWatchedCount = eipsodeWatchedCount;
+    this.bannerUrl = bannerUrl;
 	this.incrementAmount = (1/episodeAllCount) * 100 + 0.0000000001;
 	//alert(this.incrementAmount);
 	this.percWatched = (eipsodeWatchedCount/episodeAllCount) * 100;
@@ -33,10 +34,10 @@ function Series(id, title, episodeAllCount, eipsodeWatchedCount, curEpisodeName)
 	 */
 }
 
-function SearchResult(id, title) {
-	this.id = id;
-	this.title = title;
-}
+// function SearchResult(id, title) {
+// 	this.id = id;
+// 	this.title = title;
+// }
 
 
 var exampleSeriesArray = {
