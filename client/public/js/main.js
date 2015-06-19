@@ -16,32 +16,6 @@ $( ".search_bar" ).autocomplete({
 });
 */
 
-
-
-
-	
-
-/*
-	NewList Function
-*/
-	function newList() {
-		// alert("FICK DICH DONNER"); 
-		// var email = mailingfield.elements["mail-adress"].value;
-		// var jsonFile = '{ "email" : "' + email + '"}';
-		
-		// $.ajax({
-		// 	type: "POST",
-		// 	url: "localhost:3000/usr/register",
-		// 	data: jsonFile,
-		// 	dataType: "json",
-		// 	success: function(data){
-		// 		alert('yay');
-		// 	},
-		// });
-
-		// alert("!");
-	}
-
 /*
 	SpoilerDescription Function
 	Allows to open and close the description for a single episode

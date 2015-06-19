@@ -20,7 +20,7 @@ app.controller('WelcomeController', ['$scope','$location','AuthenticationService
 				$scope.err = err;
 				console.log('err',err);
 
-				// TODO Walle
+				// TODO Walle - Error Div wird eingeblendet
 				$.('#welcomeAlert').css('display': 'block');
 			});
 	};
