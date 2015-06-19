@@ -20,11 +20,16 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 
 	$scope.search = function(){
 
-		if($('#search_bar').hasClass('active')){
-			// console.log('searchString', $scope.searchString);
+		if($('#search_bar').hasClass('active') &&  typeof $scope.searchString !== 'undefined' && $scope.searchString != ""){
+			
+			console.log('searchString', $scope.searchString);
+			
 			SearchService.searchNewSeries(token,$scope.searchString)
 				.then(function (res){
-					// console.log('res in $scope.search', res);
+					
+					//console.log('searchString Final', $scope.searchString);
+					console.log('res in $scope.search', res);
+					
 					$scope.searchResults = [];
 					if(Array.isArray(res.Series)){
 						$scope.searchResults = res.Series;
@@ -35,13 +40,12 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 					else{
 						$scope.searchResults = [];
 						console.log('no search result');
-						alert('no search result');
+						alert('No search results');
 					}
 				}, function (err){
 					$scope.err = err;
 				});
-		}
-		else{
+		} else {
 			$('#search_button .glyphicon').removeClass('glyphicon-plus');
 			$('#search_button .glyphicon').addClass('glyphicon-search');
 			$('#search_bar').addClass('active');
