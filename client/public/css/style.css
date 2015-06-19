@@ -257,6 +257,9 @@ display: inline;
 	right: 9px;
 }
 
+#welcomeAlert {
+	display: none;
+}
 
 
 
