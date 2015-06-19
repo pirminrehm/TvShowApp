@@ -35,16 +35,18 @@
 <div class="row">
 
 <div ng-repeat="result in searchResults">
+
 <div class="searchResult">
 <p>{{result.id}}</p>
 <p>{{result.SeriesName}}</p>
 <p ng-click="addSeriesToMyList(result.id)">ADD SERIES TO MY LIST</p>
 </div>
+
 </div>
 
 <!-- <div ng-if="searchResults.length == 0"><p>No search result</p></div> -->
 
-<div ng-click="addSeries()">Add new series in user.html</div>
+<!--<div ng-click="addSeries()">Add new series in user.html</div>-->
 
 <div ng-repeat="card in cards">
 		
