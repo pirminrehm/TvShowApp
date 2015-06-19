@@ -67,6 +67,8 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 
 
 	function createNewSeries(series){
+	
+	console.log('series in createNewSeries', series);
 		
 		var episodeAllCount = 0;
 		var eipsodeWatchedCount = 0;

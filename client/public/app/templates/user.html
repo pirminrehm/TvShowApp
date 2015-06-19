@@ -32,8 +32,9 @@
 
 
 <div class="container-fluid" >
-<div class="row">
 
+
+<!--
 <div ng-repeat="result in searchResults">
 
 <div class="searchResult">
@@ -44,10 +45,47 @@
 
 </div>
 
+-->
+
+
+
+<br><br><hr><br><br>
+
+<div class="row">
+<div ng-repeat="result in searchResults">
+
+
+
+
+
+
+	<div class="searchResult col-xs-12 col-sm-6 col-md-4">
+		<ul class="list-group">
+			<li class="list-group-item">
+				<p>{{result.SeriesName}}</p>
+		  		<button type="button" class="btn btn-default btn-xs btnright">
+					<span ng-click="addSeriesToMyList(result.id)" class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				</button>
+			</li>
+		</ul>
+	</div>
+	
+	
+	
+	
+	
+	
+	</div>
+</div>
+
+<br><br><hr><br><br>
+
+
+
 <!-- <div ng-if="searchResults.length == 0"><p>No search result</p></div> -->
 
 <!--<div ng-click="addSeries()">Add new series in user.html</div>-->
-
+<div class="row">
 <div ng-repeat="card in cards">
 		
 <div id="{{card._id}}" class="col-xs-12 col-sm-6 col-md-4">
@@ -94,53 +132,6 @@
 </div>
 </div>
 
-<br><br><hr><br><br>
-
-<div class="row">
-	<div class="col-xs-12 col-sm-6 col-md-4">
-		<ul class="list-group">
-			<li class="list-group-item">
-		  		How i met yo mom
-		  		<button type="button" class="btn btn-default btn-xs btnright">
-					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-				</button>
-			</li>
-		</ul>
-	</div>
-	<div class="col-xs-12 col-sm-6 col-md-4">
-		<ul class="list-group">
-			<li class="list-group-item">
-		  		How i met yo mom
-		  		<button type="button" class="btn btn-default btn-xs btnright">
-					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-				</button>
-			</li>
-		</ul>
-	</div>
-	<div class="col-xs-12 col-sm-6 col-md-4">
-		<ul class="list-group">
-			<li class="list-group-item">
-		  		How i met yo mom
-		  		<button type="button" class="btn btn-default btn-xs btnright">
-					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-				</button>
-			</li>
-		</ul>
-	</div>
-	<div class="col-xs-12 col-sm-6 col-md-4">
-		<ul class="list-group">
-			<li class="list-group-item">
-		  		How i met yo mom in da hood with yowowoow blalala lala
-		  		<button type="button" class="btn btn-default btn-xs btnright">
-					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-				</button>
-			</li>
-		</ul>
-	</div>
-</div>
-
-<br><br><hr><br><br>
-
 
 
 
@@ -170,3 +161,5 @@
 	
 	
 	<script type="text/javascript" src="js/main.js"></script>
+</div>
+	
