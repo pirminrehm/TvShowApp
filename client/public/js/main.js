@@ -93,6 +93,7 @@ $( ".search_bar" ).autocomplete({
 			// $('#search_button').css('border-top-left-radius', '0px');
 			// $('#search_button').css('border-bottom-left-radius', '0px');
 		// }
+		$('#search_bar').focus();
 	});
 
 	/* Small function, that detects if the user uses the enter button */
