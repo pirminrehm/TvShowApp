@@ -97,7 +97,7 @@ body {
 	width: 10%;
 	max-width: 400px;
 	opacity: 0;
-	visibility: hidden;
+	
 	float: right;
 	-webkit-transition: all 500ms ease-out;
 	-moz-transition: all 500ms ease-out;
@@ -107,7 +107,6 @@ body {
 
 .active#search_bar {
 	opacity: 1;
-	visibility: visible;
 	width: 100%;
 }
 
