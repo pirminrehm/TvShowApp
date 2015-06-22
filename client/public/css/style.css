@@ -272,5 +272,9 @@ display: inline;
     user-select: none;
 }
 
+.progress {
+	background: #e6e6e6;
+}
+
 
 
