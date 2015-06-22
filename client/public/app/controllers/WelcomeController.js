@@ -14,7 +14,7 @@ app.controller('WelcomeController', ['$scope','$location','AuthenticationService
 				console.log('err',err);
 
 				// TODO Walle - Error Div wird eingeblendet
-				$('#welcomeAlert').css({'display': 'block'});
+				$('#alertBox').css({'display': 'block'});
 			});
 	};
 
