@@ -19,6 +19,10 @@ app.config(function($routeProvider) {
 			templateUrl: "/app/templates/mail.html",
 			controller: "MailController"
 		})
+		.when("/verify/:token", {
+			templateUrl: "/app/templates/verify.html",
+			controller: "VerifyController"
+		})
 		.otherwise({redirectTo: '/welcome'});
 		
 

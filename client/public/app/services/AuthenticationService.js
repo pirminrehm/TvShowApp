@@ -30,9 +30,23 @@ app.factory('AuthenticationService', ['$http','$q', function($http,$q){
 	};
 
 
+	var doVerify = function(token){
+		var deferred = $q.defer();
+		$http.get(url + "/usr/register/verify/" + token)
+			.success(function (response){
+				deferred.resolve(response);
+			})
+			.error(function (err) {
+				deferred.reject(err);
+			});
+		return deferred.promise;
+	};
+
+
 	var service = {
 		newList : function(email){return doNewList(email);},
-		getList : function(email){return doGetList(email);}
+		getList : function(email){return doGetList(email);},
+		verify : function(token){return doVerify(token);}
 	};
 
 
