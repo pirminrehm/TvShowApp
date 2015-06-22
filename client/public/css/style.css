@@ -276,5 +276,8 @@ display: inline;
 	background: #e6e6e6;
 }
 
-
-
+#verify {
+	height: 20px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
