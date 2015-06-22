@@ -61,6 +61,7 @@ body {
 
 .series-inner-title .left {
 	padding-left: 10px;
+	padding-right: 55px;
 }
 
 .series-inner-title .right {
@@ -280,4 +281,9 @@ display: inline;
 	height: 20px;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
+}
+
+/* No merge with button */
+.searchResult .list-group .list-group-item {
+	padding-right: 40px;
 }
