@@ -64,8 +64,14 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 		UserService.addSeriesToList(token, seriesId)
 			.then(function (res){
 				createNewSeries(res);
-				$('#' + seriesId).removeClass("glyphicon-ok");
+				$('#' + seriesId).removeClass("glyphicon-time");
 				$('#' + seriesId).addClass("glyphicon-ok");
+
+				$( "#searchResultList" ).fadeOut( "slow", function() {
+    				// Animation complete.
+    				$scope.searchResults = [];
+  				});
+				
 			}, function (err){
 				$scope.err = err;
 			});	
