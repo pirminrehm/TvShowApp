@@ -86,3 +86,20 @@ alert(incrementAmount);
 	$(progressBar).css({width: newPerc + "%"});
 }
 */
+
+/* SubString Function */
+function cutSeriesTitle(String string) {
+	if (string.size() < 13) {
+		return string;
+	} else if {
+		return string.substring(0,10) + "...";
+	}
+}
+
+function cutEpisodeTitle(String string) {
+	if (string.size() < 20) {
+		return string;
+	} else if {
+		return string.substring(0,22) + "...";
+	}
+}
