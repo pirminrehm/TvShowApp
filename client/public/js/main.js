@@ -1,23 +1,7 @@
-
-
-
 $(document).ready(function () {
-
-
-
 //list from http://tvline.com/2013/06/03/100-best-written-tv-shows-ever-the-sopranos/
 
-
-
-/*
-	SpoilerDescription Function
-	Allows to open and close the description for a single episode
-
-	Checkbox Function
-	Lets the user check the episodes/series he has already seen
-*/
-
-	/* SpoilerDescription Function */
+/* SpoilerDescription Function */
 	$('.season_list div input').click(function () {
 		var returnVal = confirm("Are you sure?");
 		if(returnVal == true){
@@ -30,8 +14,8 @@ $(document).ready(function () {
 		$('.season_list div input').val($(this).is(':checked'));
 	});
 	
-	/* Checkbox Function */
-	/* BUG: Only check all the boxes of ONE Season */
+/* Checkbox Function */
+/* BUG: Only check all the boxes of ONE Season */
 	$('.season_list li').click(function (e) {
 		if(e.target.className != 'checkbox'){
 			if (!$(this).hasClass('active')) {
@@ -54,13 +38,12 @@ $(document).ready(function () {
 		$('#search_bar').focus();
 	});
 
-	/* Small function, that detects if the user uses the enter button */
-	// $("#search_bar").keyup(function (e) {
- //    	if (e.keyCode == 13) {
- //        	search();
- //    	}
-	// });
 
+/*
+	Fuctions that lets the search reduce itself, when the search-field is open
+	and the user clicks somewhere on the screen except the search-field /
+	search-button
+*/
 	$(document.body).click(function(e){
 		var $box = $('#search');
 		if(/*e.target.id !== 'search' &&*/ !$.contains($box[0], e.target)){
@@ -68,6 +51,9 @@ $(document).ready(function () {
 		}
 	});
 
+/*
+	Lets the Search Bar slides in again
+*/
 	function reduceSearch(){
 	if($('#search_bar').hasClass('active')){
 	  $('#search_button .glyphicon').removeClass('glyphicon-search');
@@ -75,10 +61,9 @@ $(document).ready(function () {
 	  $('#search_bar').removeClass('active');
 	  $('#search_button').css('border-top-left-radius', '4px');
 	  $('#search_button').css('border-bottom-left-radius', '4px');
+	  $scope.searchString = [];
 	  }
 	};
-
-	
 });
 
 /*
