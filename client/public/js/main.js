@@ -1,4 +1,5 @@
 $(document).ready(function () {
+console.log("testy");
 //list from http://tvline.com/2013/06/03/100-best-written-tv-shows-ever-the-sopranos/
 
 /* SpoilerDescription Function */
@@ -45,8 +46,10 @@ $(document).ready(function () {
 	search-button
 */
 	$(document.body).click(function(e){
+	console.log("test");
 		var $box = $('#search');
 		if(/*e.target.id !== 'search' &&*/ !$.contains($box[0], e.target)){
+		
 			reduceSearch();
 		}
 	});
@@ -88,18 +91,21 @@ alert(incrementAmount);
 */
 
 /* SubString Function */
-function cutSeriesTitle(String string) {
+
+
+function cutSeriesTitle(string) {
 	if (string.size() < 13) {
 		return string;
-	} else if {
+	} else  {
 		return string.substring(0,10) + "...";
 	}
-}
+};
 
-function cutEpisodeTitle(String string) {
+function cutEpisodeTitle(string) {
 	if (string.size() < 20) {
 		return string;
-	} else if {
+	} else {
 		return string.substring(0,22) + "...";
 	}
-}
+};
+

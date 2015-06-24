@@ -109,7 +109,8 @@ source: allSeriesNames,
 				eipsodeWatchedCount++;
 				//curEpisodeName = series.episodes[j].id;
 			} else if(curEpisodeName == ""){
-			console.log(series.episodes[j].name);
+			
+				//curEpisodeNr = series.episodes[j].
 				curEpisodeName = series.episodes[j].name;
 			}
 		}
