@@ -57,9 +57,15 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 	
 	$scope.addSeriesToMyList = function(seriesId) {
 		
+		// Test glyphicon glyphicon-time
+		$('#' + seriesId).removeClass("glyphicon-plus");
+		$('#' + seriesId).addClass("glyphicon-time");
+
 		UserService.addSeriesToList(token, seriesId)
 			.then(function (res){
 				createNewSeries(res);
+				$('#' + seriesId).removeClass("glyphicon-ok");
+				$('#' + seriesId).addClass("glyphicon-ok");
 			}, function (err){
 				$scope.err = err;
 			});	
