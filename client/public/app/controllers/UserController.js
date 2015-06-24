@@ -56,6 +56,7 @@ source: allSeriesNames,
 						$scope.searchResults = [];
 						console.log('no search result');
 						$("#dialog").dialog();
+						
 						//alert('No search results');
 					}
 				}, function (err){
@@ -67,6 +68,7 @@ source: allSeriesNames,
 			$('#search_bar').addClass('active');
 			$('#search_button').css('border-top-left-radius', '0px');
 			$('#search_button').css('border-bottom-left-radius', '0px');
+			$scope.searchString = [];
 		}
 	};
 	
@@ -105,12 +107,13 @@ source: allSeriesNames,
 			episodeAllCount++;
 			if(series.episodes[j].watched){
 				eipsodeWatchedCount++;
-				curEpisodeName = series.episodes[j].id;
+				//curEpisodeName = series.episodes[j].id;
 			} else if(curEpisodeName == ""){
+			console.log(series.episodes[j].name);
 				curEpisodeName = series.episodes[j].name;
 			}
 		}
-		$scope.cards.push(new Series(series.id, series.name, series.bannerUrl,episodeAllCount, eipsodeWatchedCount, curEpisodeName));
+		$scope.cards.push(new Series(series.id, series.name, series.bannerUrl,episodeAllCount, eipsodeWatchedCount, curEpisodeName, series.episodes));
 	}
 	
 	
@@ -119,9 +122,29 @@ source: allSeriesNames,
 	$scope.progressBarUpdate = function(id, incrementAmount){
 		console.log(incrementAmount);
 		
+		//episodeNr muss watched=true gesetzt werden
+		
 		for(var i = 0; i < $scope.cards.length; i++) {
 			if($scope.cards[i]._id == id){
-				$scope.cards[i].episodeTitle = "testtttttt";
+			
+				for(var j = 0; j < $scope.cards[i].episodes.length; j++) {
+					if(!$scope.cards[i].episodes[j].watched){
+						$scope.cards[i].episodeTitle = $scope.cards[i].episodes[j+1].name;
+						$scope.cards[i].episodes[j].watched = true;
+						UserService.setWatched(token, true, $scope.cards[i].episodes[j].id).then(function (res){
+							console.log("success");
+						}, function (err){
+							$scope.err = err;
+						});	
+						
+						
+						break;
+					}
+				}
+				
+			
+			
+				
 			}
 		
 		}
@@ -132,13 +155,13 @@ source: allSeriesNames,
 	
 		//alert(incrementAmount);
 	var progressBar = $("#" + id).find('.progress-bar');
-	console.log(progressBar);
+	//console.log(progressBar);
 	//get number of episodes in current season
 	//var nrTotal = ...
 	//get new current percentage
 	//var curPerc = curEpisode / nrTotal;
 	var newPerc = parseFloat($(progressBar).attr("aria-valuenow")) + incrementAmount;
-	console.log(newPerc);
+	//console.log(newPerc);
 	//console.log(newPerc);
 	if(newPerc >= 100){
 		//progressBarFull(id);
