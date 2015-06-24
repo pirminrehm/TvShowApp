@@ -1,6 +1,6 @@
 
 
-function Series(id, title, bannerUrl,episodeAllCount, eipsodeWatchedCount, curEpisodeName) {
+function Series(id, title, bannerUrl,episodeAllCount, eipsodeWatchedCount, curEpisodeName, episodes) {
 
 	//alert(episodeAllCount);
 	this._id = id;
@@ -18,6 +18,7 @@ function Series(id, title, bannerUrl,episodeAllCount, eipsodeWatchedCount, curEp
 	this.title = title;
 	this.episodeNr = 'S010101';
 	this.episodeTitle = curEpisodeName;
+	this.episodes = episodes;
 	
 	
 	/*
