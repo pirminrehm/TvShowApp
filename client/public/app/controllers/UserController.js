@@ -55,8 +55,8 @@ source: allSeriesNames,
 					else{
 						$scope.searchResults = [];
 						console.log('no search result');
-						$( "#dialog" ).dialog();
-
+						$("#dialog").dialog();
+						//alert('No search results');
 					}
 				}, function (err){
 					$scope.err = err;
@@ -127,7 +127,7 @@ source: allSeriesNames,
 		}
 		
 		//this.episodeNr = 'S010101';
-	//this.episodeTitle = curEpisodeName;
+
 		
 	
 		//alert(incrementAmount);
