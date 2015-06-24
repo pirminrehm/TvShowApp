@@ -17,7 +17,7 @@ function Series(id, title, bannerUrl,episodeAllCount, eipsodeWatchedCount, curEp
 	//alert(this.percWatched);
 	this.title = title;
 	this.episodeNr = 'S010101';
-	this.episodeTitle = 'testTitle';
+	this.episodeTitle = curEpisodeName;
 	
 	
 	/*
