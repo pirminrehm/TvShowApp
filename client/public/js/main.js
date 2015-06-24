@@ -89,7 +89,7 @@ alert(incrementAmount);
 
 /* SubString Function */
 function cutSeriesTitle(String string) {
-	if (string.length() < 13) {
+	if (string.size() < 13) {
 		return string;
 	} else if {
 		return string.substring(0,10) + "...";
@@ -97,7 +97,7 @@ function cutSeriesTitle(String string) {
 }
 
 function cutEpisodeTitle(String string) {
-	if (string.length() < 20) {
+	if (string.size() < 20) {
 		return string;
 	} else if {
 		return string.substring(0,22) + "...";
