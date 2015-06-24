@@ -1,52 +1,33 @@
 <!DOCTYPE html>
 <head>
+	<title>TVShowApp</title>
 	<script src="lib/jquery/dist/jquery.min.js"></script>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>TVShowApp</title>
-
-	<!-- Latest compiled and minified CSS -->
+	<!-- Bootstrap -->
 	<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
-	<!-- Optional theme -->
 	<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap-theme.min.css">
-	<!-- Latest compiled and minified JavaScript -->
 	<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
-
-	  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
-	  
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<!-- Our Own Stylesheet -->
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-
-<!--Just some Tests
-    ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="lib/angular/angular.min.js"></script>
-<script src="lib/jquery/dist/jquery.min.js"></script>
-<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script src="app/appHelp.js"></script>
-<script src="js/typeahead.bundle.js"></script>
-
-<!-- Lets start with the body -->
 <body ng-app="tvshowapp">
-
-
-
 
 	<div ng-view></div>
 
-
-
-
+	<!-- Bootstrap Javascript / Angular Javascript -->
+	<script src="lib/angular/angular.min.js"></script>
+	<script src="lib/jquery/dist/jquery.min.js"></script>
+	<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	
+	<!-- Our Angular -->
+	<script src="app/appHelp.js"></script>
+	<script src="js/typeahead.bundle.js"></script>
 	<script src="lib/angular-route/angular-route.min.js"></script>
-
-
 	<script src="app/app.js"></script>
-
 	<script src="app/services/UserService.js"></script>
 	<script src="app/services/AuthenticationService.js"></script>
 	<script src="app/services/SearchService.js"></script>
@@ -54,42 +35,7 @@
 	<script src="app/controllers/UserController.js"></script>
 	<script src="app/controllers/MailController.js"></script>
 	<script src="app/controllers/VerifyController.js"></script>
-
-
-	
-
-	
-	
-	<script type="text/javascript">
-
-
-	function checkStringSize() {
-		// var maxNormal = 13;
-		// var maxLong = 21-3;
-
-		// aCard.title
-		// aCard.episodeTitle
-
-		// Problem: Div kann nicht nach oben wachsen. 
-
-		// // Überprüfen ob h2 oder p
-		// // Alle Seriennamen aus der json lesen
-		// // Länge des Seriennamens checken
-		// // Wenn <= 13 alles okay
-		// // Wenn 13 < x <= 18 oder so mache das
-		// // Wenn >= 18 String kürzen
-		// var simpleString = "Paul Pauline Apostel Paulus Postpaket";
-		// var ausschnitt = simpleString.slice(0, maxLong);
-		// var bla = document.getElementById("seri_title_normal").innerHTML = ausschnitt + "...";
-	}
-
-
-
-
-
-
-
-
+	<script src="js/main.js"></script>
 
 </body>
 </html>
