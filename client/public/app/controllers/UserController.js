@@ -40,7 +40,8 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 					else{
 						$scope.searchResults = [];
 						console.log('no search result');
-						alert('No search results');
+						$( "#dialog" ).dialog();
+
 					}
 				}, function (err){
 					$scope.err = err;

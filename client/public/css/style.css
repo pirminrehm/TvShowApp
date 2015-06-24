@@ -1,13 +1,16 @@
+/*
+	TVShowApp CSS File
+*/
 
 
-* {
-
-}
 
 body {
 	background: #eee;
 }
 
+/* 
+	Header Container which contains "TVShopApp"
+*/
 #brand {
 	position: absolute;
 	float: left;
@@ -15,7 +18,9 @@ body {
 
 }
 
-/* Fix für Bootstrap */
+/* 
+	Just a Bootstrap Fix
+*/
 .navbar-brand {
 	margin-left: -15px;
 	width: 130px;
