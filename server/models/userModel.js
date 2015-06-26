@@ -7,11 +7,20 @@ var Schema = mongoose.Schema;
 
 var EpisodeSchema = new Schema({
  	id: Number,
- 	watched: Boolean,
- 	name: String,
- 	season: String
+ 	w: Boolean,		
+ 	n: String,		
+ 	sNr: String,
+ 	eNr: String
  });
 
+
+// var EpisodeSchema = new Schema({
+//  	id: Number, 	--> id
+//  	w: Boolean,		--> watched
+//  	n: String,		--> names
+//  	sNr: String,	--> seasonNumber
+//  	eNr: String		--> episodeNumber
+//  });
 
 
 var SeriesSchema = new Schema({
