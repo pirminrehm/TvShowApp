@@ -15,6 +15,18 @@ app.factory('UserService', ['$http','$q', function($http,$q){
 			});
 		return deferred.promise;
 	};
+	
+	var doSetWatched = function(token, isWatched, episodeId){
+		var deferred = $q.defer();
+		$http.put(url + "/usr/token/" + token + "/watched/" + isWatched + "/episode/" + episodeId)
+			.success(function (response){
+				deferred.resolve(response);
+			})
+			.error(function (err) {
+				deferred.reject(err);
+			});
+		return deferred.promise;
+	};
 
 
 	var doAddSeriesToList = function(token,seriesId){
@@ -32,7 +44,8 @@ app.factory('UserService', ['$http','$q', function($http,$q){
 
 	var service = {
 		getUser : function (token){return doGetUser(token);},
-		addSeriesToList : function (token,seriesId){return doAddSeriesToList(token,seriesId);}
+		addSeriesToList : function (token,seriesId){return doAddSeriesToList(token,seriesId);},
+		setWatched : function (token,isWatched, episodeId){return doSetWatched(token,isWatched, episodeId);}
 	};
 
 

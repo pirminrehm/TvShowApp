@@ -17,6 +17,21 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 			$scope.err = err;
 		});
 
+		
+		
+		var allSeriesNames = ["The Sopranos","Seinfeld","The Twilight Zone","All in the Family","M*A*S*H","The Mary Tyler Moore Show","Mad Men","Cheers","The Wire","The West Wing","The Simpsons","I Love Lucy","Breaking Bad","The Dick Van Dyke Show","Hill Street Blues","Arrested Development","The Daily Show with Jon Stewart","Six Feet Under","Taxi","The Larry Sanders Show","30 Rock","Friday Night Lights","Frasier","Friends","Saturday Night Live","The X-Files","Lost","The Cosby Show","Curb Your Enthusiasm","The Honeymooners","Deadwood","Star Trek","Modern Family","Twin Peaks","NYPD Blue","The Carol Burnett Show","Battlestar Galactica","Sex & The City","Game of Thrones","The Bob Newhart Show","Your Show of Shows","Downton Abbey, Law & Order","Thirtysomething","Homicide: Life on the Street","St. Elsewhere","Homeland","Buffy the Vampire Slayer","The Colbert Report","The Good Wife","Northern Exposure","The Wonder Years","L.A. Law","Sesame Street","Columbo","Fawlty Towers","The Rockford Files","Freaks and Geeks","Moonlighting","Roots","Everybody Loves Raymond","South Park","Playhouse 90","Dexter","My So-Called Life","Golden Girls","The Andy Griffith Show","Roseanne","The Shield","Murphy Brown","Barney Miller","The Odd Couple","Alfred Hitchcock Presents","Monty Python’s Flying Circus","Star Trek: The Next Generation","Upstairs, Downstairs","Get Smart","The Defenders","Gunsmoke","Justified","The Phil Silvers Show","Band of Brothers","Rowan & Martin’s Laugh-In","The Prisoner","Absolutely Fabulous","The Muppet Show","Boardwalk Empire","Will & Grace","Family Ties","Lonesome Dove","Soap","The Fugitive","Late Night with David Letterman","Louie","House of Cards"];
+		
+		
+		$( "#search_bar" ).autocomplete({
+source: allSeriesNames,
+
+  select: function( event, ui ) {
+  
+  $scope.searchString = ui.item.value;
+  $scope.search();
+	//console.log(ui.item.value);
+  }
+});
 
 	$scope.search = function(){
 
@@ -40,7 +55,9 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 					else{
 						$scope.searchResults = [];
 						console.log('no search result');
-						alert('No search results');
+						$("#dialog").dialog();
+						
+						//alert('No search results');
 					}
 				}, function (err){
 					$scope.err = err;
@@ -51,15 +68,28 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 			$('#search_bar').addClass('active');
 			$('#search_button').css('border-top-left-radius', '0px');
 			$('#search_button').css('border-bottom-left-radius', '0px');
+			$scope.searchString = [];
 		}
 	};
 	
 	
 	$scope.addSeriesToMyList = function(seriesId) {
 		
+		// Test glyphicon glyphicon-time
+		$('#' + seriesId).removeClass("glyphicon-plus");
+		$('#' + seriesId).addClass("glyphicon-time");
+
 		UserService.addSeriesToList(token, seriesId)
 			.then(function (res){
 				createNewSeries(res);
+				$('#' + seriesId).removeClass("glyphicon-time");
+				$('#' + seriesId).addClass("glyphicon-ok");
+
+				$( "#searchResultList" ).fadeOut( "slow", function() {
+    				// Animation complete.
+    				$scope.searchResults = [];
+  				});
+				
 			}, function (err){
 				$scope.err = err;
 			});	
@@ -77,74 +107,62 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 			episodeAllCount++;
 			if(series.episodes[j].watched){
 				eipsodeWatchedCount++;
-				curEpisodeName = series.episodes[j].id;
+				//curEpisodeName = series.episodes[j].id;
+			} else if(curEpisodeName == ""){
+			
+				//curEpisodeNr = series.episodes[j].
+				curEpisodeName = series.episodes[j].name;
 			}
 		}
-		$scope.cards.push(new Series(series.id, series.name, series.bannerUrl,episodeAllCount, eipsodeWatchedCount, curEpisodeName));
+		$scope.cards.push(new Series(series.id, series.name, series.bannerUrl,episodeAllCount, eipsodeWatchedCount, curEpisodeName, series.episodes));
 	}
 	
 	
-// $scope.addSearchSeries = function(seriesArray) {
-// 	console.log("seriesArray in addSearchSeries", seriesArray);
-// 	for(var i = 0; i < seriesArray.Series.length; i++) {
-// 		$scope.searchResults.push(new SearchResult(seriesArray.Series[i].id, seriesArray.Series[i].SeriesName));
-
-// 	}
-// };
-
-
-	// function addUserDataToMainList(user){
-	// 	for(var i = 0; i < user.series.length; i++) {
-	// 		var episodeAllCount = 0;
-	// 		var eipsodeWatchedCount = 0;
-	// 		var curEpisodeName = "";
-	// 		for(var j = 0; j < user.series[i].episodes.length; j++) {
-	// 			episodeAllCount++;
-	// 			if(user.series[i].episodes[j].watched){
-	// 				eipsodeWatchedCount++;
-	// 				curEpisodeName = user.series[i].episodes[j].id;
-	// 			}
-	// 		}
-
-	// 		$scope.cards.push(new Series(user.series[i].id, user.series[i].name, episodeAllCount, eipsodeWatchedCount, curEpisodeName));
-
-	// 	}
-	// }
-
-
-	// function addSeriesToMainList(user){
-	// 	for(var i = 0; i < user.series.length; i++) {
-	// 		var episodeAllCount = 0;
-	// 		var eipsodeWatchedCount = 0;
-	// 		var curEpisodeName = "";
-	// 		for(var j = 0; j < user.series[i].episodes.length; j++) {
-	// 			episodeAllCount++;
-	// 			if(user.series[i].episodes[j].watched){
-	// 				eipsodeWatchedCount++;
-	// 				curEpisodeName = user.series[i].episodes[j].id;
-	// 			}
-	// 		}
-
-	// 		$scope.cards.push(new Series(user.series[i].id, user.series[i].name, episodeAllCount, eipsodeWatchedCount, curEpisodeName));
-
-	// 	}
-	// }
 
 	
 	$scope.progressBarUpdate = function(id, incrementAmount){
 		console.log(incrementAmount);
 		
+		//episodeNr muss watched=true gesetzt werden
+		
+		for(var i = 0; i < $scope.cards.length; i++) {
+			if($scope.cards[i]._id == id){
+			
+				for(var j = 0; j < $scope.cards[i].episodes.length; j++) {
+					if(!$scope.cards[i].episodes[j].watched){
+						$scope.cards[i].episodeTitle = $scope.cards[i].episodes[j+1].name;
+						$scope.cards[i].episodes[j].watched = true;
+						UserService.setWatched(token, true, $scope.cards[i].episodes[j].id).then(function (res){
+							console.log("success");
+						}, function (err){
+							$scope.err = err;
+						});	
+						
+						
+						break;
+					}
+				}
+				
+			
+			
+				
+			}
+		
+		}
+		
+		//this.episodeNr = 'S010101';
+
 		
 	
 		//alert(incrementAmount);
 	var progressBar = $("#" + id).find('.progress-bar');
-	console.log(progressBar);
+	//console.log(progressBar);
 	//get number of episodes in current season
 	//var nrTotal = ...
 	//get new current percentage
 	//var curPerc = curEpisode / nrTotal;
 	var newPerc = parseFloat($(progressBar).attr("aria-valuenow")) + incrementAmount;
-	console.log(newPerc);
+	//console.log(newPerc);
 	//console.log(newPerc);
 	if(newPerc >= 100){
 		//progressBarFull(id);

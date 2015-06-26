@@ -1,32 +1,8 @@
-
-
-
 $(document).ready(function () {
-
-
-var allSeriesNames = ["The Sopranos","Seinfeld","The Twilight Zone","All in the Family","M*A*S*H","The Mary Tyler Moore Show","Mad Men","Cheers","The Wire","The West Wing","The Simpsons","I Love Lucy","Breaking Bad","The Dick Van Dyke Show","Hill Street Blues","Arrested Development","The Daily Show with Jon Stewart","Six Feet Under","Taxi","The Larry Sanders Show","30 Rock","Friday Night Lights","Frasier","Friends","Saturday Night Live","The X-Files","Lost","The Cosby Show","Curb Your Enthusiasm","The Honeymooners","Deadwood","Star Trek","Modern Family","Twin Peaks","NYPD Blue","The Carol Burnett Show","Battlestar Galactica","Sex & The City","Game of Thrones","The Bob Newhart Show","Your Show of Shows","Downton Abbey, Law & Order","Thirtysomething","Homicide: Life on the Street","St. Elsewhere","Homeland","Buffy the Vampire Slayer","The Colbert Report","The Good Wife","Northern Exposure","The Wonder Years","L.A. Law","Sesame Street","Columbo","Fawlty Towers","The Rockford Files","Freaks and Geeks","Moonlighting","Roots","Everybody Loves Raymond","South Park","Playhouse 90","Dexter","My So-Called Life","Golden Girls","The Andy Griffith Show","Roseanne","The Shield","Murphy Brown","Barney Miller","The Odd Couple","Alfred Hitchcock Presents","Monty Python’s Flying Circus","Star Trek: The Next Generation","Upstairs, Downstairs","Get Smart","The Defenders","Gunsmoke","Justified","The Phil Silvers Show","Band of Brothers","Rowan & Martin’s Laugh-In","The Prisoner","Absolutely Fabulous","The Muppet Show","Boardwalk Empire","Will & Grace","Family Ties","Lonesome Dove","Soap","The Fugitive","Late Night with David Letterman","Louie"];
+console.log("testy");
 //list from http://tvline.com/2013/06/03/100-best-written-tv-shows-ever-the-sopranos/
 
-$( "#search_bar" ).autocomplete({
-source: allSeriesNames,
-
-  select: function( event, ui ) {
-  /*
-  $scope.searchString = ui.item.value;
-  */
-	console.log(ui.item.value);
-  }
-});
-
-/*
-	SpoilerDescription Function
-	Allows to open and close the description for a single episode
-
-	Checkbox Function
-	Lets the user check the episodes/series he has already seen
-*/
-
-	/* SpoilerDescription Function */
+/* SpoilerDescription Function */
 	$('.season_list div input').click(function () {
 		var returnVal = confirm("Are you sure?");
 		if(returnVal == true){
@@ -39,8 +15,8 @@ source: allSeriesNames,
 		$('.season_list div input').val($(this).is(':checked'));
 	});
 	
-	/* Checkbox Function */
-	/* BUG: Only check all the boxes of ONE Season */
+/* Checkbox Function */
+/* BUG: Only check all the boxes of ONE Season */
 	$('.season_list li').click(function (e) {
 		if(e.target.className != 'checkbox'){
 			if (!$(this).hasClass('active')) {
@@ -63,20 +39,24 @@ source: allSeriesNames,
 		$('#search_bar').focus();
 	});
 
-	/* Small function, that detects if the user uses the enter button */
-	// $("#search_bar").keyup(function (e) {
- //    	if (e.keyCode == 13) {
- //        	search();
- //    	}
-	// });
 
+/*
+	Fuctions that lets the search reduce itself, when the search-field is open
+	and the user clicks somewhere on the screen except the search-field /
+	search-button
+*/
 	$(document.body).click(function(e){
+	console.log("test");
 		var $box = $('#search');
 		if(/*e.target.id !== 'search' &&*/ !$.contains($box[0], e.target)){
+		
 			reduceSearch();
 		}
 	});
 
+/*
+	Lets the Search Bar slides in again
+*/
 	function reduceSearch(){
 	if($('#search_bar').hasClass('active')){
 	  $('#search_button .glyphicon').removeClass('glyphicon-search');
@@ -84,10 +64,9 @@ source: allSeriesNames,
 	  $('#search_bar').removeClass('active');
 	  $('#search_button').css('border-top-left-radius', '4px');
 	  $('#search_button').css('border-bottom-left-radius', '4px');
+	  $scope.searchString = [];
 	  }
 	};
-
-	
 });
 
 /*
@@ -110,3 +89,23 @@ alert(incrementAmount);
 	$(progressBar).css({width: newPerc + "%"});
 }
 */
+
+/* SubString Function */
+
+
+function cutSeriesTitle(string) {
+	if (string.size() < 13) {
+		return string;
+	} else  {
+		return string.substring(0,10) + "...";
+	}
+};
+
+function cutEpisodeTitle(string) {
+	if (string.size() < 20) {
+		return string;
+	} else {
+		return string.substring(0,22) + "...";
+	}
+};
+

@@ -6,11 +6,11 @@
 		<div class="right">
 			<!-- Brand Name - TVShowApp -->
 			<div id="brand">
-				<a class="navbar-brand" href="#">TVShowApp</a>
+				<a class="navbar-brand">TVShowApp</a>
 			</div>
 
 			<!-- Search -->
-			<div id="search" class="input-group">
+			<div id="search" class="input-group" style="visibility:hidden;">
 				<input id="search_bar" type="text" class="form-control" placeholder="Search for...">
 				<span class="input-group-btn">
 					<button id="search_button" class="btn btn-default" type="button">
@@ -29,7 +29,7 @@
 
 <div class="container-fluid" >
 
-<div class="alert alert-danger" id="welcomeAlert" role="alert" ng-show="err"></div>
+<div class="alert alert-danger" id="alertBox" role="alert" ng-show="err">{{err}}</div>
 
 <form action="localhost:3000/usr/register" method="POST" id="mailingfield">
 		<div class="row">

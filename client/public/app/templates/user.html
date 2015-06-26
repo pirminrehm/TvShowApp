@@ -5,7 +5,7 @@
 		<div class="right">
 			<!-- Brand Name - TVShowApp -->
 			<div id="brand">
-				<a class="navbar-brand" href="#">TVShowApp</a>
+				<a class="navbar-brand">TVShowApp</a>
 			</div>
 
 			<!-- Search -->
@@ -31,27 +31,10 @@
 
 
 
+
 <div class="container-fluid" >
 
-
-<!--
-<div ng-repeat="result in searchResults">
-
-<div class="searchResult">
-<p>{{result.id}}</p>
-<p>{{result.SeriesName}}</p>
-<p ng-click="addSeriesToMyList(result.id)">ADD SERIES TO MY LIST</p>
-</div>
-
-</div>
-
--->
-
-
-
-<br><br><hr><br><br>
-
-<div class="row">
+<div id ="searchResultList" class="row">
 <div ng-repeat="result in searchResults">
 
 
@@ -63,8 +46,8 @@
 		<ul class="list-group">
 			<li class="list-group-item">
 				<p>{{result.SeriesName}}</p>
-		  		<button type="button" class="btn btn-default btn-xs btnright">
-					<span ng-click="addSeriesToMyList(result.id)" class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+		  		<button type="button" class="btn btn-default btn-xs btnright" ng-click="addSeriesToMyList(result.id)">
+					<span id="{{result.id}}" class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 				</button>
 			</li>
 		</ul>
@@ -79,6 +62,15 @@
 </div>
 
 <br><br><hr><br><br>
+
+<!--
+	Alert Dialog
+	Double Div is a short hack, otherwise the div would be visible
+	with page load.
+-->
+<div style="display:none;"><div id="dialog" title="No Search Results">
+  <p>Sorry...we are not able to receive any search results from thetvdatabase! :(</p>
+</div></div>
 
 
 
@@ -99,7 +91,7 @@
 			<div class="series-inner-title"> 
 				<div class="left"> 
 					<h2 class="normal">{{card.title}}</h2> 
-					<p class="normal">{{card.episodeNr}}: {{card.episodeTitle}}</p> 
+					<p class="normal episode_nr_and_title">{{card.episodeNr}}: {{card.episodeTitle}}</p> 
 				</div>
 				<div class="right"> 
 				<h4>
@@ -110,7 +102,7 @@
 				<!--<span ng-if="card.percWatched < 100" class="label label-warning" ng-click="progressBarUpdate(this, card.incrementAmount)">+1</span> -->
 				
 			
-		<span ng-class="card.percWatched < 100 ? 'label-warning' : 'label-success'" class="label" ng-click="progressBarUpdate(card._id, card.incrementAmount)">
+		<span ng-class="card.percWatched < 100 ? 'label-warning' : 'label-success'" class="label noselect" ng-click="progressBarUpdate(card._id, card.incrementAmount)">
 		
 			<span class="plusOne">+1</span>
 			<span class="glyphicon glyphicon-ok"></span>

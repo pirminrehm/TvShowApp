@@ -1,11 +1,16 @@
-* {
+/*
+	TVShowApp CSS File
+*/
 
-}
+
 
 body {
 	background: #eee;
 }
 
+/* 
+	Header Container which contains "TVShopApp"
+*/
 #brand {
 	position: absolute;
 	float: left;
@@ -13,7 +18,9 @@ body {
 
 }
 
-/* Fix für Bootstrap */
+/* 
+	Just a Bootstrap Fix
+*/
 .navbar-brand {
 	margin-left: -15px;
 	width: 130px;
@@ -53,14 +60,24 @@ body {
 	border-bottom-left-radius: 5px;
 	
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px inset;
+
+	background: rgba(255,255,255,0);
+	background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.75) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(100%, rgba(0,0,0,0.75)));
+	background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.75) 100%);
+	background: -o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.75) 100%);
+	background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.75) 100%);
+	background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.75) 100%);
 }
 
 .series-inner-title{
 	padding: 0px;
+	background: ();
 } 
 
 .series-inner-title .left {
 	padding-left: 10px;
+	padding-right: 55px;
 }
 
 .series-inner-title .right {
@@ -259,9 +276,30 @@ display: inline;
 	right: 9px;
 }
 
-#welcomeAlert {
+#alertBox {
 	display: none;
 }
 
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
+.progress {
+	background: #e6e6e6;
+}
 
+#verify {
+	height: 20px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+/* No merge with button */
+.searchResult .list-group .list-group-item {
+	padding-right: 40px;
+}
