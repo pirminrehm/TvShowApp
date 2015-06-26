@@ -277,7 +277,7 @@ display: inline;
 }
 
 #alertBox {
-	display: none;
+	/* display: none; */
 }
 
 .noselect {
