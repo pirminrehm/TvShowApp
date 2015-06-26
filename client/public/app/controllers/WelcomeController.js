@@ -10,7 +10,6 @@ $scope.email = "";
 			AuthenticationService.newList({"email" : $scope.email})
 				.then(function (res){
 					$scope.msg = "you have mail";
-					alert("mail");
 					$location.url("/mail");
 				}, function (err){
 					$scope.err = err;
