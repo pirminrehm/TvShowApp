@@ -64,6 +64,7 @@ req.post = function (data2send, route, status, callback) {
 		.end(function(err, res) {
 			if (clog) console.log(res.body);
 			if (err) {
+				console.log(res.body);
 				throw err;
 			}
 			callback(res.body);
@@ -80,6 +81,7 @@ req.get = function (data2send, route, status, callback) {
 		.end(function(err, res) {
 			if (clog) console.log(res.body);
 			if (err) {
+				console.log(res.body);
 				throw err;
 			}
 			callback(res.body);
@@ -96,6 +98,7 @@ req.put = function (data2send, route, status, callback) {
 		.end(function(err, res) {
 			if (clog) console.log(res.body);
 			if (err) {
+				console.log(res.body);
 				throw err;
 			}
 			callback(res.body);
@@ -127,6 +130,11 @@ var myAssert = function (body, defined, callback) {
 	delete body._id;
 	delete body.__v;
 
+	// console.log("Assert body:".green);
+	// console.log(body);
+	// console.log("Assert defined:".green);
+	// console.log(defined);
+
 	if (body.hasOwnProperty("series")) {
 		for (var i=0; i<body.series.length; i++) {
 			delete body.series[i]._id;
@@ -137,6 +145,12 @@ var myAssert = function (body, defined, callback) {
 				}
 			}
 	 	}
+	}
+
+	if (body.hasOwnProperty("episodes")) {
+		for (var i=0; i<body.episodes.length; i++) {
+			delete body.episodes[i]._id;
+		}
 	}
 
 	assert.deepEqual(body,defined);
@@ -288,12 +302,11 @@ describe('Test:', function() {
 			});
 			describe('which is already in the mongo', function() {	
 				beforeEach(function(done) {
-					insert.series (data.houseOfCards, done);
+					insert.series (data.houseOfCards[0], done);
 				});
 				it('should add a new series to user 1', function(done) {
 					req.get("", "/usr/token/"+ data.acc1.token + "/series/"+ data.houseOfCards.Series.id, 200, function(body) {
-						should.equal(body.series.length, 1);
-						myAssert(body, data.acc4,  done); //acc1 + series = acc4
+						myAssert(body, data.acc4.series[0],  done); //acc1 + series = acc4
 					});
 				});
 			});
@@ -301,8 +314,7 @@ describe('Test:', function() {
 				this.timeout(5000);
 				it('should add a new series to user 1', function(done) {
 					req.get("", "/usr/token/"+ data.acc1.token + "/series/"+ data.houseOfCards.Series.id, 200, function(body) {
-						should.equal(body.series.length, 1); 
-						myAssert(body, data.acc4,  done);  //acc1 + series = acc4
+						myAssert(body,  data.acc4.series[0] ,  done);  //acc1 + series = acc4
 					});
 				});
 			});
@@ -411,22 +423,22 @@ describe('Test:', function() {
 			describe('as watched', function() {
 				it('should mark an episode (index:0) from an series (index:0) as watched', function(done) {
 					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ true +"/episode/"+ data.acc7.series[0].episodes[0].id , 200, function(body) {
-						myAssert (body.series[0].episodes[0].watched, true,  done);
+						myAssert (body.series[0].episodes[0].w, true,  done);
 					});
 				});
 				it('should mark an episode (index:5) from an series (index:0) as watched', function(done) {
 					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ true +"/episode/"+ data.acc7.series[0].episodes[5].id , 200, function(body) {
-						myAssert (body.series[0].episodes[5].watched, true, done);
+						myAssert (body.series[0].episodes[5].w, true, done);
 					});
 				});
 				it('should mark an episode (index:1) from an series (index:1) as watched', function(done) {
 					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ true +"/episode/"+ data.acc7.series[1].episodes[1].id , 200, function(body) {
-						myAssert (body.series[1].episodes[1].watched, true,  done);
+						myAssert (body.series[1].episodes[1].w, true,  done);
 					});
 				});
 				it('should mark an episode (index:6) from an series (index:1) as watched', function(done) {
 					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ true +"/episode/"+ data.acc7.series[1].episodes[6].id , 200, function(body) {
-						myAssert (body.series[1].episodes[6].watched, true,  done);
+						myAssert (body.series[1].episodes[6].w, true,  done);
 					});
 				});
 			});
@@ -434,22 +446,22 @@ describe('Test:', function() {
 			describe('as unwatched', function() {
 				it('should mark an episode (index:1) from an series (index:0) as unwatched', function(done) {
 					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ false +"/episode/"+ data.acc7.series[0].episodes[1].id , 200, function(body) {
-						myAssert (body.series[0].episodes[1].watched, false,  done);
+						myAssert (body.series[0].episodes[1].w, false,  done);
 					});
 				});
 				it('should mark an episode (index:2) from an series (index:0) as unwatched', function(done) {
 					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ false +"/episode/"+ data.acc7.series[0].episodes[2].id , 200, function(body) {
-						myAssert (body.series[0].episodes[2].watched, false,  done);
+						myAssert (body.series[0].episodes[2].w, false,  done);
 					});
 				});
 				it('should mark an episode (index:1) from an series (index:1) as unwatched', function(done) {
 					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ false +"/episode/"+ data.acc7.series[1].episodes[1].id , 200, function(body) {
-						myAssert (body.series[1].episodes[1].watched, false,  done);
+						myAssert (body.series[1].episodes[1].w, false,  done);
 					});
 				});
 				it('should mark an episode (index:2) from an series (index:1) as unwatched', function(done) {
 					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ false +"/episode/"+ data.acc7.series[1].episodes[2].id , 200, function(body) {
-						myAssert (body.series[1].episodes[2].watched, false,  done);
+						myAssert (body.series[1].episodes[2].w, false,  done);
 					});
 				});
 			});
@@ -469,7 +481,22 @@ describe('Test:', function() {
 
 			});
 		});
+
+		describe('mark an season'.yellow, function() {	
+			beforeEach(function(done) {
+				insert.user (data.acc3,  done);
+			});
+			describe('as watched', function() {
+				it.skip('should mark all episodes of an season as watched', function(done) {
+					req.put("", "/usr/token/"+ data.acc3.token + "/watched/"+ true +"/season/"+ data.acc3.series[0].episodes[0].season , 200, function(body) {
+						myAssert (body, data.acc8,  done);
+					});
+				});
+			});
+		});
 	});
+
+		
 
 
 

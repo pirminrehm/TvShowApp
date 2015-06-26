@@ -263,9 +263,10 @@ function addSeriesToUser(series2Store,user,res){
 	for(var i=0; i<series2Store.Episode.length; i++){
 		var episode = {
 			"id" : series2Store.Episode[i].id,
-			"watched" : false,
-			"name" : series2Store.Episode[i].EpisodeName,
-			"season" : series2Store.Episode[i].seasonid
+			"w" : false,
+			"n" : series2Store.Episode[i].EpisodeName,
+			"sNr" : series2Store.Episode[i].SeasonNumber,
+			"eNr" : series2Store.Episode[i].EpisodeNumber
 		};
 		userSeriesEpisodes.push(episode);
 	}
@@ -466,21 +467,48 @@ exports.getAllUserInformation = function(req, res){
 
 
 exports.updateEpisodeWatched = function(req, res){
-
-	var episodeId = req.params.episodeId;
-
 	tokenController.verify(req.params.token, function (verified, user) {
 		if (verified) {
-			if(clog) console.log("Access to restricted area granted");
-			
+			var episodeId = req.params.episodeId;
+	
 			var foundInEpisodes = false;			
 
 			for(var i=0; i<user.series.length; i++){
 				for(var j=0; j<user.series[i].episodes.length; j++){
 					if(user.series[i].episodes[j].id == episodeId){
-						user.series[i].episodes[j].watched = req.params.bool;
+						user.series[i].episodes[j].w = req.params.bool;
 						foundInEpisodes = true;
 						break;
+					}
+				}
+			}
+
+			if(foundInEpisodes){
+				saveUser(user, res, "Success: update user (mark episode)", "Error: update user failed (mark episode)");
+			}
+			else{
+				res.status(500).jsonp({"error":"Error: episodeId not found"});
+			}
+		}
+		else {
+			res.status(500).jsonp({"error" : "We could't find your user token"});
+		}
+	});
+};
+
+
+exports.updateSeasonWatched = function(req, res){
+	tokenController.verify(req.params.token, function (verified, user) {
+		if (verified) {
+			var seasonId = req.params.seasonId;
+						
+			var atLeastOne = false;			
+
+			for(var i=0; i<user.series.length; i++){
+				for(var j=0; j<user.series[i].episodes.length; j++){
+					if(user.series[i].episodes[j].season == seasonId){
+						user.series[i].episodes[j].watched = req.params.bool;
+						foundInEpisodes = true;
 					}
 				}
 			}
