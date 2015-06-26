@@ -178,6 +178,27 @@ episodeId not found:
 Status: 500, { "error" : "Error: episodeId not found" }
 ```
 
+##### User marks an season as watched
+`PUT  token/:token/watched/:bool/series/:seriesId/season/:seasonNr`
+* changes the value of the watched attribut in all episodes of an season
+* **Return:** User
+
+###### Errors:
+cannot update user:
+```
+Status: 500, { "error" : ErrorStack }
+```
+Season not found:
+```
+Status: 500, { "error" : "Error: Season in user not found" }
+```
+Series not found:
+```
+Status: 500, { "error" : "Error: Series in user not found" }
+```
+
+
+
 ### Series based requests `/series`
 The prerouting for all user routes is `/series`
 ###### Errors, which can always occur:
