@@ -1,28 +1,24 @@
-
-
-
 <!-- Top Navigation -->
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 
 		<div class="right">
-			<!-- Brand Name - TVShowApp -->
+			<!-- Logo -->
 			<div id="brand">
 				<a class="navbar-brand">TVShowApp</a>
 			</div>
-
 			<!-- Search -->
 			<form ng-submit="search()">
 				
-			
-			<div id="search" class="input-group" style="visibility:hidden;">
-				<input id="search_bar" type="text" class="form-control" placeholder="Search for..." ng-model="searchString">
-				<span class="input-group-btn">
-					<button id="search_button" class="btn btn-default" type="button" ng-click="search()">
-						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-					</button>
-				</span>
-			</div>
+				<!-- Search Field -->
+				<div id="search" class="input-group" style="visibility:hidden;">
+					<input id="search_bar" type="text" class="form-control" placeholder="Search for..." ng-model="searchString">
+					<span class="input-group-btn">
+						<button id="search_button" class="btn btn-default" type="button" ng-click="search()">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						</button>
+					</span>
+				</div>
 
 			<!-- List of found series -->
 			</form>
@@ -34,40 +30,15 @@
 
 <div class="container-fluid" >
 
-<!-- Walles Code
-	<p>Verification</p>
-	<p>verify animation...</p>
-	<p ng-if="err">{{err}}</p>
--->
-
-	<!-- 
-
-	zeige #verify an.
-	if (err==true) {
-		#verify display none;
-		verifyAlert display true
-	}
-
-	-->
-
 	<div class="alert alert-danger" id="alertBox" role="alert" ng-show="err">{{err}}</div>
 
 	<div class="alert alert-success" role="alert">
-		<p>
-		<strong>You have mail!</strong> 
-		Please check your mail account and click on the link inside the mail you just received from us
-		</p>
-		<p>
-			You can always go
-			<a href="#" class="alert-link"> back to the main page</a>.
-			<!-- Should be implemented in a future version
-			or do you have a problem
-			<a href="mailto:support@support.com" class="alert-link"> receiving an email?</a>
-			-->
-		</p>
+		<p><strong>You have mail! </strong>Please check your mail account and click on the link inside the mail you just received from us</p>
+		<p>You can always go <a href="#" class="alert-link">back to the main page</a>.</p>
 	</div>
 
 	<script type="text/javascript" src="js/main.js"></script>
+	
 </div>
 
 

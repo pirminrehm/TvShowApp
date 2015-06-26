@@ -11,15 +11,15 @@
 			<!-- Search -->
 			<form ng-submit="search()">
 				
-			
-			<div id="search" class="input-group" style="visibility:hidden;">
-				<input id="search_bar" type="text" class="form-control" placeholder="Search for..." ng-model="searchString">
-				<span class="input-group-btn">
-					<button id="search_button" class="btn btn-default" type="button" ng-click="search()">
-						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-					</button>
-				</span>
-			</div>
+				<!-- Search Field -->
+				<div id="search" class="input-group" style="visibility:hidden;">
+					<input id="search_bar" type="text" class="form-control" placeholder="Search for..." ng-model="searchString">
+					<span class="input-group-btn">
+						<button id="search_button" class="btn btn-default" type="button" ng-click="search()">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						</button>
+					</span>
+				</div>
 
 			<!-- List of found series -->
 			</form>
@@ -30,22 +30,6 @@
 <!-- End of Top Navigation -->
 
 <div class="container-fluid" >
-
-<!-- Walles Code
-	<p>Verification</p>
-	<p>verify animation...</p>
-	<p ng-if="err">{{err}}</p>
--->
-
-	<!-- 
-
-	zeige #verify an.
-	if (err==true) {
-		#verify display none;
-		verifyAlert display true
-	}
-
-	-->
 
 	<div class="alert alert-danger" id="alertBox" role="alert" ng-show="err">{{err}}</div>
 
