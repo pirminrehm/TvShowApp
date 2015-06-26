@@ -500,24 +500,31 @@ exports.updateEpisodeWatched = function(req, res){
 exports.updateSeasonWatched = function(req, res){
 	tokenController.verify(req.params.token, function (verified, user) {
 		if (verified) {
-			var seasonId = req.params.seasonId;
+			var seasonNr = req.params.seasonNr;
+			var seriesId = req.params.seriesId;
+
 						
-			var atLeastOne = false;			
+			var foundAtLeastOne = false;	
+			var foundSeries = false;		
 
 			for(var i=0; i<user.series.length; i++){
-				for(var j=0; j<user.series[i].episodes.length; j++){
-					if(user.series[i].episodes[j].season == seasonId){
-						user.series[i].episodes[j].watched = req.params.bool;
-						foundInEpisodes = true;
+				if (seriesId == user.series[i].id) {
+					foundSeries = true;
+					for(var j=0; j<user.series[i].episodes.length; j++){
+						if(user.series[i].episodes[j].sNr == seasonNr){
+							user.series[i].episodes[j].w = req.params.bool;
+							foundAtLeastOne = true;
+						}
 					}
 				}
 			}
 
-			if(foundInEpisodes){
+			if(foundAtLeastOne){
 				saveUser(user, res, "Success: update user (mark episode)", "Error: update user failed (mark episode)");
-			}
-			else{
-				res.status(500).jsonp({"error":"Error: episodeId not found"});
+			} else if (!foundSeries) {
+				res.status(500).jsonp({"error":"Error: Series in user not found"});
+			} else {
+				res.status(500).jsonp({"error":"Error: Season in user not found"});
 			}
 		}
 		else {

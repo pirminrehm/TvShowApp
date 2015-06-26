@@ -55,7 +55,7 @@ router.put('/token/:token/watched/:bool/episode/:episodeId', user.updateEpisodeW
 // PUT /usr/token/6752c09377e2105a1ca2748c79dac931c8e67b63/watched/true/episode/4411361
 // changes the value of the watched attribut of all episodes in an season (Return: User)
 // Test implemented
-router.put('/token/:token/watched/:bool/season/:seasonId', user.updateSeasonWatched);
+router.put('/token/:token/watched/:bool/series/:seriesId/season/:seasonNr', user.updateSeasonWatched);
 
 
 module.exports = router;

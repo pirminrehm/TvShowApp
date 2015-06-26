@@ -64,7 +64,7 @@ req.post = function (data2send, route, status, callback) {
 		.end(function(err, res) {
 			if (clog) console.log(res.body);
 			if (err) {
-				console.log(res.body);
+				if (clog) console.log(res.body);
 				throw err;
 			}
 			callback(res.body);
@@ -81,7 +81,7 @@ req.get = function (data2send, route, status, callback) {
 		.end(function(err, res) {
 			if (clog) console.log(res.body);
 			if (err) {
-				console.log(res.body);
+				if (clog) console.log(res.body);
 				throw err;
 			}
 			callback(res.body);
@@ -98,7 +98,7 @@ req.put = function (data2send, route, status, callback) {
 		.end(function(err, res) {
 			if (clog) console.log(res.body);
 			if (err) {
-				console.log(res.body);
+				if (clog) console.log(res.body);
 				throw err;
 			}
 			callback(res.body);
@@ -126,7 +126,9 @@ req.delete = function (data2send, route, status, callback) {
 /******************************
 ===== own assert function =====
 *******************************/
-var myAssert = function (body, defined, callback) {
+var myAssert = function (body2parse, defined2parse, callback) {
+	var body = JSON.parse(JSON.stringify(body2parse));
+	var defined = JSON.parse(JSON.stringify(defined2parse));
 	delete body._id;
 	delete body.__v;
 
@@ -487,8 +489,8 @@ describe('Test:', function() {
 				insert.user (data.acc3,  done);
 			});
 			describe('as watched', function() {
-				it.skip('should mark all episodes of an season as watched', function(done) {
-					req.put("", "/usr/token/"+ data.acc3.token + "/watched/"+ true +"/season/"+ data.acc3.series[0].episodes[0].season , 200, function(body) {
+				it('should mark all episodes of an season as watched', function(done) {
+					req.put("", "/usr/token/"+ data.acc3.token + "/watched/"+ true +"/series/"+ data.acc3.series[0].id + "/season/" + data.acc3.series[0].episodes[0].sNr  , 200, function(body) {
 						myAssert (body, data.acc8,  done);
 					});
 				});
