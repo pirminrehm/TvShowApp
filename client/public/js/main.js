@@ -47,8 +47,13 @@ console.log("testy");
 */
 	$(document.body).click(function(e){
 
-	//cutSeriesTitle("test");
-	//console.log("test");
+	//var element = $("#79168 .left p")[0];
+	//cutSeriesName(element);
+	
+	//var element = $("#262980 .left h2")[0];
+	//cutSeriesName(element);
+	
+	
 		var $box = $('#search');
 		if(/*e.target.id !== 'search' &&*/ !$.contains($box[0], e.target)){
 		
@@ -95,9 +100,8 @@ alert(incrementAmount);
 /* SubString Function */
 
 
-function cutSeriesTitle(string) {
-	
-	var element = document.getElementById("262980").getElementsByTagName("h2")[0];
+function cutSeriesName(element) {
+
 	var secureCount = 0;
 	var episodeName;
 	

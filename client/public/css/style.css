@@ -257,7 +257,9 @@ display: inline;
 }
 
 .left > p.normal {
-
+white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
 }
 
 .left > p.small {
