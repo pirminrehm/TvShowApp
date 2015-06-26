@@ -46,7 +46,9 @@ console.log("testy");
 	search-button
 */
 	$(document.body).click(function(e){
-	console.log("test");
+
+	//cutSeriesTitle("test");
+	//console.log("test");
 		var $box = $('#search');
 		if(/*e.target.id !== 'search' &&*/ !$.contains($box[0], e.target)){
 		
@@ -94,18 +96,28 @@ alert(incrementAmount);
 
 
 function cutSeriesTitle(string) {
-	if (string.size() < 13) {
-		return string;
-	} else  {
-		return string.substring(0,10) + "...";
+	
+	var element = document.getElementById("262980").getElementsByTagName("h2")[0];
+	var secureCount = 0;
+	var episodeName;
+	
+	while(true){
+		episodeName = element.innerHTML;
+		if (element.offsetHeight < element.scrollHeight || element.offsetWidth < element.scrollWidth) {
+			element.innerHTML = episodeName.slice(0, episodeName.length-1);
+		} else {
+			element.innerHTML = episodeName.slice(0, episodeName.length-2) + "..";
+			break;
+		}
+		
+		secureCount++;
+		if(secureCount > 50){
+			break;
+		}
+	
 	}
 };
 
-function cutEpisodeTitle(string) {
-	if (string.size() < 20) {
-		return string;
-	} else {
-		return string.substring(0,22) + "...";
-	}
-};
+
+
 
