@@ -258,6 +258,8 @@ source: allSeriesNames,
 		if($('#search_bar').hasClass('active') &&  typeof $scope.searchString !== 'undefined' && $scope.searchString != ""){
 			
 			console.log('searchString', $scope.searchString);
+
+			$( "#searchResultList" ).fadeIn( "slow", function(){});
 			
 			SearchService.searchNewSeries(token,$scope.searchString)
 				.then(function (res){
@@ -310,7 +312,6 @@ source: allSeriesNames,
 				$('#' + seriesId).addClass("glyphicon-ok");
 
 				$( "#searchResultList" ).fadeOut( "slow", function() {
-    				// Animation complete.
     				$scope.searchResults = [];
   				});
 				
