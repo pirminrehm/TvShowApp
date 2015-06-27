@@ -42,12 +42,27 @@ app.factory('UserService', ['$http','$q', function($http,$q){
 	};
 
 
+	var doRemoveSeries = function(token,seriesId){
+		var deferred = $q.defer();
+		$http.delete(url + "/usr/token/" + token + "/series/" + seriesId)
+			.success(function (response){
+				deferred.resolve(response);
+			})
+			.error(function (err) {
+				deferred.reject(err);
+			});
+		return deferred.promise;
+	};
+
+
 	var service = {
 		getUser : function (token){return doGetUser(token);},
 		addSeriesToList : function (token,seriesId){return doAddSeriesToList(token,seriesId);},
-		setWatched : function (token,isWatched, episodeId){return doSetWatched(token,isWatched, episodeId);}
+		setWatched : function (token,isWatched, episodeId){return doSetWatched(token,isWatched, episodeId);},
+		removeSeries : function (token,seriesId){return doRemoveSeries(token,seriesId);}
 	};
 
 
 	return service;
+	
 }]);

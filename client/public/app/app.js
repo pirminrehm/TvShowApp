@@ -24,6 +24,4 @@ app.config(function($routeProvider) {
 			controller: "VerifyController"
 		})
 		.otherwise({redirectTo: '/welcome'});
-		
-
 });

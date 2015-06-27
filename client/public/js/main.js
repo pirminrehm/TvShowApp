@@ -71,9 +71,9 @@ console.log("testy");
 	  $('#search_bar').removeClass('active');
 	  $('#search_button').css('border-top-left-radius', '4px');
 	  $('#search_button').css('border-bottom-left-radius', '4px');
-	  $scope.searchString = [];
+	  // $scope.searchString = "";
 	  }
-	};
+	}
 });
 
 /*
