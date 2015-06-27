@@ -74,11 +74,15 @@
 								<p class="normal episode_nr_and_title">{{card.curEpisodeNr}}: {{card.curEpisodeName}}</p> 
 							</div>
 							<div class="right"> 
-								<h4>
+								<h4 id="removeSeries">
+									<span ng-class="" class="label noselect" ng-click=""> <!-- removeSeriesFunction -->
+										<span class="glyphicon glyphicon-remove"></span>
+									</span>								
+								</h4>
+								<h4 id="updateProgress">
 									<span ng-class="card.percWatched < 100 ? 'label-warning' : 'label-success'" class="label noselect" ng-click="progressBarUpdate(card._id, card.incrementAmount)">
 										<span class="plusOne">+1</span>
 										<span class="glyphicon glyphicon-ok"></span>
-				
 									</span>
 			
 								</h4>
