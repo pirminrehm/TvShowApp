@@ -31,6 +31,8 @@
 
 <div class="container-fluid" >
 
+	<div class="alert alert-danger" id="alertBox" role="alert" ng-show="err" ng-if="err">{{err.error}}</div>
+
 	<div id ="searchResultList" class="row">
 		<div ng-repeat="result in searchResults">
 
@@ -55,6 +57,15 @@
 	<div style="display:none;">
 		<div id="dialog" title="No Search Results">
 	  		<p>Sorry...we are not able to receive any search results from thetvdb.com</p>
+		</div>
+	</div>
+	<!--
+		Alert Dialog
+		Mostly useless because it is shown in the error
+	-->
+	<div style="display:none;">
+		<div id="dialog2" title="No Search Results">
+	  		<p>Sorry...but you already have this series in your list!</p>
 		</div>
 	</div>
 

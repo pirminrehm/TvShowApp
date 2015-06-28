@@ -305,7 +305,8 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 				$scope.err = err;
 				$('#' + seriesId).removeClass("glyphicon-time");
 				$('#' + seriesId).addClass("glyphicon-plus");
-				alert(err.error);
+				// alert(err.error);
+				// $("#dialog2").dialog();
 			});	
 	};
 
@@ -355,6 +356,7 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 		// console.log(newPerc);
 		if(newPerc >= 100){
 			newPerc = 100;
+			// Möglich das auf <h4 id="updateProgress"> umzumünzen da sonst der remove auch umgeändert wird?
 			$(progressBar).removeClass('progress-bar-warning').addClass('progress-bar-success');		
 			$("#" + card._id).find('.label').removeClass('label-warning').addClass('label-success');
 		}
