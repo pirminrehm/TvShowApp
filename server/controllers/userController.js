@@ -377,7 +377,7 @@ exports.addSeriesToList = function(req, res){
 										var series = new Series(resultJSON);
 										series.save(function (errSaveSeries, storedSeries){
 											if(storedSeries && !errSaveSeries){
-												console.log('Success: store "' + storedSeries.Series.SeriesName +  '" in Series DB collection');							
+												if (clog) console.log('Success: store "' + storedSeries.Series.SeriesName +  '" in Series DB collection');							
 												addSeriesToUser(storedSeries, user, res);
 											}
 											else if(storedSeries === null){

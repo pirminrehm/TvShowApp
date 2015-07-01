@@ -6,7 +6,8 @@ exports.connect = function (mongoUrl, callback) {
 	mongoose.connect(mongoUrl);
 	var db = mongoose.connection;
 
-	db.on('error', function () {
+	db.on('error', function (err) {
+		console.log(err);
 		callback(false);
 	});
 
@@ -17,6 +18,12 @@ exports.connect = function (mongoUrl, callback) {
 	});
 
 
+};
+
+exports.close = function (callback) {
+	mongoose.connection.close( function () {
+		callback();
+	});
 };
 
 

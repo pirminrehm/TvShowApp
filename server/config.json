@@ -4,5 +4,6 @@
 	"dbTestUrl" :"mongodb://localhost/tvTest",
 	"dbDevelopmentUrl" : "mongodb://localhost/tvDevelopment",
 	"dbProductUrl" : "mongodb://localhost/tvProduct",
-	"dbUrl" : "mongodb://localhost/tvTest"
+	"dbUrl" : "mongodb://localhost/tvTest",
+	"smallLogging" : true
 }
