@@ -350,15 +350,9 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 		}
 			
 		var progressBar = $("#" + card._id).find('.progress-bar');
-		//get number of episodes in current season
-		//var nrTotal = ...
-		//get new current percentage
-		//var curPerc = curEpisode / nrTotal;
 		var newPerc = parseFloat($(progressBar).attr("aria-valuenow")) + card.incrementAmount;
-		// console.log(newPerc);
 		if(newPerc >= 100){
 			newPerc = 100;
-			// Möglich das auf <h4 id="updateProgress"> umzumünzen da sonst der remove auch umgeändert wird?
 			$(progressBar).removeClass('progress-bar-warning').addClass('progress-bar-success');		
 			$("#" + card._id).find('.label').removeClass('label-warning').addClass('label-success');
 		}
