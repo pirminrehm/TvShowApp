@@ -71,35 +71,12 @@ console.log("testy");
 	  $('#search_bar').removeClass('active');
 	  $('#search_button').css('border-top-left-radius', '4px');
 	  $('#search_button').css('border-bottom-left-radius', '4px');
-	  // $scope.searchString = "";
 	  }
 	}
 });
 
-/*
-function progressBarUpdate(context, incrementAmount){
-alert(incrementAmount);
-	var progressBar = $(context).closest(".col-xs-12").find('.progress-bar');
-	//get number of episodes in current season
-	//var nrTotal = ...
-	//get new current percentage
-	//var curPerc = curEpisode / nrTotal;
-	var newPerc = parseInt($(progressBar).attr("aria-valuenow")) + incrementAmount;
-	if(newPerc >= 100){
-		//progressBarFull(context);
-		newPerc = 100;
-		$(progressBar).removeClass('progress-bar-warning').addClass('progress-bar-success');
-		$(context).removeClass('label-warning').addClass('label-success');
-		$(context).html('<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
-	}
-	$(progressBar).attr("aria-valuenow", newPerc);
-	$(progressBar).css({width: newPerc + "%"});
-}
-*/
 
 /* SubString Function */
-
-
 function cutSeriesName(element) {
 
 	var secureCount = 0;
@@ -121,6 +98,8 @@ function cutSeriesName(element) {
 	
 	}
 };
+
+
 
 
 

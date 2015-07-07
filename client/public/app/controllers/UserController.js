@@ -309,17 +309,19 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 				// $("#dialog2").dialog();
 			});	
 	};
-
-
-	$scope.removeSeries = function(card){
-		UserService.removeSeries(token,card.id)
-			.then(function (res){
-				$scope.cards.splice($scope.cards.indexOf(card),1);
-			}, function (err){
-				$scope.err = err;
-			});
-	};
 	
+	$scope.removeSeries = function(card){
+		var r = confirm("Delete this series?");
+		if (r == true) {
+			UserService.removeSeries(token,card.id)
+				.then(function (res){
+					$scope.cards.splice($scope.cards.indexOf(card),1);
+				}, function (err){
+					$scope.err = err;
+				});
+		}
+	};
+
 	
 	$scope.progressBarUpdate = function(card){
 				
