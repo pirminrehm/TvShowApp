@@ -220,12 +220,12 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 		for(var j = 0; j < series.episodes.length; j++) {
 			if(series.episodes[j].w){
 				series.eipsodeWatchedCount++;
-			} else if(series.curEpisodeName == ""){
+			} else if(series.curEpisodeName === ""){
 				series.curEpisodeName = series.episodes[j].n;
 				series.curEpisodeNr = series.episodes[j].eNr;
 				series.curSeasonNr = series.episodes[j].sNr;
 			}
-			if(j == series.episodes.length - 1 && series.curEpisodeName == ""){
+			if(j == series.episodes.length - 1 && series.curEpisodeName === ""){
 				series.curEpisodeName = allEpisodesWatched;
 				series.curEpisodeNr = series.episodes[j].eNr;
 				series.curSeasonNr = series.episodes[j].sNr;
@@ -312,7 +312,7 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 	
 	$scope.removeSeries = function(card){
 		var r = confirm("Delete this series?");
-		if (r == true) {
+		if (r === true) {
 			UserService.removeSeries(token,card.id)
 				.then(function (res){
 					$scope.cards.splice($scope.cards.indexOf(card),1);
@@ -338,15 +338,19 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 					card.curSeasonNr = card.episodes[j+1].sNr;
 				}
 				
-				UserService.setWatched(token, true, card.episodes[j].id)
-					.then(function (res){
-						card.episodes[j].w = true;
-					}, function (err){
-						$scope.err = err;
-						card.episodes[j].w = false;
-					});	
+				setEpisodeWatched(card, j);
 				break;
 			}					
+		}
+
+		function setEpisodeWatched (card, j) {
+			UserService.setWatched(token, true, card.episodes[j].id)
+				.then(function (res){
+					card.episodes[j].w = true;
+				}, function (err){
+					$scope.err = err;
+					card.episodes[j].w = false;
+				});
 		}
 			
 		var progressBar = $("#" + card._id).find('.progress-bar');

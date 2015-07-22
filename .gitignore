@@ -81,6 +81,14 @@ build/Release
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 
-
+#node_modules
 server/node_modules
 client/node_modules
+
+
+#grunt build
+client/public/build
+
+
+#folder for client frontend frameworks
+#client/public/lib

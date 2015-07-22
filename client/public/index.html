@@ -1,66 +1,37 @@
 <!DOCTYPE html>
-<head>
-	<script src="lib/jquery/dist/jquery.min.js"></script>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>TVShowApp</title>
+	    <title>TVShowApp</title>
 
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap-theme.min.css">
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+		<!-- framework css -->
+		<link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
-	  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<!-- framework css (not in main) -->
+		<link href="lib/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="lib/jquery-ui/themes/smoothness/jquery-ui.min.css" rel="stylesheet">
 
-	  
-	<!-- Our Own Stylesheet -->
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-</head>
+		<!-- custom css -->
+		<link href="build/style.min.css" rel="stylesheet">
 
-<!--Just some Tests
-    ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="lib/angular/angular.min.js"></script>
-<script src="lib/jquery/dist/jquery.min.js"></script>
-<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	</head>
 
-<!-- Lets start with the body -->
-<body ng-app="tvshowapp">
+	<body ng-app="tvshowapp">
 
+		<div ng-view></div>
 
+		<!-- framework js -->
+		<script src="lib/jquery/dist/jquery.min.js"></script>
+		<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="lib/angular/angular.min.js"></script>
+		<script src="lib/angular-route/angular-route.min.js"></script>
+		<script src="lib/jquery-ui/jquery-ui.min.js"></script>
 
+		<!-- custom js -->
+		<script src="build/custom.min.js"></script>
 
-	<div ng-view></div>
-
-
-
-
-	<script src="lib/angular-route/angular-route.min.js"></script>
-
-
-	<script src="app/app.js"></script>
-
-	<script src="app/services/UserService.js"></script>
-	<script src="app/services/AuthenticationService.js"></script>
-	<script src="app/services/SearchService.js"></script>
-	<script src="app/controllers/WelcomeController.js"></script>
-	<script src="app/controllers/UserController.js"></script>
-	<script src="app/controllers/MailController.js"></script>
-	<script src="app/controllers/VerifyController.js"></script>
-
-
-	
-
-	
-	
-
-
-
-
-</body>
+	</body>
 </html>

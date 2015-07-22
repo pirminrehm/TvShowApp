@@ -1,14 +1,27 @@
 {
-  "name": "tvd-client",
+  "name": "TvShowApp-Client",
   "version": "0.0.1",
-  "description": "TV-Database WEB-Client",
+  "description": "TV-ShowApp WEB-Client (Frontend)",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "HdM",
+  "author": "HdM Stuttgart",
   "license": "ISC",
   "dependencies": {
     "express": "^4.12.3"
+  },
+  "devDependencies": {
+    "autoprefixer-core": "^5.2.1",
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-cssmin": "^0.12.3",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-include-source": "^0.6.1",
+    "grunt-ng-annotate": "^1.0.1",
+    "grunt-postcss": "^0.5.5",
+    "grunt-wiredep": "^2.0.0"
   }
 }

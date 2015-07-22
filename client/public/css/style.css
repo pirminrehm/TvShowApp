@@ -2,10 +2,13 @@
 	TVShowApp CSS File
 */
 
-
+html{
+	height: 100%;
+}
 
 body {
 	background: #eee;
+	height: 100%;
 }
 
 /* 

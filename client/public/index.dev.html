@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	    <title>TVShowApp</title>
+		
+		<!-- framework css -->
+	    <!-- bower:css -->
+	    <!-- endbower -->
+		
+		<!-- framework css (not in main) -->
+		<link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+		<link href="lib/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" type="text/css">
+		<link href="lib/jquery-ui/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+
+	    <!-- custom css -->
+	    <link href="css/style.css" rel="stylesheet" type="text/css">
+		
+	</head>
+	
+	<body ng-app="tvshowapp">
+
+		<div ng-view></div>
+
+		<!-- framework js -->
+	    <!-- bower:js -->
+	    <script src="lib/jquery/dist/jquery.js"></script>
+	    <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+	    <script src="lib/angular/angular.js"></script>
+	    <script src="lib/angular-route/angular-route.js"></script>
+	    <script src="lib/jquery-ui/jquery-ui.js"></script>
+	    <!-- endbower -->
+
+	    <!-- custom js -->
+	    <script src="app/app.js"></script>
+	    <script src="app/controllers/MailController.js"></script>
+	    <script src="app/controllers/UserController.js"></script>
+	    <script src="app/controllers/VerifyController.js"></script>
+	    <script src="app/controllers/WelcomeController.js"></script>
+	    <script src="app/services/AuthenticationService.js"></script>
+	    <script src="app/services/SearchService.js"></script>
+	    <script src="app/services/UserService.js"></script>
+
+	</body>
+</html>
