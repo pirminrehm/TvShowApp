@@ -57,7 +57,6 @@ Email already in use:
 Status: 500, {"error":"For this email an account already exists"}
 ```
 
-
 ##### Register an new user `/register/verify/:token`
 GET request to `/usr/register/verify/:token` without content.
 
@@ -91,6 +90,40 @@ MongoDB error:
 ```
 Status: 500, {"error" : ErrorStack }
 ```
+
+##### Get Mail with Token `/mail/get`
+POST request to `/usr/mail/get` with the following content:
+```
+{ "email" : "yourmail@example.com"}
+```
+
+If there is an corresponding account in the db, an email with link to login will be send.
+###### Success
+**Client:** The client should check the `status`, if it is `200` show "You got mail" notification.
+
+If the mail has been send successfully, the server will respond:
+```
+Status: 200, 
+{"message":"Email successfull send"}
+```
+
+###### Errors:
+**Client:** The client should check the `status`, if it is `500` alert `response.body.error` 
+
+The email is unknown:
+```
+Status: 500, {"error" : "Not an accout registered for this Mail" }
+```
+MongoDB error:
+```
+Status: 500, {"error" : ErrorStack }
+```
+Email error:
+```
+Status: 500, {"error" : ErrorStack }
+```
+
+
 
 
 
