@@ -1,4 +1,4 @@
-var app = angular.module('tvshowapp', ["ngRoute"]);
+var app = angular.module('tvshowapp', ["ngRoute", "angular.filter"]);
 
 var config = {
 	"restUrl" : "http://localhost:3000"
@@ -22,6 +22,10 @@ app.config(function($routeProvider) {
 		.when("/verify/:token", {
 			templateUrl: "/app/templates/verify.html",
 			controller: "VerifyController"
+		})
+		.when("/details/:token/:seriesId", {
+			templateUrl: "/app/templates/detail.html",
+			controller: "DetailController"
 		})
 		.otherwise({redirectTo: '/welcome'});
 });

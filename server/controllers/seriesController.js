@@ -15,7 +15,7 @@ var clog = false;
 
 exports.search = function(req, res){
 
-	// var url = "http://www.thetvdb.com/api/GetSeries.php?seriesname=" + req.params.searchString + "&language=fr";
+	// var url = "http://www.thetvdb.com/api/GetSeries.php?seriesname=" + req.params.searchString + "&language=de";
 	var url = "http://www.thetvdb.com/api/GetSeries.php?seriesname=" + req.params.searchString;
 
 	if (clog) console.log('url', url);
@@ -26,7 +26,12 @@ exports.search = function(req, res){
 			parseString(body, {explicitRoot: false, explicitArray : false} ,function (err, result) {		
 				res.jsonp(result); 
 			});
-	  	}
+	  	} else if (error) {
+			res.status(500).jsonp({"error" : error});
+		} else {
+			res.status(500).jsonp({"error" : "Error in search request, status: " + statusCode});
+		}
+
 	});
 };
 
