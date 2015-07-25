@@ -77,7 +77,7 @@
 
 				<div class="progress">
 				
-					<div class="epi" ng-repeat="episode in card.episodes" ng-class="{'watched': episode.w, 'border-right': card.episodes[$index-1].sNr != episode.sNr  && $index > 0}" style="{{card.episodeWidth}}"></div>					
+					<div class="epi" ng-repeat="episode in card.episodes" ng-class="{'watched': episode.w, 'border-left': card.episodes[$index+1].sNr != episode.sNr  && $index < card.episodes.length - 1}" style="{{card.episodeWidth}}"></div>					
 				</div>
 				<div class="series" style="background-image:url({{card.bannerUrl}});"> 
 					<div class="series-inner"> 

@@ -222,7 +222,7 @@ app.controller('UserController', ['$sce', '$scope','$routeParams','SearchService
 		//var tempSeasonValues = [];
 		var progressBarString = "";
 		var lastEpisodeSeasonNr = series.episodes[0].sNr;
-		series.episodeWidth = "width: " + 100/series.episodes.length + "%;";
+		series.episodeWidth = "width: " + 100.05/series.episodes.length + "%;";
 		
 		series.episodeAllCount = series.episodes.length;
 		series.eipsodeWatchedCount = 0;
