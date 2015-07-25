@@ -323,16 +323,24 @@ white-space: nowrap;
 	background: #e6e6e6;
 	position: relative;
 }
-.progress .back {
+.progress .epi {
   float: left;
-  margin-top: 3px;
-  height: 5px;
-  border-left: 1px solid#696969;
+  height: 100%;
+  
+  
 
 }
-.progress .back:first-child {
-	border-left: none;
+
+.progress .epi.watched {
+  background-image: -webkit-linear-gradient(top, #5cb85c 0%, #449d44 100%);
+  background-image: -o-linear-gradient(top, #5cb85c 0%, #449d44 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#5cb85c), to(#449d44));
+  background-image: linear-gradient(to bottom, #5cb85c 0%, #449d44 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5cb85c', endColorstr='#ff449d44', GradientType=0);
+  background-repeat: repeat-x;
+
 }
+
 
 
 

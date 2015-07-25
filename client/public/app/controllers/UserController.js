@@ -219,7 +219,7 @@ app.controller('UserController', ['$sce', '$scope','$routeParams','SearchService
 }
 
 	function enhanceSeries(series){
-		var tempSeasonValues = [];
+		//var tempSeasonValues = [];
 		var progressBarString = "";
 		var lastEpisodeSeasonNr = series.episodes[0].sNr;
 		
@@ -229,11 +229,7 @@ app.controller('UserController', ['$sce', '$scope','$routeParams','SearchService
 		series.incrementAmount = (1/series.episodeAllCount) * 100 + 0.0000000001;
 
 		for(var j = 0; j < series.episodes.length; j++) {
-			//check seasonCount
-			if(!contains(tempSeasonValues, series.episodes[j].sNr)){
-				tempSeasonValues.push(series.episodes[j].sNr);
-			}
-			
+		
 			//watchedPercentage
 			if(series.episodes[j].w){
 				series.eipsodeWatchedCount++;
@@ -249,31 +245,18 @@ app.controller('UserController', ['$sce', '$scope','$routeParams','SearchService
 			}
 			
 			
-			var progressBarStatus = series.episodes[j].w ? " progress-bar-success" : "";
+			
+			var progressBarStatus = series.episodes[j].w ? " watched" : "";
 			var seasonEndBorderStyle = "";
 			if(lastEpisodeSeasonNr != series.episodes[j].sNr){
-				seasonEndBorderStyle = "border-left: 1px solid #666";
+				seasonEndBorderStyle = " border-left: 1px solid #666";
 			}
 			lastEpisodeSeasonNr = series.episodes[j].sNr;
-			progressBarString += "<div class='progress-bar" + progressBarStatus + "' style='width: " + 100/series.episodes.length + "%; " + seasonEndBorderStyle + "'></div>";
+			progressBarString += "<div class='epi" + progressBarStatus + "' style='width: " + 100/series.episodes.length + "%;" + seasonEndBorderStyle + "'></div>";
 
 		}
 
-		
-		
-		//series.seasonCount = tempSeasonValues.length;
-		//series.percWatched = (series.eipsodeWatchedCount/series.episodeAllCount) * 100;
-		
-		//ng-class="card.percWatched < 100 ? 'progress-bar-warning' : 'progress-bar-success'" role="progressbar" aria-valuenow="{{ card.percWatched }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ card.percWatched }}%;
-		//var progressBarStatus = series.percWatched < 100 ? "progress-bar-warning" : "progress-bar-success";
-		
-		
-	
-		
-		
 		series.progressBar = $sce.trustAsHtml(progressBarString);
-		
-
 		return series;
 	}
 
