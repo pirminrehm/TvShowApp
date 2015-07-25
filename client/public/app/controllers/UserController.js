@@ -221,6 +221,7 @@ app.controller('UserController', ['$sce', '$scope','$routeParams','SearchService
 	function enhanceSeries(series){
 		var tempSeasonValues = [];
 		var progressBarString = "";
+		var lastEpisodeSeasonNr = series.episodes[0].sNr;
 		
 		series.episodeAllCount = series.episodes.length;
 		series.eipsodeWatchedCount = 0;
@@ -246,9 +247,15 @@ app.controller('UserController', ['$sce', '$scope','$routeParams','SearchService
 				series.curEpisodeNr = series.episodes[j].eNr;
 				series.curSeasonNr = series.episodes[j].sNr;
 			}
-			var progressBarStatus = series.episodes[j].w ? " progress-bar-success" : "";
 			
-			progressBarString += "<div class='progress-bar" + progressBarStatus + "' style='width: " + 100/series.episodes.length + "%'></div>";
+			
+			var progressBarStatus = series.episodes[j].w ? " progress-bar-success" : "";
+			var seasonEndBorderStyle = "";
+			if(lastEpisodeSeasonNr != series.episodes[j].sNr){
+				seasonEndBorderStyle = "border-left: 1px solid #666";
+			}
+			lastEpisodeSeasonNr = series.episodes[j].sNr;
+			progressBarString += "<div class='progress-bar" + progressBarStatus + "' style='width: " + 100/series.episodes.length + "%; " + seasonEndBorderStyle + "'></div>";
 
 		}
 
