@@ -391,3 +391,8 @@ white-space: nowrap;
 .season_list div.label h4{
 	height:21px;
 }
+
+h2.normal a, h2.normal a:active, h2.normal a:hover, h2.normal a:link, h2.normal a:visited, h2.normal a:focus {
+	color:#fff;
+	text-decoration: none;
+}
