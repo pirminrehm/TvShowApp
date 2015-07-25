@@ -188,7 +188,7 @@
 
 var app = angular.module('tvshowapp');
 
-app.controller('UserController', ['$scope','$routeParams','SearchService','UserService', function($scope,$routeParams,SearchService,UserService){
+app.controller('UserController', ['$sce', '$scope','$routeParams','SearchService','UserService', function($sce, $scope,$routeParams,SearchService,UserService){
 	
 	$scope.cards = [];
 	$scope.searchResults = [];
@@ -209,15 +209,31 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 			$scope.err = err;
 		});
 
+		function contains(a, obj) {
+    for (var i = 0; i < a.length; i++) {
+        if (a[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+}
 
 	function enhanceSeries(series){
-
+		var tempSeasonValues = [];
+		var progressBarString = "";
+		
 		series.episodeAllCount = series.episodes.length;
 		series.eipsodeWatchedCount = 0;
 		series.curEpisodeName = "";
 		series.incrementAmount = (1/series.episodeAllCount) * 100 + 0.0000000001;
 
 		for(var j = 0; j < series.episodes.length; j++) {
+			//check seasonCount
+			if(!contains(tempSeasonValues, series.episodes[j].sNr)){
+				tempSeasonValues.push(series.episodes[j].sNr);
+			}
+			
+			//watchedPercentage
 			if(series.episodes[j].w){
 				series.eipsodeWatchedCount++;
 			} else if(series.curEpisodeName === ""){
@@ -230,9 +246,26 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 				series.curEpisodeNr = series.episodes[j].eNr;
 				series.curSeasonNr = series.episodes[j].sNr;
 			}
+			var progressBarStatus = series.episodes[j].w ? " progress-bar-success" : "";
+			
+			progressBarString += "<div class='progress-bar" + progressBarStatus + "' style='width: " + 100/series.episodes.length + "%'></div>";
+
 		}
 
-		series.percWatched = (series.eipsodeWatchedCount/series.episodeAllCount) * 100;
+		
+		
+		//series.seasonCount = tempSeasonValues.length;
+		//series.percWatched = (series.eipsodeWatchedCount/series.episodeAllCount) * 100;
+		
+		//ng-class="card.percWatched < 100 ? 'progress-bar-warning' : 'progress-bar-success'" role="progressbar" aria-valuenow="{{ card.percWatched }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ card.percWatched }}%;
+		//var progressBarStatus = series.percWatched < 100 ? "progress-bar-warning" : "progress-bar-success";
+		
+		
+	
+		
+		
+		series.progressBar = $sce.trustAsHtml(progressBarString);
+		
 
 		return series;
 	}

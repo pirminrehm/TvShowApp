@@ -321,7 +321,20 @@ white-space: nowrap;
 
 .progress {
 	background: #e6e6e6;
+	position: relative;
 }
+.progress .back {
+  float: left;
+  margin-top: 3px;
+  height: 5px;
+  border-left: 1px solid#696969;
+
+}
+.progress .back:first-child {
+	border-left: none;
+}
+
+
 
 #verify {
 	height: 20px;

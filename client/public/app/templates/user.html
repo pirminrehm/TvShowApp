@@ -2,7 +2,7 @@
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 
-		<div class="right">
+		<div>
 			<!-- Brand Name - TVShowApp -->
 			<div id="brand">
 				<a class="navbar-brand">TVShowApp</a>
@@ -73,9 +73,8 @@
 		<div ng-repeat="card in cards">
 			
 			<div id="{{card._id}}" class="col-xs-12 col-sm-6 col-md-4">
-				<div class="progress">
-					<div class="progress-bar" ng-class="card.percWatched < 100 ? 'progress-bar-warning' : 'progress-bar-success'" role="progressbar" aria-valuenow="{{ card.percWatched }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ card.percWatched }}%;">
-					</div>
+				<div class="progress" ng-bind-html="card.progressBar">
+					
 				</div>
 				<div class="series" style="background-image:url({{card.bannerUrl}});"> 
 					<div class="series-inner"> 
