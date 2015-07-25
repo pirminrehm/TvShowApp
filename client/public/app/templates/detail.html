@@ -1,0 +1,79 @@
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+
+		<div class="right">
+			<!-- Brand Name - TVShowApp -->
+			<div id="brand">
+				<a class="navbar-brand">TVShowApp</a>
+			</div>
+
+		</div>
+
+    </div>
+</nav>
+<!-- End of Top Navigation -->
+
+{{seriesDetails}}
+
+
+<div class="container-fluid">
+
+<!-- Header -->
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12">
+			<div class="progress">
+				<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+			</div>
+			<div class="series" style="background-image:url({{userSeries.bannerUrl}});background-size:100%;">
+				<div class="series-inner">
+					<div class="series-inner">
+					<div class="series-inner-title">
+						<div class="left">
+							<h2 class="normal">{{seriesDetails.SeriesName}}</h2>
+							<p class="normal">{{userSeries.curSeasonNr}}/{{userSeries.curEpisodeNr}}: {{userSeries.curEpisodeName}}</p>
+						</div>
+						<!-- <div class="right">
+							<h4><span class="label label-warning">+1</span></h4>
+						</div> -->
+						<div class="clear"></div>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	{{seriesDetails.Overview}}
+
+
+	<div class="row">
+
+		<div class="col-xs-12 col-sm-6 col-md-4">
+
+			<ul class="season_list" ng-repeat="(staffel, episodes) in userSeries.episodes | groupBy: 'sNr'">
+				<div>
+					<h4>Staffel {{staffel}}</h4>
+					<input type="checkbox">
+				</div>
+				<li ng-repeat="episode in episodes">
+					<div class="row container-fluid">
+						<div class="col-xs-10 col-sm-10 col-md-10 nowrap"><h4>{{episode.eNr}}: {{episode.n}}</h4></div>
+						<div class="col-xs-2 col-sm-2 col-md-2 label" ng-class="{'label-success' : episode.w, 'label-warning' : !episode.w}" ng-click="setEpisodeWatched(episode)">
+							<h4 ng-if="!episode.w"><span > <b>+1</b> </span></h4>
+							<h4 ng-if="episode.w"> <span class="glyphicon glyphicon-ok "></span></h4>
+					</div>
+				</li>
+			</ul>
+
+		</div>
+	</div>
+</div>
+
+<!-- 
+<div ng-repeat="(key, value) in season | groupBy: 'season'">
+  <h1>Season: {{ key }}</h1>
+  <p ng-repeat="episode in value">
+    episode: {{ episode.name }} 
+  </p>
+</div> -->

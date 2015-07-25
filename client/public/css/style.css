@@ -210,7 +210,6 @@ display: inline-block;
 	border: 1px solid #ddd;
 }
 .season_list li:hover {
-	cursor: pointer;
 	background-color: #f6f6f6;
 }
 
@@ -373,3 +372,33 @@ white-space: nowrap;
   .removeButton:hover {
   cursor: pointer;
   }
+
+
+
+.episode-checkbox {
+/*  height: 32px;
+  color:#fff;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;*/
+}
+
+.episode-name{
+   /*padding:7px;*/
+}
+
+.nowrap {
+	white-space: nowrap;
+}
+
+
+.season_list div.label {
+	padding: 0px;
+}
+
+.season_list div.label h4{
+	height:21px;
+}
