@@ -77,8 +77,7 @@
 
 				<div class="progress">
 				
-					<div class="epi" ng-repeat="episode in card.episodes" ng-class="episode.w ? 'watched' : ''"></div>
-					
+					<div class="epi" ng-repeat="episode in card.episodes" ng-class="{'watched': episode.w, 'border-right': card.episodes[$index-1].sNr != episode.sNr  && $index > 0}" style="{{card.episodeWidth}}"></div>					
 				</div>
 				<div class="series" style="background-image:url({{card.bannerUrl}});"> 
 					<div class="series-inner"> 
@@ -94,7 +93,7 @@
 									</span>								
 								</h4>
 								<h4 id="updateProgress">
-									<span ng-class="card.percWatched < 100 ? 'label-warning' : 'label-success'" class="label noselect" ng-click="progressBarUpdate(card)">
+									<span ng-class="card.allWatched ? 'label-success' : 'label-warning'" class="label noselect" ng-click="progressBarUpdate(card)">
 										<span class="plusOne">+1</span>
 										<span class="glyphicon glyphicon-ok"></span>
 									</span>

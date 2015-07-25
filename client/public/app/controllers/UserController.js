@@ -222,11 +222,13 @@ app.controller('UserController', ['$sce', '$scope','$routeParams','SearchService
 		//var tempSeasonValues = [];
 		var progressBarString = "";
 		var lastEpisodeSeasonNr = series.episodes[0].sNr;
+		series.episodeWidth = "width: " + 100/series.episodes.length + "%;";
 		
 		series.episodeAllCount = series.episodes.length;
 		series.eipsodeWatchedCount = 0;
 		series.curEpisodeName = "";
 		series.incrementAmount = (1/series.episodeAllCount) * 100 + 0.0000000001;
+		series.allWatched = false;
 
 		for(var j = 0; j < series.episodes.length; j++) {
 		
@@ -242,6 +244,7 @@ app.controller('UserController', ['$sce', '$scope','$routeParams','SearchService
 				series.curEpisodeName = allEpisodesWatched;
 				series.curEpisodeNr = series.episodes[j].eNr;
 				series.curSeasonNr = series.episodes[j].sNr;
+				series.allWatched = true;
 			}
 			
 			
@@ -354,6 +357,7 @@ app.controller('UserController', ['$sce', '$scope','$routeParams','SearchService
 
 				if(j == card.episodes.length - 1){
 					card.curEpisodeName = allEpisodesWatched;
+					card.allWatched = true;
 				}
 				else{
 					card.curEpisodeName = card.episodes[j+1].n;

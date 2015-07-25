@@ -373,3 +373,7 @@ white-space: nowrap;
   .removeButton:hover {
   cursor: pointer;
   }
+
+  .border-right{
+  	border-right: 1px solid #666;
+  }
