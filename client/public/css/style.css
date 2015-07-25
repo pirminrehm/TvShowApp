@@ -374,7 +374,6 @@ white-space: nowrap;
   }
 
 
-
 .episode-checkbox {
 /*  height: 32px;
   color:#fff;
@@ -402,3 +401,8 @@ white-space: nowrap;
 .season_list div.label h4{
 	height:21px;
 }
+
+  .border-left{
+  	border-left: 1px solid #666;
+  }
+
