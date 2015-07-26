@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 
-		<div class="right">
+		<div>
 			<!-- Brand Name - TVShowApp -->
 			<div id="brand">
 				<a class="navbar-brand">TVShowApp</a>
@@ -19,7 +19,8 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-12">
 			<div class="progress">
-				<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+				<div class="epi" ng-repeat="episode in userSeries.episodes" ng-class="{'watched': episode.w, 'border-left': userSeries.episodes[$index+1].sNr != episode.sNr  && $index < userSeries.episodes.length - 1}" style="{{userSeries.episodeWidth}}"></div>
+			
 			</div>
 			<div class="series" style="background-image:url({{userSeries.bannerUrl}});background-size:100%;">
 				<div class="series-inner">
@@ -29,6 +30,16 @@
 							<h2 class="normal">{{seriesDetails.SeriesName}}</h2>
 							<p class="normal">{{userSeries.curSeasonNr}}/{{userSeries.curEpisodeNr}}: {{userSeries.curEpisodeName}}</p>
 						</div>
+						<div class="right"> 
+								
+								<h4 id="updateProgress">
+									<span ng-class="card.allWatched ? 'label-success' : 'label-warning'" class="label noselect" ng-click="progressBarUpdate(userSeries)">
+										<span class="plusOne">+1</span>
+										<span class="glyphicon glyphicon-ok"></span>
+									</span>
+			
+								</h4>
+							</div> 
 						<!-- <div class="right">
 							<h4><span class="label label-warning">+1</span></h4>
 						</div> -->
@@ -46,9 +57,9 @@
 
 	<div class="row">
 
-		<div class="col-xs-12 col-sm-6 col-md-4">
+		
 
-			<ul class="season_list" ng-repeat="(staffel, episodes) in userSeries.episodes | groupBy: 'sNr'">
+			<ul class="col-xs-12 col-sm-6 season_list" ng-repeat="(staffel, episodes) in userSeries.episodes | groupBy: 'sNr'">
 				<div>
 					<h4>Staffel {{staffel}}</h4>
 					<input type="checkbox">
@@ -63,7 +74,7 @@
 				</li>
 			</ul>
 
-		</div>
+		
 	</div>
 </div>
 
