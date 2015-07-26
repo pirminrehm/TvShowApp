@@ -6,7 +6,7 @@ app.controller('DetailController', ['$sce', '$scope','$location','SeriesService'
 	$scope.token = token;
 	var seriesId = $routeParams.seriesId;
 	var userSeries;
-
+	var allEpisodesWatched = "You have watched all episodes!";
 	
 
 	function enhanceSeries(series){
