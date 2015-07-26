@@ -366,6 +366,7 @@ exports.addSeriesToList = function(req, res){
 					else if(resultSeries === null){
 						if(clog) console.log('Have to retrieve series from tvd');
 
+						//var url = "http://www.thetvdb.com/api/" + dataSafe.tvdbApiKey + "/series/" + seriesId + "/all/de.xml";
 						var url = "http://www.thetvdb.com/api/" + dataSafe.tvdbApiKey + "/series/" + seriesId + "/all";
 
 						request(url, function (errReq, responseTvd, body) {
