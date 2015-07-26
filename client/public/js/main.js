@@ -3,21 +3,21 @@ console.log("testy");
 //list from http://tvline.com/2013/06/03/100-best-written-tv-shows-ever-the-sopranos/
 
 /* SpoilerDescription Function */
-	$('.season_list div input').click(function () {
-		var returnVal = confirm("Are you sure?");
-		if(returnVal == true){
-			var newBool = $(this).is(":checked");
-			$(this).attr("checked", newBool);
-			$('.season_list li').find('input').each(function(){
-				$(':checkbox').prop("checked", newBool);
-			}); 
-		}
-		$('.season_list div input').val($(this).is(':checked'));
-	});
+	// $('.season_list div input').click(function () {
+	// 	var returnVal = confirm("Are you sure?");
+	// 	if(returnVal == true){
+	// 		var newBool = $(this).is(":checked");
+	// 		$(this).attr("checked", newBool);
+	// 		$('.season_list li').find('input').each(function(){
+	// 			$(':checkbox').prop("checked", newBool);
+	// 		}); 
+	// 	}
+	// 	$('.season_list div input').val($(this).is(':checked'));
+	// });
 	
 /* Checkbox Function */
 /* BUG: Only check all the boxes of ONE Season */
-	$('.season_list li').click(function (e) {
+/*	$('.season_list li').click(function (e) {
 		if(e.target.className != 'checkbox'){
 			if (!$(this).hasClass('active')) {
 				$('.season_list li').removeClass('active');
@@ -29,7 +29,7 @@ console.log("testy");
 				$('.season_list li p').slideUp();
 			}
 		}
-	});
+	});*/
 	
 	
 

@@ -34,9 +34,9 @@
 	<div class="alert alert-danger" id="alertBox" role="alert" ng-show="err" ng-if="err">{{err.error}}</div>
 
 	<div id ="searchResultList" class="row">
-		<div ng-repeat="result in searchResults">
+		<div ng-repeat="result in searchResults" class="searchResult col-xs-12 col-sm-6 col-md-4">
 
-			<div class="searchResult col-xs-12 col-sm-6 col-md-4">
+			<div >
 				<ul class="list-group">
 					<li class="list-group-item">
 						<p>{{result.SeriesName}}</p>

@@ -3,6 +3,7 @@ var app = angular.module('tvshowapp');
 app.controller('DetailController', ['$sce', '$scope','$location','SeriesService','$routeParams','UserService', function($sce, $scope,$location, SeriesService, $routeParams, UserService){
 
 	var token = $routeParams.token;
+	$scope.token = token;
 	var seriesId = $routeParams.seriesId;
 	var userSeries;
 
@@ -78,6 +79,9 @@ app.controller('DetailController', ['$sce', '$scope','$location','SeriesService'
 			$scope.err = err;
 			console.log('err',err);			
 	});
+
+
+
 	
 
 	$scope.progressBarUpdate = function(card){
@@ -129,6 +133,7 @@ app.controller('DetailController', ['$sce', '$scope','$location','SeriesService'
 		UserService.setWatched(token, !episode.w, episode.id)
 			.then(function (res){
 				episode.w = !episode.w;
+				enhanceSeries(userSeries);
 			}, function (err){
 				$scope.err = err;
 				episode.w = episode.w;

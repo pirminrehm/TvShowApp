@@ -378,11 +378,6 @@ white-space: nowrap;
   }
 
 
-.nowrap {
-	white-space: nowrap;
-}
-
-
 .season_list div.label {
 	padding: 0px;
 }
@@ -394,4 +389,35 @@ white-space: nowrap;
 h2.normal a, h2.normal a:active, h2.normal a:hover, h2.normal a:link, h2.normal a:visited, h2.normal a:focus {
 	color:#fff;
 	text-decoration: none;
+}
+
+
+
+.backbutton a, .backbutton a:active, .backbutton a:hover, .backbutton a:link, .backbutton  a:visited, .backbutton  a:focus {
+	color:#337ab7 !important;
+	text-decoration: none;
+	line-height: 20px;
+	font-size: 20px;
+	display: block;
+	height: 100%;
+	width: 50px;
+	padding:14px;
+
+}
+
+.navbar .label {
+	padding: 14px;
+}
+
+.col-2-fixed {
+	width: 14% ;
+	float: right;
+}
+
+#searchResultList > div {
+	min-height: 92px;
+}
+
+.overview {
+	padding: 5px;
 }
