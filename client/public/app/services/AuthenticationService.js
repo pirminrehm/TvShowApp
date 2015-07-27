@@ -19,7 +19,7 @@ app.factory('AuthenticationService', ['$http','$q', function($http,$q){
 
 	var doGetList = function(email){
 		var deferred = $q.defer();
-		$http.post(url + "/usr/mail/get", email)
+		$http.post(url + "/usr/mail/get", {"email":email} )
 			.success(function (response){
 				deferred.resolve(response);
 			})

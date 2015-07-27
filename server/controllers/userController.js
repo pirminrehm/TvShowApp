@@ -56,7 +56,8 @@ function sendMail(token, callback) {
 			text:    "Hello!\nAccess your account here: " + "http://localhost:8080/#/welcome/"+token + "\nYour TvShowApp-Team", 
 			from:    dataSafe.mailUser, 
 			to:      req.body.email,
-			subject: "Token for TvShowApp"
+			subject: "Token for TvShowApp",
+			attachment: [{data:"Hello!<br>Access your account <a href='http://localhost:8080/#/welcome/"+token + "'>here!</a><br>Your TvShowApp-Team", alternative:true}]
 		},  function(err, message) { 
 				if(err) {
 					if(clog) console.log(err);
@@ -99,7 +100,8 @@ exports.registerAccount = function (req, res) {
 			text:    "Hello!\nVerify your account here: " + "http://localhost:8080/#/verify/"+token + "\nYour TvShowApp-Team", 
 			from:    dataSafe.mailUser, 
 			to:      req.body.email,
-			subject: "Token for TvShowApp"
+			subject: "Token for TvShowApp",
+			attachment: [{data:"Hello!<br>Verify your account <a href='http://localhost:8080/#/verify/"+token + "'>here!</a><br>Your TvShowApp-Team", alternative:true}]
 		},  function(err, message) { 
 				if(err) {
 					if(clog) console.log(err);

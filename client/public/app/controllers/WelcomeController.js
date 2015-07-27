@@ -23,13 +23,18 @@ $scope.email = "";
 
 
 	$scope.getList = function(){
-		AuthenticationService.getList($scope.property)
-			.then(function (res){
-				$location.url("/mail");
-			}, function (err){
-				$scope.err = err;
-				console.log('err',err);			
+		if ($scope.email) {
+			AuthenticationService.getList($scope.email)
+				.then(function (res){
+					$location.url("/mail");
+				}, function (err){
+					$scope.err = err;
+					console.log('err',err);			
 			});
+		} else {
+			$scope.err = {};
+			$scope.err.error ="This wasn't an email adress"; 
+		}
 	};
 	
 }]);

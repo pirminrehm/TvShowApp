@@ -405,6 +405,10 @@ h2.normal a, h2.normal a:active, h2.normal a:hover, h2.normal a:link, h2.normal 
 
 }
 
+.backbutton {
+	width: 50px;
+}
+
 .navbar .label {
 	padding: 14px;
 }

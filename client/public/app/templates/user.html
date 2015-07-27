@@ -69,6 +69,12 @@
 		</div>
 	</div>
 
+
+	<div ng-if="cards.length == 0 && searchResults.length == 0">
+  		<p>Click on + and add a new series!</p>
+	</div>
+
+
 	<div class="row">
 		<div ng-repeat="card in cards">
 			
