@@ -9,6 +9,7 @@ app.controller('DetailController', ['$sce', '$scope','$location','SeriesService'
 	var allEpisodesWatched = "You have watched all episodes!";
 	$scope.card = {};
 	
+	
 
 	// function enhanceSeries(series){
 	// 	var progressBarString = "";
@@ -60,15 +61,13 @@ app.controller('DetailController', ['$sce', '$scope','$location','SeriesService'
 			for(var i=0; i<res.series.length; i++){
 				if (res.series[i].id == seriesId) {
 					userSeries = res.series[i];
+					break;
 				}
 			}
 			if (userSeries) {
+				$scope.userSeries = userSeries;
 				// enhanceSeries(userSeries);
 				// console.log('userSeries', userSeries);
-				var tempArray = [];
-				tempArray.push(userSeries);
-				$scope.cards = tempArray;
-
 				// $scope.card = userSeries;
 				// console.log('$scope.card', $scope.card);
 

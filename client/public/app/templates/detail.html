@@ -48,9 +48,7 @@
 				</div>
 			</div>
 		</div> -->
-		<div ng-repeat="card in cards">
-			<card card="card" small="false"></card>
-		</div>
+		<card ng-if="userSeries" card="userSeries" small="false"></card>
 		<!-- <card card="card" small="false"></card> -->
 		<!-- <h1>name: {{card.name}}</h1> -->
 	</div>
@@ -63,7 +61,7 @@
 
 		<!-- <div ng-repeat="card in cards"> -->
 
-			<ul class="col-xs-12 col-sm-6 season_list" ng-repeat="(staffel, episodes) in cards[0].episodes | groupBy: 'sNr'">
+			<ul class="col-xs-12 col-sm-6 season_list" ng-repeat="(staffel, episodes) in userSeries.episodes | groupBy: 'sNr'">
 				<div>
 					<h4>Staffel {{staffel}}</h4>
 				<!-- 	<input type="checkbox"> -->
