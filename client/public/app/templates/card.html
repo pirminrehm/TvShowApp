@@ -1,0 +1,39 @@
+<div ng-class="small ? 'col-sm-6 col-md-4' : 'col-sm-12 col-md-12'" class="col-xs-12">
+	<div class="progress">
+		<div 	class="epi" 
+				ng-repeat="episode in card.episodes" 
+				ng-class="{'watched': episode.w, 'border-left': card.episodes[$index+1].sNr != episode.sNr  && $index < card.episodes.length-1}" 
+				ng-style="{width: '{{card.episodeWidth}}%'}">
+		</div>		
+	</div>
+	<div class="series" style="background-image:url({{card.bannerUrl}});"> 
+		<div class="series-inner"> 
+			<div class="series-inner-title"> 
+				<div class="left" ng-if="small"> 
+					<h2 class="normal"><a href="#/details/{{token}}/{{card.id}}">{{card.name}}</a></h2> 
+					<p class="normal episode_nr_and_title">{{card.curSeasonNr}}/{{card.curEpisodeNr}}: {{card.curEpisodeName}}</p> 
+				</div>
+				<div class="left" ng-if="!small">
+					<h2 class="normal">{{card.name}}</h2>
+					<p class="normal">{{card.curSeasonNr}}/{{card.curEpisodeNr}}: {{card.curEpisodeName}}</p>
+				</div>
+				<div class="right"> 
+					<h4 id="removeSeries" ng-if="small">
+						<span ng-class="" class="removeButton noselect" ng-click="removecard({data:card})">
+							<span class="glyphicon glyphicon-remove"/>
+						</span>								
+					</h4>
+					<h4 id="updateProgress">
+						<span 	ng-class="card.allWatched ? 'label-success' : 'label-warning'" 
+								class="label noselect" 
+								ng-click="progressUpdate(card)">
+							<span class="plusOne">+1</span>
+							<span class="glyphicon glyphicon-ok"/>
+						</span>
+					</h4>
+				</div> 
+				<div class="clear"/>
+			</div>
+		</div>
+	</div>
+</div>

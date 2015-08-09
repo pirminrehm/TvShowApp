@@ -15,10 +15,7 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 
 	
 	UserService.getUser(token)
-		.then(function (res){
-			for(var i=0; i<res.series.length; i++){
-				enhanceSeries(res.series[i]);
-			}
+		.then(function (res){			
 			$scope.cards = res.series;
 		}, function (err){
 			$scope.err = err;
@@ -50,40 +47,6 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 	        }
 	    }
 	    return false;
-	}
-
-
-	function enhanceSeries(series){
-
-		series.episodeWidth = 100.4/series.episodes.length;
-		series.curEpisodeName = "";
-		series.allWatched = false;
-
-		var j;
-
-		for(j = 0; j < series.episodes.length; j++) {
-		
-			//search for the first unwatched episode
-			if(!series.episodes[j].w && series.curEpisodeName === ""){
-				setCurrentSeriesProperties(series, series.episodes[j].n, series.episodes[j].eNr, series.episodes[j].sNr);
-				break;
-			}
-			
-		}
-
-		// if all epsiode are watched
-		if(j == series.episodes.length){
-			setCurrentSeriesProperties(series, allEpisodesWatched, series.episodes[j-1].eNr, series.episodes[j-1].sNr);
-			series.allWatched = true;
-		}
-
-		return series;
-
-		function setCurrentSeriesProperties (series, name, eNr, sNr) {
-			series.curEpisodeName = name;
-			series.curEpisodeNr = eNr;
-			series.curSeasonNr = sNr;
-		}
 	}
 
 
@@ -127,7 +90,8 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 		UserService.addSeriesToList(token, seriesId)
 			.then(function (res){
 
-				$scope.cards.push(enhanceSeries(res));
+				// $scope.cards.push(enhanceSeries(res));
+				$scope.cards.push(res);
 				angular.element('#' + seriesId).removeClass("glyphicon-time");
 				angular.element('#' + seriesId).addClass("glyphicon-ok");
 
@@ -146,7 +110,7 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 	
 
 	$scope.removeSeries = function(card){
-		var r = confirm("Delete this series?");
+		var r = confirm("Delete \"" + card.name + "\" ?");
 		if (r === true) {
 			UserService.removeSeries(token,card.id)
 				.then(function (res){
@@ -157,70 +121,4 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 		}
 	};
 
-	
-	$scope.progressBarUpdate = function(card){
-		
-		for(var j = 0; j < card.episodes.length; j++) {
-			
-			if(!card.episodes[j].w){
-
-				//all episodes are wachted
-				if(j == card.episodes.length - 1){
-					updateCardAllEpisodesWatched(card);
-				}
-
-				//the next episode is already watched
-				else if (card.episodes[j+1].w){
-					
-					var k;
-
-					//search for the next unwatched episode
-					for(k=j+2; k < card.episodes.length; k++){
-						
-						//if an unwatched episode is found, take it
-						if(!card.episodes[k].w){
-							updateCardNextUnwatchedEpisode(card, k, card.episodes[k].n, card.episodes[k].eNr, card.episodes[k].sNr);
-							break;
-						}
-					}
-
-					//if all episodes are watched
-					if(k== card.episodes.length){
-						card.curEpisodeName = allEpisodesWatched;
-						card.allWatched = true;				
-					}
-				}
-
-				//take the following episode
-				else{
-					updateCardNextUnwatchedEpisode(card, j+1, card.episodes[j+1].n, card.episodes[j+1].eNr, card.episodes[j+1].sNr);
-				}
-				
-				setEpisodeWatched(card, j);
-				break;
-			}
-		}
-
-		function setEpisodeWatched (card, j) {
-			UserService.setWatched(token, true, card.episodes[j].id)
-				.then(function (res){
-					card.episodes[j].w = true;
-				}, function (err){
-					$scope.err = err;
-					card.episodes[j].w = false;
-				});
-		}
-
-		function updateCardAllEpisodesWatched (card) {
-			card.curEpisodeName = allEpisodesWatched;
-			card.allWatched = true;
-		}
-
-		function updateCardNextUnwatchedEpisode (card, index, n, eNr, sNr) {
-		 	card.curEpisodeName = card.episodes[index].n;
-			card.curEpisodeNr = card.episodes[index].eNr;
-			card.curSeasonNr = card.episodes[index].sNr;
-		} 
-	};	
-		
 }]);

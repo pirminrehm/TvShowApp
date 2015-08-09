@@ -7,51 +7,52 @@ app.controller('DetailController', ['$sce', '$scope','$location','SeriesService'
 	var seriesId = $routeParams.seriesId;
 	var userSeries;
 	var allEpisodesWatched = "You have watched all episodes!";
+	$scope.card = {};
 	
 
-	function enhanceSeries(series){
-		var progressBarString = "";
-		var lastEpisodeSeasonNr = series.episodes[0].sNr;
-		series.episodeWidth = "width: " + 100.4/series.episodes.length + "%;";
+	// function enhanceSeries(series){
+	// 	var progressBarString = "";
+	// 	var lastEpisodeSeasonNr = series.episodes[0].sNr;
+	// 	series.episodeWidth = "width: " + 100.4/series.episodes.length + "%;";
 		
-		series.episodeAllCount = series.episodes.length;
-		series.eipsodeWatchedCount = 0;
-		series.curEpisodeName = "";
-		series.incrementAmount = (1/series.episodeAllCount) * 100 + 0.0000000001;
-		series.allWatched = false;
+	// 	series.episodeAllCount = series.episodes.length;
+	// 	series.eipsodeWatchedCount = 0;
+	// 	series.curEpisodeName = "";
+	// 	series.incrementAmount = (1/series.episodeAllCount) * 100 + 0.0000000001;
+	// 	series.allWatched = false;
 
-		for(var j = 0; j < series.episodes.length; j++) {
+	// 	for(var j = 0; j < series.episodes.length; j++) {
 		
-			//watchedPercentage
-			if(series.episodes[j].w){
-				series.eipsodeWatchedCount++;
-			} else if(series.curEpisodeName === ""){
-				series.curEpisodeName = series.episodes[j].n;
-				series.curEpisodeNr = series.episodes[j].eNr;
-				series.curSeasonNr = series.episodes[j].sNr;
-			}
-			if(j == series.episodes.length - 1 && series.curEpisodeName === ""){
-				series.curEpisodeName = allEpisodesWatched;
-				series.curEpisodeNr = series.episodes[j].eNr;
-				series.curSeasonNr = series.episodes[j].sNr;
-				series.allWatched = true;
-			}
+	// 		//watchedPercentage
+	// 		if(series.episodes[j].w){
+	// 			series.eipsodeWatchedCount++;
+	// 		} else if(series.curEpisodeName === ""){
+	// 			series.curEpisodeName = series.episodes[j].n;
+	// 			series.curEpisodeNr = series.episodes[j].eNr;
+	// 			series.curSeasonNr = series.episodes[j].sNr;
+	// 		}
+	// 		if(j == series.episodes.length - 1 && series.curEpisodeName === ""){
+	// 			series.curEpisodeName = allEpisodesWatched;
+	// 			series.curEpisodeNr = series.episodes[j].eNr;
+	// 			series.curSeasonNr = series.episodes[j].sNr;
+	// 			series.allWatched = true;
+	// 		}
 			
 			
 			
-			var progressBarStatus = series.episodes[j].w ? " watched" : "";
-			var seasonEndBorderStyle = "";
-			if(lastEpisodeSeasonNr != series.episodes[j].sNr){
-				seasonEndBorderStyle = " border-left: 1px solid #666";
-			}
-			lastEpisodeSeasonNr = series.episodes[j].sNr;
-			progressBarString += "<div class='epi" + progressBarStatus + "' style='width: " + 100/series.episodes.length + "%;" + seasonEndBorderStyle + "'></div>";
+	// 		var progressBarStatus = series.episodes[j].w ? " watched" : "";
+	// 		var seasonEndBorderStyle = "";
+	// 		if(lastEpisodeSeasonNr != series.episodes[j].sNr){
+	// 			seasonEndBorderStyle = " border-left: 1px solid #666";
+	// 		}
+	// 		lastEpisodeSeasonNr = series.episodes[j].sNr;
+	// 		progressBarString += "<div class='epi" + progressBarStatus + "' style='width: " + 100/series.episodes.length + "%;" + seasonEndBorderStyle + "'></div>";
 
-		}
+	// 	}
 
-		series.progressBar = $sce.trustAsHtml(progressBarString);
-		return series;
-	}
+	// 	series.progressBar = $sce.trustAsHtml(progressBarString);
+	// 	return series;
+	// }
 
 
 	UserService.getUser(token)
@@ -62,10 +63,17 @@ app.controller('DetailController', ['$sce', '$scope','$location','SeriesService'
 				}
 			}
 			if (userSeries) {
-				enhanceSeries(userSeries);
-				$scope.userSeries = userSeries;
+				// enhanceSeries(userSeries);
+				// console.log('userSeries', userSeries);
+				var tempArray = [];
+				tempArray.push(userSeries);
+				$scope.cards = tempArray;
+
+				// $scope.card = userSeries;
+				// console.log('$scope.card', $scope.card);
+
 			}else {
-				$scope.err
+				$scope.err = "Error";
 			}
 		}, function (err){
 			$scope.err = err;
@@ -84,48 +92,48 @@ app.controller('DetailController', ['$sce', '$scope','$location','SeriesService'
 
 	
 
-	$scope.progressBarUpdate = function(card){
+	// $scope.progressBarUpdate = function(card){
 				
-		for(var j = 0; j < card.episodes.length; j++) {
+	// 	for(var j = 0; j < card.episodes.length; j++) {
 			
-			if(!card.episodes[j].w){
+	// 		if(!card.episodes[j].w){
 
-				if(j == card.episodes.length - 1){
-					card.curEpisodeName = allEpisodesWatched;
-					card.allWatched = true;
-				}
-				else{
-					card.curEpisodeName = card.episodes[j+1].n;
-					card.curEpisodeNr = card.episodes[j+1].eNr;
-					card.curSeasonNr = card.episodes[j+1].sNr;
-				}
+	// 			if(j == card.episodes.length - 1){
+	// 				card.curEpisodeName = allEpisodesWatched;
+	// 				card.allWatched = true;
+	// 			}
+	// 			else{
+	// 				card.curEpisodeName = card.episodes[j+1].n;
+	// 				card.curEpisodeNr = card.episodes[j+1].eNr;
+	// 				card.curSeasonNr = card.episodes[j+1].sNr;
+	// 			}
 				
-				setEpisodeWatched(card, j);
-				break;
-			}					
-		}
+	// 			setEpisodeWatched(card, j);
+	// 			break;
+	// 		}					
+	// 	}
 
-		function setEpisodeWatched (card, j) {
-			UserService.setWatched(token, true, card.episodes[j].id)
-				.then(function (res){
-					card.episodes[j].w = true;
-				}, function (err){
-					$scope.err = err;
-					card.episodes[j].w = false;
-				});
-		}
+	// 	function setEpisodeWatched (card, j) {
+	// 		UserService.setWatched(token, true, card.episodes[j].id)
+	// 			.then(function (res){
+	// 				card.episodes[j].w = true;
+	// 			}, function (err){
+	// 				$scope.err = err;
+	// 				card.episodes[j].w = false;
+	// 			});
+	// 	}
 			
-		var progressBar = $("#" + card._id).find('.progress-bar');
-		var newPerc = parseFloat($(progressBar).attr("aria-valuenow")) + card.incrementAmount;
-		if(newPerc >= 100){
-			newPerc = 100;
-			$(progressBar).removeClass('progress-bar-warning').addClass('progress-bar-success');		
-			$("#" + card._id).find('.label').removeClass('label-warning').addClass('label-success');
-		}
+	// 	var progressBar = $("#" + card._id).find('.progress-bar');
+	// 	var newPerc = parseFloat($(progressBar).attr("aria-valuenow")) + card.incrementAmount;
+	// 	if(newPerc >= 100){
+	// 		newPerc = 100;
+	// 		$(progressBar).removeClass('progress-bar-warning').addClass('progress-bar-success');		
+	// 		$("#" + card._id).find('.label').removeClass('label-warning').addClass('label-success');
+	// 	}
 		
-		$(progressBar).attr("aria-valuenow", newPerc);
-		$(progressBar).css({width: newPerc + "%"});
-	};
+	// 	$(progressBar).attr("aria-valuenow", newPerc);
+	// 	$(progressBar).css({width: newPerc + "%"});
+	// };
 	
 
 
@@ -133,12 +141,17 @@ app.controller('DetailController', ['$sce', '$scope','$location','SeriesService'
 		UserService.setWatched(token, !episode.w, episode.id)
 			.then(function (res){
 				episode.w = !episode.w;
-				enhanceSeries(userSeries);
+				// enhanceSeries(userSeries);
+				// $scope.apply();
+				
+				$scope.$broadcast('update');
+
 			}, function (err){
 				$scope.err = err;
 				episode.w = episode.w;
+				$scope.apply();
 		});	
-	}
+	};
 
 
 
