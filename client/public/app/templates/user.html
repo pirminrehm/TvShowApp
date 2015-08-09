@@ -31,6 +31,8 @@
 
 	<div class="alert alert-danger" id="alertBox" role="alert" ng-show="err" ng-if="err">{{err.error}}</div>
 
+
+
 	<div id ="searchResultList" class="row">
 		<div ng-repeat="result in searchResults" class="searchResult col-xs-12 col-sm-6 col-md-4">
 			<ul class="list-group">
@@ -64,9 +66,11 @@
 	</div>
 
 
-	<div ng-if="cards.length == 0 && searchResults.length == 0">
-  		<p>Click on + and add a new series!</p>
+
+	<div style="text-align: center" ng-if="cards.length == 0 && searchResults.length == 0" class="ng-scope">
+		<h3>Click on</h3> <h5><span class="glyphicon glyphicon-plus"></span></h5> <h3>and add a new series!</h3>
 	</div>
+
 
 
 	<div class="row">
