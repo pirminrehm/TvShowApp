@@ -9,6 +9,15 @@ html{
 body {
 	background: #eee;
 	height: 100%;
+	overflow-y: scroll; 
+}
+
+.cursor-pointer{
+	cursor: pointer;
+}
+
+.modal-open {
+	overflow-y: scroll;
 }
 
 /* 
@@ -427,6 +436,6 @@ h2.normal a, h2.normal a:active, h2.normal a:hover, h2.normal a:link, h2.normal 
 	min-height: 92px;
 }
 
-.overview {
+.series-details {
 	padding: 5px;
 }

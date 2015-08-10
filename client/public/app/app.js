@@ -1,11 +1,11 @@
-var app = angular.module('tvshowapp', ["ngRoute", "angular.filter"]);
+var app = angular.module('tvshowapp', ["ngRoute", "angular.filter", "ui.bootstrap", "ngAnimate"]);
 
 var config = {
 	"restUrl" : "http://localhost:3000"
 };
 
 
-app.config(function($routeProvider) {
+app.config(["$routeProvider", function($routeProvider) {
 	$routeProvider
 		.when("/welcome", {
 			templateUrl: "/app/templates/welcome.html",
@@ -28,4 +28,4 @@ app.config(function($routeProvider) {
 			controller: "DetailController"
 		})
 		.otherwise({redirectTo: '/welcome'});
-});
+}]);

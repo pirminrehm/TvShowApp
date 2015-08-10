@@ -1,6 +1,6 @@
 var app = angular.module('tvshowapp');
 
-app.controller('UserController', ['$scope','$routeParams','SearchService','UserService', function($scope,$routeParams,SearchService,UserService){
+app.controller('UserController', ['$scope','$routeParams','$modal','SearchService','UserService', function($scope,$routeParams,$modal,SearchService,UserService){
 	
 	$scope.cards = [];
 	$scope.searchResults = [];
@@ -90,7 +90,6 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 		UserService.addSeriesToList(token, seriesId)
 			.then(function (res){
 
-				// $scope.cards.push(enhanceSeries(res));
 				$scope.cards.push(res);
 				angular.element('#' + seriesId).removeClass("glyphicon-time");
 				angular.element('#' + seriesId).addClass("glyphicon-ok");
@@ -110,15 +109,29 @@ app.controller('UserController', ['$scope','$routeParams','SearchService','UserS
 	
 
 	$scope.removeSeries = function(card){
-		var r = confirm("Delete \"" + card.name + "\" ?");
-		if (r === true) {
-			UserService.removeSeries(token,card.id)
+		
+		var modalInstance = $modal.open({			
+			templateUrl: 'app/templates/modals/modalConfirmAction.html',
+			controller: ["$scope", "$modalInstance", "title", "text", function ($scope, $modalInstance, title, text) {
+				$scope.title = title;
+				$scope.text = text;
+				$scope.ok = function () {$modalInstance.close();};
+				$scope.cancel = function () {$modalInstance.dismiss('cancel');};
+			}],
+			resolve: {
+				title: function () {return "Are you sure?";},
+				text: function () {return "Delete your series \"" + card.name + "\" ?";},
+			}
+		});
+
+		modalInstance.result.then(function () {
+			UserService.removeSeries(token, card.id)
 				.then(function (res){
 					$scope.cards.splice($scope.cards.indexOf(card),1);
 				}, function (err){
 					$scope.err = err;
 				});
-		}
+		}, function () {});		
 	};
 
 }]);

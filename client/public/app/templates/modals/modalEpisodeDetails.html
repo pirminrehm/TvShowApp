@@ -1,0 +1,20 @@
+<div>
+    <div class="modal-header">
+    	<h4 class="modal-title">{{seriesName}}</h4>
+    </div>
+    <div class="modal-body">
+    	<p>season {{details.SeasonNumber}} - episode {{details.EpisodeNumber}}</p>
+        <h3>{{details.EpisodeName}}</h3>
+        <p>{{details.Overview}}</p>
+        <hr/>
+        <p ng-if="details.Director">director: {{details.Director}}</p>
+        <p ng-if="details.FirstAired">first aired: {{details.FirstAired}}</p>
+        <p ng-if="details.GuestStars">guest stars: {{details.GuestStars}}</p>
+        <p ng-if="details.Rating">rating: {{details.Rating}}</p>
+        <p ng-if="details.RatingCount">rating count: {{details.RatingCount}}</p>
+        <p ng-if="details.Writer">writer: {{details.Writer}}</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="close()">Close</button>
+    </div>
+</div>

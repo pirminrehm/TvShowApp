@@ -9,7 +9,7 @@ app.directive('card', ['$routeParams', 'UserService', function($routeParams, Use
 		},
 		restrict: 'E',
 		templateUrl: '/app/templates/card.html',
-		link: function($scope, iElm, iAttrs) {
+		controller: ['$scope',function($scope) {
 
 			$scope.token = $routeParams.token;
 			var allEpisodesWatched = "You have watched all episodes!";
@@ -145,6 +145,6 @@ app.directive('card', ['$routeParams', 'UserService', function($routeParams, Use
 					}
 				}
 			};
-		}
+		}]
 	};
 }]);
