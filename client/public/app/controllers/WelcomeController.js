@@ -2,10 +2,9 @@ var app = angular.module('tvshowapp');
 
 app.controller('WelcomeController', ['$scope','$location','AuthenticationService', function($scope,$location,AuthenticationService){
 
-$scope.email = "";
+	$scope.email = "";
 
 	$scope.newList = function(){
-		console.log({"email" : $scope.email});
 		if ($scope.email) {
 			AuthenticationService.newList({"email" : $scope.email})
 				.then(function (res){
@@ -13,7 +12,6 @@ $scope.email = "";
 					$location.url("/mail");
 				}, function (err){
 					$scope.err = err;
-					console.log('err',err);
 				});
 		} else {
 			$scope.err = {};
@@ -29,7 +27,6 @@ $scope.email = "";
 					$location.url("/mail");
 				}, function (err){
 					$scope.err = err;
-					console.log('err',err);			
 			});
 		} else {
 			$scope.err = {};

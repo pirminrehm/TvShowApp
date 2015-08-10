@@ -4,7 +4,6 @@ app.factory('SearchService', ['$http','$q', function($http,$q){
 
 	var url = config.restUrl;
 
-
 	var doSearchNewSeries = function(token, searchString){
 		var deferred = $q.defer();
 		$http.get(url + "/series/token/" + token + "/searchresult/search/" + searchString)
@@ -24,4 +23,5 @@ app.factory('SearchService', ['$http','$q', function($http,$q){
 
 
 	return service;
+	
 }]);

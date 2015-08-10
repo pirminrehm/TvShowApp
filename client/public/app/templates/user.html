@@ -12,17 +12,21 @@
 			
 			<!-- Search Field -->
 			<div id="search" class="input-group">
-				<input id="search_bar" type="text" class="form-control" placeholder="Search for..." ng-model="searchString"
-					ng-class="searchBarActive?'active':''">
+				<input 	id="search_bar" 
+						type="text" 
+						class="form-control" 
+						placeholder="Search for..." 
+						ng-model="searchString"
+						ng-class="searchBarActive?'active':''" 
+						typeahead="name for name in allSeriesNames | filter:$viewValue" 
+						typeahead-on-select='onSelect($item, $model, $label)'>
 				<span class="input-group-btn">
 					<button id="search_button" class="btn btn-default" ng-class="!searchBarActive?'not-active':''" type="button" ng-click="search()">
 						<span class="glyphicon" ng-class="searchBarActive?'glyphicon-search':'glyphicon-plus'" aria-hidden="true"></span>
 					</button>
 				</span>
 			</div>
-
 		</form>
-
     </div>
 </nav>
 <!-- End of Top Navigation -->
@@ -30,8 +34,6 @@
 <div class="container-fluid" >
 
 	<div class="alert alert-danger" id="alertBox" role="alert" ng-show="err" ng-if="err">{{err.error}}</div>
-
-
 
 	<div id ="searchResultList" class="row">
 		<div ng-repeat="result in searchResults" class="searchResult col-xs-12 col-sm-6 col-md-4">
@@ -65,13 +67,9 @@
 		</div>
 	</div>
 
-
-
 	<div style="text-align: center" ng-if="cards.length == 0 && searchResults.length == 0" class="ng-scope">
 		<h3>Click on</h3> <h5><span class="glyphicon glyphicon-plus"></span></h5> <h3>and add a new series!</h3>
 	</div>
-
-
 
 	<div class="row">
 		<div ng-repeat="card in cards">

@@ -1,7 +1,8 @@
 var app = angular.module('tvshowapp', ["ngRoute", "angular.filter", "ui.bootstrap", "ngAnimate"]);
 
+
 var config = {
-	"restUrl" : "http://localhost:3000"
+	restUrl : "http://localhost:3000"
 };
 
 

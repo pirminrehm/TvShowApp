@@ -9,18 +9,19 @@ app.directive('card', ['$routeParams', 'UserService', function($routeParams, Use
 		},
 		restrict: 'E',
 		templateUrl: '/app/templates/card.html',
-		controller: ['$scope',function($scope) {
+		controller: ['$scope', function($scope){
 
-			$scope.token = $routeParams.token;
 			var allEpisodesWatched = "You have watched all episodes!";
+			$scope.token = $routeParams.token;
 
+			//invoke enhanceSeries() initiallye
 			enhanceSeries();
 			
 
 			/**
 			 * calculates necessary information, which are not provided by the server
 			 * @val {float}		episodeWidth: 	width of the <div> in the progressbar representing the respective episode
-			 * @val {bool}		allWatched:  	is true when all episodes are watched, otherwise is's false
+			 * @val {bool}		allWatched:  	true: when all episodes are watched, false: otherwise
 			 * @val {String}	curEpsiodeName: name of the first unwatched episode
 			 * @val {int}		curEpisodeNr: 	number of the first unwachted episode
 			 * @val {int}		curSeasonNr: 	season number of the first unwachted episode
@@ -35,7 +36,7 @@ app.directive('card', ['$routeParams', 'UserService', function($routeParams, Use
 				for(j = 0; j < $scope.card.episodes.length; j++) {
 
 					//search for the first unwatched episode
-					if(!$scope.card.episodes[j].w && $scope.card.curEpisodeName === ""){
+					if(!$scope.card.episodes[j].w){
 						setCurrentSeriesProperties($scope.card, $scope.card.episodes[j].n, $scope.card.episodes[j].eNr, $scope.card.episodes[j].sNr);
 						break;
 					}
@@ -55,7 +56,7 @@ app.directive('card', ['$routeParams', 'UserService', function($routeParams, Use
 			 * @param {object} 	card current series
 			 * @param {string} 	name name of the first unwachted episode
 			 * @param {int} 	eNr  number of the first unwachted episode
-			 * @param {[type]} sNr  seanon number of the first unwachted episode
+			 * @param {int} 	sNr  seanon number of the first unwachted episode
 			 */
 			function setCurrentSeriesProperties (card, name, eNr, sNr) {
 				card.curEpisodeName = name;
@@ -76,8 +77,8 @@ app.directive('card', ['$routeParams', 'UserService', function($routeParams, Use
 
 			/**
 			 * update an episode as watched on the server
-			 * @param {object} 	card	series of the episode
-			 * @param {int} 	j  		index of the epsiode in the epsiode array
+			 * @param {object} 	card	series of the episode to be markes as watched
+			 * @param {int} 	j  		index of the relevant epsiode in the epsiode array
 			 */
 			function setEpisodeWatched (card, j) {
 				UserService.setWatched($scope.token, true, card.episodes[j].id)
@@ -107,6 +108,7 @@ app.directive('card', ['$routeParams', 'UserService', function($routeParams, Use
 		
 				for(var j = 0; j < card.episodes.length; j++) {
 					
+					//search for the first unwatched series
 					if(!card.episodes[j].w){
 
 						//all episodes are wachted

@@ -16,6 +16,7 @@ app.factory('UserService', ['$http','$q', function($http,$q){
 		return deferred.promise;
 	};
 	
+	
 	var doSetWatched = function(token, isWatched, episodeId){
 		var deferred = $q.defer();
 		$http.put(url + "/usr/token/" + token + "/watched/" + isWatched + "/episode/" + episodeId)

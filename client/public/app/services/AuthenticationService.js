@@ -51,4 +51,5 @@ app.factory('AuthenticationService', ['$http','$q', function($http,$q){
 
 
 	return service;
+	
 }]);

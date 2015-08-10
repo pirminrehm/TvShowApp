@@ -5,26 +5,26 @@ app.controller('DetailController', ['$scope','$location','$routeParams','$modal'
 	var token = $routeParams.token;
 	var seriesId = $routeParams.seriesId;
 	var userSeries;
-	var allEpisodesWatched = "You have watched all episodes!";
 	$scope.token = token;
 	
 
 	UserService.getUser(token)
 		.then(function (res){
+			//search for the relevant series stored by the user
 			for(var i=0; i<res.series.length; i++){
 				if (res.series[i].id == seriesId) {
 					userSeries = res.series[i];
 					break;
 				}
 			}
-			if (userSeries) {
+			if(userSeries){
 				$scope.userSeries = userSeries;
 			} else {
 				$scope.err = "Error";
 			}
 		}, function (err){
 			$scope.err = err;
-	});
+		});
 
 
 	SeriesService.getSeriesDetails(token,seriesId)
@@ -33,18 +33,18 @@ app.controller('DetailController', ['$scope','$location','$routeParams','$modal'
 		}, function (err){
 			$scope.err = err;
 			console.log('err',err);			
-	});
+		});
 
 
 	$scope.setEpisodeWatched = function (episode) {
 		UserService.setWatched(token, !episode.w, episode.id)
 			.then(function (res){
 				episode.w = !episode.w;
+				//the card directive is listening on the 'update' channel
 				$scope.$broadcast('update');
 			}, function (err){
 				$scope.err = err;
 				episode.w = episode.w;
-				$scope.apply();
 		});	
 	};
 
@@ -74,9 +74,7 @@ app.controller('DetailController', ['$scope','$location','$routeParams','$modal'
 				$scope.err = err;
 			});
 
-		modalInstance.result.then(function () {
-			console.log('modal dismal');
-		}, function () {});
+		modalInstance.result.then(function () {}, function () {});
 	};
 
 }]);

@@ -4,7 +4,6 @@ app.factory('SeriesService', ['$http','$q', function($http,$q){
 
 	var url = config.restUrl;
 
-
 	var doGetSeriesDetails = function(token, seriesId){
 		var deferred = $q.defer();
 		$http.get(url + "/series/token/" + token + "/series/" + seriesId + "/details")
