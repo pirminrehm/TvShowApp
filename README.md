@@ -287,6 +287,6 @@ Status: 500, { "error" : "Error: episodeId not found" }
 * The URL to the production view starts with: `http://localhost:8080/#/...`
 * The grunt production task concatenates all custom javascript files. The minified version is stored in `build/custom.min.js`. Furthermore this tasks adds the necessary browser vendor prefixes to the css rules using the "can i use?" database. The minified result is written into `style.min.css`
 
-
-
-
+###Format
+* To format all custom javascript files run `grunt format`
+* The jscs formatter uses the configuration in `.jscsrc`
