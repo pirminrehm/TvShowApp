@@ -30,23 +30,48 @@
 
 <div class="container-fluid" >
 
-	<div class="alert alert-danger" id="alertBox" role="alert" ng-show="err">{{err}}</div>
+	<!-- <div class="alert alert-danger" id="alertBox" role="alert" ng-show="err">{{err}}</div> -->
 
-	<div class="alert alert-success" role="alert">
+	<!-- <div class="alert alert-success" role="alert">
 		<p><strong>You have mail!</strong><br>
 		Please check your mail account and click on the link inside the mail you just received from us</p>
-	</div>
+	</div> -->
 
 	<!--<script type="text/javascript" src="js/main.js"></script>-->
-	
+
+	<h3 class="mail-heading">Get an impression...</h3>
+
+
+	<div ng-repeat="card in cards">
+		
+		<div class="col-sm-6 col-md-4 col-xs-12">
+			<div class="progress">
+				<div class="progress-bar progress-bar-success" aria-valuenow="40" style="width: {{card.percWatched}}%"/>
+			</div>
+			<div class="series" style="background-image:url({{card.bannerUrl}});"> 
+				<div class="series-inner"> 
+					<div class="series-inner-title"> 
+						<div class="left" ng-if="!small">
+							<h2 class="normal">{{card.name}}</h2>
+							<p class="normal">{{card.curSeasonNr}}/{{card.curEpisodeNr}}: {{card.curEpisodeName}}</p>
+						</div>
+						<div class="right"> 
+							<h4 id="removeSeries" ng-if="small">
+								<span class="removeButton noselect">
+									<span class="glyphicon glyphicon-remove"/>
+								</span>								
+							</h4>
+							<h4 id="updateProgress">
+								<span ng-class="card.percWatched == 100 ? 'label-success' : 'label-warning'" class="label noselect" >
+									<span class="plusOne">+1</span>
+									<span class="glyphicon glyphicon-ok"/>
+								</span>
+							</h4>
+						</div> 
+						<div class="clear"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
 </div>
-
-
-
-
-
-
-
-
-
-

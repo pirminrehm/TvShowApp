@@ -1,0 +1,8 @@
+{
+	"preset": "jquery",
+	"maximumLineLength": null,
+	"validateQuoteMarks": null,
+	"disallowMixedSpacesAndTabs": null,
+	"validateLineBreaks": "CRLF",
+	"requireCapitalizedComments": null 
+}

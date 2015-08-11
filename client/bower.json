@@ -22,6 +22,7 @@
     "angular": "~1.4.3",
     "angular-filter": "~0.5.4",
     "angular-bootstrap": "~0.13.3",
-    "angular-animate": "~1.4.3"
+    "angular-animate": "~1.4.3",
+    "notification-js": "~1.0.0"
   }
 }

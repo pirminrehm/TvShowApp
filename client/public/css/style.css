@@ -439,3 +439,9 @@ h2.normal a, h2.normal a:active, h2.normal a:hover, h2.normal a:link, h2.normal 
 .series-details {
 	padding: 5px;
 }
+
+.mail-heading {
+	margin-top: 100px;
+	margin-bottom: 30px;
+	padding-left: 15px;
+}

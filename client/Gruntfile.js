@@ -1,9 +1,9 @@
-module.exports = function(grunt) {
+module.exports = function( grunt ) {
 
 //Configure tasks
-grunt.initConfig({
+grunt.initConfig( {
 
-  pkg: grunt.file.readJSON('package.json'),
+  pkg: grunt.file.readJSON( 'package.json' ),
 
   wiredep: {
     task: {
@@ -15,7 +15,7 @@ grunt.initConfig({
 
   includeSource: {
     options: {
-      basePath : 'public'
+      basePath: 'public'
     },
     dist: {
       files: {
@@ -24,9 +24,9 @@ grunt.initConfig({
     }
   },
 
-  clean: ['public/build/*'],
+  clean: [ 'public/build/*' ],
   jshint: {
-    all: ['Gruntfile.js','server.js','public/app/**/*.js']
+    all: [ 'Gruntfile.js','server.js','public/app/**/*.js' ]
   },
 
   concat: {
@@ -43,7 +43,7 @@ grunt.initConfig({
   ngAnnotate: {
     demo: {
       files: {
-        'public/build/custom.withAnnot.js': ['public/build/custom.concat.js']
+        'public/build/custom.withAnnot.js': [ 'public/build/custom.concat.js' ]
       }
     }
   },
@@ -60,8 +60,8 @@ grunt.initConfig({
 
   postcss: {
     options: {
-      processors: [      
-        require('autoprefixer-core')({browsers: 'last 2 versions'}),        
+      processors: [
+        require( 'autoprefixer-core' )( { browsers: 'last 2 versions' } )
       ]
     },
     dist: {
@@ -73,29 +73,37 @@ grunt.initConfig({
   cssmin: {
     target: {
       files: {
-        'public/build/style.min.css': ['public/build/style.prefix.css']
+        'public/build/style.min.css': [ 'public/build/style.prefix.css' ]
       }
     }
   },
 
-});
+  jscs: {
+      options: {
+        config: '.jscsrc',
+        fix: true
+      },
+      src: [ 'public/app/**/*.js','server.js','Gruntfile.js' ]
+    }
 
+} );
 
 // Load plugins
-grunt.loadNpmTasks('grunt-wiredep');
-grunt.loadNpmTasks('grunt-include-source');
-grunt.loadNpmTasks('grunt-contrib-clean');
-grunt.loadNpmTasks('grunt-contrib-jshint');
-grunt.loadNpmTasks('grunt-contrib-concat');
-grunt.loadNpmTasks('grunt-ng-annotate');
-grunt.loadNpmTasks('grunt-contrib-uglify');
-grunt.loadNpmTasks('grunt-postcss');
-grunt.loadNpmTasks('grunt-contrib-cssmin');
-
+grunt.loadNpmTasks( 'grunt-wiredep' );
+grunt.loadNpmTasks( 'grunt-include-source' );
+grunt.loadNpmTasks( 'grunt-contrib-clean' );
+grunt.loadNpmTasks( 'grunt-contrib-jshint' );
+grunt.loadNpmTasks( 'grunt-contrib-concat' );
+grunt.loadNpmTasks( 'grunt-ng-annotate' );
+grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+grunt.loadNpmTasks( 'grunt-postcss' );
+grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
+grunt.loadNpmTasks( 'grunt-jscs' );
 
 // Register tasks
-grunt.registerTask('default','dev');
-grunt.registerTask('dev', ['includeSource','wiredep']);
-grunt.registerTask('prod', ['clean', 'concat', 'ngAnnotate','uglify','postcss','cssmin']);
+grunt.registerTask( 'default', 'dev' );
+grunt.registerTask( 'dev', [ 'includeSource','wiredep' ] );
+grunt.registerTask( 'prod', [ 'clean', 'concat', 'ngAnnotate','uglify','postcss','cssmin' ] );
+grunt.registerTask( 'format', [ 'jscs' ] );
 
 };
