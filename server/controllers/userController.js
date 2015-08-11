@@ -1,4 +1,3 @@
-require('../models/userModel');
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 var stringify = require('json-stringify-safe');
@@ -10,10 +9,12 @@ var _ = require('underscore');
 var parseString = require('xml2js').parseString;
 
 var tokenController = require('./tokenController');
+var seriesController = require('./seriesController');
 var dataSafe = require('../../private/dataSafe.json');
 
+require('../models/userModel');
 var User = mongoose.model('User');
-var Series = mongoose.model('Series');
+
 
 
 
@@ -32,39 +33,52 @@ var smtpServer  = email.server.connect({
 });
 
 
-//console.log();
 
 
-exports.test = function(req, res) {
-	if(clog) console.log(req.params.token);
-	tokenController.verify(req.params.token, function (verified, user) {
-		if (verified) {
-			res.jsonp({"message" : "Access to restricted area granted"});
-		} else {
-			res.status(500).jsonp({"message" : "Access to restricted area denied"});
+
+/**
+ * Saves an user to the mongoDB
+ * @param  {Object}   user     user 2 save
+ * @param  {String}   action   the task from where the function had been calles, needed for error message and console logging
+ * @param  {Function} callback responds the stored user or an error
+ */
+function saveUser(user,action, callback){
+	user.save(function (errSave, storedUser){
+		if (storedUser && !errSave){
+			if(clog) console.log("Success: update user " + action);
+			callback (storedUser);
+		}
+		else if(storedUser === null){
+			if(clog) console.log("Error: update user failed " + action);
+		}
+		else {
+			if(clog) console.log(errSave);
+			callback ("",errSave);
 		}
 	});
-};
+}
 
 
-//POST
+/*
+Sends the token to an email if requested from the client
+ */
 exports.postTokenViaMail = function (req, res) {
 
-function sendMail(token, callback) {
-		dateControll = new Date().getTime();
+	function sendMail(token, callback) {
 		smtpServer.send({
 			text:    "Hello!\nAccess your account here: " + "http://localhost:8080/#/welcome/"+token + "\nYour TvShowApp-Team", 
 			from:    dataSafe.mailUser, 
 			to:      req.body.email,
 			subject: "Token for TvShowApp",
 			attachment: [{data:"Hello!<br>Access your account <a href='http://localhost:8080/#/welcome/"+token + "'>here!</a><br>Your TvShowApp-Team", alternative:true}]
-		},  function(err, message) { 
-				if(err) {
-					if(clog) console.log(err);
-				}
-					callback(err);
-			});
-
+		},function(err, message) { 
+			if(err) {
+				if(clog) console.log(err);
+				callback(err);
+			} else {
+				callback();
+			}	
+		});
 	}
 
 	User.findOne({"email":req.body.email}, function (err, resultUser){
@@ -90,27 +104,31 @@ function sendMail(token, callback) {
 };
 
 
-//POST
+/*
+Generates an new account for an new email
+ */
 exports.registerAccount = function (req, res) {
 
-
 	function sendMail(token, callback) {
-		dateControll = new Date().getTime();
 		smtpServer.send({
 			text:    "Hello!\nVerify your account here: " + "http://localhost:8080/#/verify/"+token + "\nYour TvShowApp-Team", 
 			from:    dataSafe.mailUser, 
 			to:      req.body.email,
 			subject: "Token for TvShowApp",
 			attachment: [{data:"Hello!<br>Verify your account <a href='http://localhost:8080/#/verify/"+token + "'>here!</a><br>Your TvShowApp-Team", alternative:true}]
-		},  function(err, message) { 
-				if(err) {
-					if(clog) console.log(err);
-				}
-					callback(err);
-			});
-
+		},function(err, message) { 
+			if(err) {
+				if(clog) console.log(err);
+				callback(err);
+			} else {
+				callback();
+			}	
+		});
 	}
 
+	/*
+	Create the token from the current date time in ms and the request body
+	 */
 	function createToken (callback) {
 		var shasum = crypto.createHash('sha1');
 		var date = new Date().getTime();
@@ -119,58 +137,60 @@ exports.registerAccount = function (req, res) {
 		callback(shasum.digest('hex'));
 	}
 
-	
-	//für richtiges model updaten!!!
-	function checkToken (callback) {
-
+	/*
+	Tries to create an new token and checks if it is already in use.
+	If the token is already in use, it tries it again and again
+	 */
+	function createAndCheckToken (callback) {
 		createToken(function(token) {
-
 			User.findOne({"token":token}, function (err, resultToken){
 				if(resultToken && !err){
 					if(clog) console.log("duplicated hash");
-					callback(checkToken());
+					callback(createAndCheckToken());
 				}
 				else if(resultToken === null){
 					if(clog) console.log("correct hash");
-					callback(true, "", token);
-
+					callback(token);
 				}
 				else {
 					if(clog) console.log('err', err);
-					callback(false, err, token);
+					callback(token, err);
 				}
 			});
 		});
 	}
 
-
+	/*
+	Checks wether the mail is already in use or not and if it is part of the body
+	 */
 	function checkMail (callback) {
 		if(_.has(req.body, "email")) {
 			if (/\S/.test(req.body.email)) {
 				User.findOne({"email":req.body.email}, function (err, resultMail){
 					if(resultMail && !err){
 						if(clog) console.log("duplicated mail");
-						callback(false, "duplicated");
+						callback("duplicated");
 					}
 					else if(resultMail === null){
-						if(clog) console.log("correct mail");
-						callback(true, "");
-
+						if (emailValidator.validate(req.body.email)) {
+							if(clog) console.log("correct mail");
+							callback();
+						} else {
+							callback ("invalide email");
+						}
 					}
 					else {
 						if(clog) console.log("err: ", err);
-						callback(false, err);
+						callback(err);
 					}
 				});
 			} else {
-				callback (false, "invalide email")
+				callback ("invalide email");
 			}
 		} else {
-			callback (false, "invalide email")
+			callback ("invalide email");
 		}
-
 	}
-
 
 	function insertUser (token, callback) {
 		user2save =req.body;
@@ -179,172 +199,106 @@ exports.registerAccount = function (req, res) {
 		user.save(function (err, storedUser) {		
 			callback(err, storedUser);
 		});
-	}
-	
-	function init () {
+	}	
 
-		dateControll =new Date().getTime();
-
-		checkMail(function (success, error) {	
-		 	if (emailValidator.validate(req.body.email) && success) {
-				checkToken(function(success, err, token) {
-					if (success) {
-						sendMail(token, function(err) {
-							if (err) {
-								res.status(500).jsonp({"error":err});
-							}
-							else {
-								insertUser(token, function(err, storedUser){
-									if (storedUser && !err) {
-										if(clog) console.log('Success: insert user');
-										res.jsonp({"message" : "You should recieve an Email with your login token"});
-									} 
-									else if(storedUser === null){
-										var errorMessage = 'Error: insert user failed';
-										if(clog) console.log(errorMessage);
-										res.status(500).jsonp({"error":errorMessage});
-									}
-									else {
-										if(clog) console.log('error', err);
-										res.status(500).jsonp({"error":err});
-									}
-								});
-							}
-						});
-
-					} else {
-						res.status(500).jsonp({"error":err});
-					}
-				});
-			} else if (error == "duplicated") {
-				res.status(500).jsonp({"error":"For this email an account already exists"});
-			} else {
-				res.status(500).jsonp({"error":error});
-					
-			}
-		});
-	}
-
-	init();
-
-	
-
+	checkMail(function (errCheckMail) {	
+	 	if (!errCheckMail) {
+			createAndCheckToken(function (token, errToken) {
+				if (!errToken) {
+					sendMail(token, function (errSendMail) {
+						if (!errSendMail) {
+							insertUser(token, function (errStore, storedUser){
+								if (storedUser && !errStore) {
+									res.jsonp({"message" : "You should recieve an Email with your login token"});
+								} else if(storedUser === null){
+									res.status(500).jsonp({"error":"Error: insert user failed"});
+								} else {
+									res.status(500).jsonp({"error":errStore});
+								}
+							});
+						} else {
+							res.status(500).jsonp({"error":errSendMail});
+						}
+					});
+				} else {
+					res.status(500).jsonp({"error":errToken});
+				}
+			});
+		} else if (errCheckMail == "duplicated") {
+			res.status(500).jsonp({"error":"For this email an account already exists"});
+		} else {
+			res.status(500).jsonp({"error":errCheckMail});					
+		}
+	});
 };
 
 
-
 exports.verifyAccount = function (req, res) {
-
-	User.findOne({"token":req.params.token}, function (err, resultUser){
-		if(resultUser && !err){
+	User.findOne({"token":req.params.token}, function (errLoad, resultUser){
+		if(resultUser && !errLoad){
 			if (resultUser.validated) {
 				res.status(500).jsonp({"error" : "Your token is already validated for " + resultUser.email});
 			} else {
 				resultUser.validated = true;
-				resultUser.save(function (err, storedUser) {
-					res.jsonp(storedUser);
-					//res.jsonp({"message" : "Your account is now verified"});
+				resultUser.save(function (errSave, storedUser) {
+					if (!errSave) {
+						res.jsonp(storedUser);
+					} else if (storedUser === null) {
+						res.status(500).jsonp({"error" : "We could't validate you, please try again."});
+					} else {
+						res.status(500).jsonp({"error" :errSave });
+					}
 				});
 			}
 		}
 		else if(resultUser === null){
 			res.status(500).jsonp({"error" : "We could't find your user token"});
-		}
-		else {
+		} else {
 			res.status(500).jsonp({"error" : err});			
 		}
 	});
 };
 
 
-
-function addSeriesToUser(series2Store,user,res){
-	
-	var userSeriesEpisodes = [];
-
-	for(var i=0; i<series2Store.Episode.length; i++){
-		var episode = {
-			"id" : series2Store.Episode[i].id,
-			"w" : false,
-			"n" : series2Store.Episode[i].EpisodeName,
-			"sNr" : series2Store.Episode[i].SeasonNumber,
-			"eNr" : series2Store.Episode[i].EpisodeNumber
-		};
-		userSeriesEpisodes.push(episode);
-	}
-
-	var userSeries = {
-		"name" : series2Store.Series.SeriesName,
-		"id" : series2Store.Series.id,
-		"bannerUrl" : "",
-		"episodes" : userSeriesEpisodes
-	};
-
-	if(series2Store.Series.fanart){
-		userSeries.bannerUrl = "http://thetvdb.com/banners/" + series2Store.Series.fanart;
-	}
-	else if(series2Store.Series.banner){
-		userSeries.bannerUrl = "http://thetvdb.com/banners/" + series2Store.Series.banner;	
-	}
-	else{
-		userSeries.bannerUrl = "";
-	}
-
-	user.series.push(userSeries);
-	saveUserReturnSeries(user, res, series2Store.Series.id, "Success: update user (added series)", "Error: update user failed (added series)");
-}
-
-
-function saveUserReturnSeries(user, res, seriesId, logTextSucces, resTextError){
-	user.save(function (errSave, storedUser){
-		if (storedUser && !errSave){
-			if (clog) console.log(logTextSucces);
-
-			for(var i=0; i<storedUser.series.length; i++){
-				if(storedUser.series[i].id == seriesId){
-					res.jsonp(storedUser.series[i]);
-					return;
-				}
-			}
-
-			res.status(500).jsonp({"error" : resTextError});
-		}
-		else if(storedUser === null){
-			res.status(500).jsonp({"error" : resTextError});
-		}
-		else {
-			res.status(500).jsonp({"error" : errSave});
-		}
-	});
-}
-
-
-
-function saveUser(user, res, logTextSucces, resTextError){
-	user.save(function (errSave, storedUser){
-		if (storedUser && !errSave){
-			if (clog) console.log(logTextSucces);
-			// console.log('storedUser', storedUser);
-			res.jsonp(storedUser);
-		}
-		else if(storedUser === null){
-			res.status(500).jsonp({"error" : resTextError});
-		}
-		else {
-			res.status(500).jsonp({"error" : errSave});
-		}
-	});
-}
-
-
+/*
+Adds a series to an user by generating the user-data.
+The function first checks, if the series is alredy used by the user, if not it starts the import.
+The import of the series is organized by the function seriesController.loadOrImportSeries
+ */
 exports.addSeriesToList = function(req, res){
 
-	var seriesId = req.params.seriesId;
+	function addSeriesToUser(series2Store,user,callback){	
+		var userSeriesEpisodes = [];
+		for(var i=0; i<series2Store.Episode.length; i++){
+			var episode = {
+				"id" : series2Store.Episode[i].id,
+				"w" : false,
+				"n" : series2Store.Episode[i].EpisodeName,
+				"sNr" : series2Store.Episode[i].SeasonNumber,
+				"eNr" : series2Store.Episode[i].EpisodeNumber
+			};
+			userSeriesEpisodes.push(episode);
+		}
+		var userSeries = {
+			"name" : series2Store.Series.SeriesName,
+			"id" : series2Store.Series.id,
+			"bannerUrl" : "",
+			"episodes" : userSeriesEpisodes
+		};
+		if (series2Store.Series.fanart){
+			userSeries.bannerUrl = "http://thetvdb.com/banners/" + series2Store.Series.fanart;
+		} else if(series2Store.Series.banner){
+			userSeries.bannerUrl = "http://thetvdb.com/banners/" + series2Store.Series.banner;	
+		} else{
+			userSeries.bannerUrl = "";
+		}
+		user.series.push(userSeries);
+		callback (user);
+	}
 
 	tokenController.verify(req.params.token, function (verified, user) {
-		if (verified) {
-			if(clog) console.log("Access to restricted area granted");
-			
+		if (verified && req.params.seriesId) {			
+			var seriesId = req.params.seriesId;
 			var foundInUsersList = false;
 			for(var i=0; i<user.series.length; i++){
 				if(user.series[i].id == seriesId){
@@ -352,103 +306,81 @@ exports.addSeriesToList = function(req, res){
 					break;
 				}
 			}
-
-			if(foundInUsersList){				
-				res.status(500).jsonp({"error":"Series already in users list"});
-			}
-			else{
+			if(!foundInUsersList){	
 				if(clog) console.log('Series is NOT in users list');
-
-				Series.findOne({'Series.id':seriesId}, function (errLoadSeries, resultSeries){
-					if(resultSeries && !errLoadSeries){
-						if(clog) console.log('Series found in Series DB collection');
-						addSeriesToUser(resultSeries, user, res);						
-					}
-
-					else if(resultSeries === null){
-						if(clog) console.log('Have to retrieve series from tvd');
-
-						//var url = "http://www.thetvdb.com/api/" + dataSafe.tvdbApiKey + "/series/" + seriesId + "/all/de.xml";
-						var url = "http://www.thetvdb.com/api/" + dataSafe.tvdbApiKey + "/series/" + seriesId + "/all";
-
-						request(url, function (errReq, responseTvd, body) {
-							if (responseTvd.statusCode == 200 && !errReq) {
-
-								parseString(body, {explicitRoot: false, explicitArray : false}, function (errParse, resultJSON) {		
-									
-									if(resultJSON && !errParse){
-										var series = new Series(resultJSON);
-										series.save(function (errSaveSeries, storedSeries){
-											if(storedSeries && !errSaveSeries){
-												if (clog) console.log('Success: store "' + storedSeries.Series.SeriesName +  '" in Series DB collection');							
-												addSeriesToUser(storedSeries, user, res);
-											}
-											else if(storedSeries === null){
-												res.status(500).jsonp({"error" : "Error: store series retrieved from TvD failed"});
-											}
-											else{
-												res.status(500).jsonp({"error" : errSaveSeries});
-											}
-										});
+				seriesController.loadOrImportSeries (seriesId, function (series, errLoadSeries) {
+					if (!errLoadSeries) {
+						addSeriesToUser(series, user, function(updatedUser) {
+							saveUser(user,"(added series)", function (savedUser, errSaveUser) {
+								if (!errSaveUser) {
+									var newSeries = {};
+									for(var i=0; i<savedUser.series.length; i++){
+										if(savedUser.series[i].id == seriesId){
+											newSeries = savedUser.series[i];
+											break;
+										}
 									}
-									else if(resultJSON === null){
-										res.status(500).jsonp({"error" : "Error: parsing response from TvD into JSON failed"});
-									}
-									else{
-										res.status(500).jsonp({"error" : errParse});
-									}
-								});
-							}
-							else if(responseTvd.statusCode == 404){
-								res.status(500).jsonp({"error":"Error: seriesId not found"});
-							}							
-							else{
-								res.status(500).jsonp({"error" : errReq});
-							}
+									if (newSeries) {
+										if (clog) console.log("Success: found series in user (added series)");
+										res.jsonp(newSeries);
+									} else {
+										if (clog) console.log("Unknown Error, please try again");
+										res.status(500).jsonp({"error" : "Unknown Error, please try again"});
+									}									
+								} else {
+									if (clog) console.log(errSaveUser);
+									res.status(500).jsonp({"error" : errSaveUser});
+								}
+							});
 						});
-					}
-					else{
+					} else {
 						res.status(500).jsonp({"error" : errLoadSeries});
 					}
-				});
+				});			
+			} else {
+				res.status(500).jsonp({"error":"Series already in users list"});
 			}
-		} 
-		else {
+		} else if (!(req.params.seriesId)) {
+			res.status(500).jsonp({"error" : "Invalide Data received"});
+		} else {
 			res.status(500).jsonp({"error" : "We could't find your user token"});
 		}
 	});	
 };
 
 
+/*
+Deletes a series from an user
+ */
 exports.deleteSeriesFromList = function(req, res){
-
-	var seriesId = req.params.seriesId;
-
 	tokenController.verify(req.params.token, function (verified, user) {
-		if (verified) {
-			if(clog) console.log("Access to restricted area granted");
-			
+		if (verified && req.params.seriesId) {
+			var seriesId = req.params.seriesId;
+			if(clog) console.log("Access to restricted area granted");			
 			var deleteIndex = -1;
-
 			for(var i=0; i<user.series.length; i++){
 				if(user.series[i].id == seriesId){
 					deleteIndex = i;
 					break;
 				}
 			}
-
 			if(deleteIndex >= 0){				
 				if(clog) console.log('user', user);
 				if(clog) console.log('Series in users list');
-
 				user.series.splice(deleteIndex,1);
-				saveUser(user, res, "Success: update user (delete series)", "Error: update user failed (delete series)");
-			}
-			else{
+				saveUser(user, "(delete series)", function(savedUser, errSaveUser) {
+					if (!errSaveUser) {
+						res.jsonp(savedUser);
+					} else {
+						res.status(500).jsonp({"error":errSaveUser});
+					}
+				});
+			} else{
 				res.status(500).jsonp({"error":"Error: seriesId not found"});
 			}
-		} 
-		else {
+		} else if (!(req.params.seriesId)) {
+			res.status(500).jsonp({"error" : "Invalide Data received"});
+		} else {
 			res.status(500).jsonp({"error" : "We could't find your user token"});
 		}
 	});
@@ -456,26 +388,24 @@ exports.deleteSeriesFromList = function(req, res){
 
 
 exports.getAllUserInformation = function(req, res){
-
 	tokenController.verify(req.params.token, function (verified, user) {
 		if (verified) {
-			if(clog) console.log("Access to restricted area granted");
-			res.send(user);
-		}
-		else {
+			res.jsonp(user);
+		} else {
 			res.status(500).jsonp({"error":"Error: User not found"});
 		}
 	});
 };
 
 
+/*
+Sets a single episode from an user as watched
+ */
 exports.updateEpisodeWatched = function(req, res){
 	tokenController.verify(req.params.token, function (verified, user) {
-		if (verified) {
-			var episodeId = req.params.episodeId;
-	
-			var foundInEpisodes = false;			
-
+		if (verified && req.params.episodeId && req.params.bool) {
+			var episodeId = req.params.episodeId;	
+			var foundInEpisodes = false;
 			for(var i=0; i<user.series.length; i++){
 				for(var j=0; j<user.series[i].episodes.length; j++){
 					if(user.series[i].episodes[j].id == episodeId){
@@ -485,31 +415,35 @@ exports.updateEpisodeWatched = function(req, res){
 					}
 				}
 			}
-
 			if(foundInEpisodes){
-				saveUser(user, res, "Success: update user (mark episode)", "Error: update user failed (mark episode)");
-			}
-			else{
+				saveUser(user, "(mark episode)", function(savedUser, errSaveUser) {
+					if (!errSaveUser) {
+						res.jsonp(savedUser);
+					} else {
+						res.status(500).jsonp({"error":errSaveUser});
+					}
+				});
+			} else{
 				res.status(500).jsonp({"error":"Error: episodeId not found"});
 			}
-		}
-		else {
+		} else if (!(req.params.episodeId && req.params.bool)) {
+			res.status(500).jsonp({"error" : "Invalide Data received"});
+		} else {
 			res.status(500).jsonp({"error" : "We could't find your user token"});
 		}
 	});
 };
 
-
+/*
+Sets a whole season from an user as watched
+ */
 exports.updateSeasonWatched = function(req, res){
 	tokenController.verify(req.params.token, function (verified, user) {
-		if (verified) {
+		if (verified && req.params.seasonNr && req.params.seriesId && req.params.bool) {
 			var seasonNr = req.params.seasonNr;
-			var seriesId = req.params.seriesId;
-
-						
+			var seriesId = req.params.seriesId;					
 			var foundAtLeastOne = false;	
-			var foundSeries = false;		
-
+			var foundSeries = false;
 			for(var i=0; i<user.series.length; i++){
 				if (seriesId == user.series[i].id) {
 					foundSeries = true;
@@ -521,16 +455,22 @@ exports.updateSeasonWatched = function(req, res){
 					}
 				}
 			}
-
 			if(foundAtLeastOne){
-				saveUser(user, res, "Success: update user (mark episode)", "Error: update user failed (mark episode)");
+				saveUser(user, "(mark season)", function(savedUser, errSaveUser) {
+					if (!errSaveUser) {
+						res.jsonp(savedUser);
+					} else {
+						res.status(500).jsonp({"error":errSaveUser});
+					}
+				});
 			} else if (!foundSeries) {
 				res.status(500).jsonp({"error":"Error: Series in user not found"});
 			} else {
 				res.status(500).jsonp({"error":"Error: Season in user not found"});
 			}
-		}
-		else {
+		} else if (!(req.params.seasonNr && req.params.seriesId && req.params.bool)) {
+			res.status(500).jsonp({"error" : "Invalide data received"});
+		} else {
 			res.status(500).jsonp({"error" : "We could't find your user token"});
 		}
 	});

@@ -4,12 +4,6 @@ var config = require('../config.json');
 var user = require('../controllers/userController');
 
 
-// GET /usr/6752c09377e2105a1ca2748c79dac931c8e67b63/test
-// just get a test response to a restriced area
-// Test NOT implemented
-router.get('/:token/test', user.test);
-
-
 // POST /usr/register
 // register a new account
 // Test implemented
