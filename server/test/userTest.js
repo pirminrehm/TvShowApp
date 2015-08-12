@@ -71,7 +71,7 @@ after(function (done){
 			mongoStart.close(function() {
 				console.log("Success: Closed connection to MongoDB ".green);
 				done();
-			})
+			});
 		});
 	});	
 });
@@ -106,9 +106,39 @@ describe('Test:', function() {
 				insert.user (data.acc1, function() { done(); });
 			});
 
-			it('should not create an account for tvshowapp-test1@7kw.de', function(done) {
+			it('should not create an second account for tvshowapp-test1@7kw.de', function(done) {
 				req.post(data.acc1, "/usr/register", 500, function(body) {
 					myAssert (body.error, "For this email an account already exists",  done);
+				});
+			});
+
+			it('should try to sign up with a wrong email (check1)', function(done) {
+				req.post({"email":"@"}, "/usr/register", 500, function(body) {
+					myAssert (body.error, "invalide email",  done);
+				});
+			});
+
+			it('should try to sign up with a wrong email (check2)', function(done) {
+				req.post({"email":"@d."}, "/usr/register", 500, function(body) {
+					myAssert (body.error, "invalide email",  done);
+				});
+			});
+
+			it('should try to sign up with a wrong email (check3)', function(done) {
+				req.post({"email":{}}, "/usr/register", 500, function(body) {
+					myAssert (body.error, "invalide email",  done);
+				});
+			});
+
+			it('should try to sign up with a wrong email (check4)', function(done) {
+				req.post({"nix":"nix"}, "/usr/register", 500, function(body) {
+					myAssert (body.error, "invalide email",  done);
+				});
+			});
+
+			it('should try to sign up with a wrong email (check5)', function(done) {
+				req.post({}, "/usr/register", 500, function(body) {
+					myAssert (body.error, "invalide email",  done);
 				});
 			});
 		});
@@ -139,7 +169,52 @@ describe('Test:', function() {
 				myAssert (body.error, "We could't find your user token",  done);
 			});
 		});
+	});
 
+	describe('User requests token via Mail'.yellow, function() {
+		beforeEach(function(done) {
+			insert.user (data.acc1, function() { insert.user (data.acc2,  done); });
+		});
+		
+		describe('successfully', function() {
+			it('should requeset an email', function(done) {
+				req.post({"email":data.acc1.email}, "/usr/mail/get", 200, function(body) {
+					myAssert (body.message, "Email successfull send",  done);
+				});
+			});
+		});
+
+		describe('failures', function() {
+			it('should try to request with a wrong email (check1)', function(done) {
+				req.post({"email":"@"}, "/usr/mail/get", 500, function(body) {
+					myAssert (body.error, "Not an accout registered for this Mail",  done);
+				});
+			});
+
+			it('should try to request with a wrong email (check2)', function(done) {
+				req.post({"email":"@d."}, "/usr/mail/get", 500, function(body) {
+					myAssert (body.error, "Not an accout registered for this Mail",  done);
+				});
+			});
+
+			it('should try to request with a wrong email (check3)', function(done) {
+				req.post({"email":{}}, "/usr/mail/get", 500, function(body) {
+					myAssert (body.error, "Not an accout registered for this Mail",  done);
+				});
+			});
+
+			it('should try to request with a wrong email (check4)', function(done) {
+				req.post({"nix":"nix"}, "/usr/mail/get", 500, function(body) {
+					myAssert (body.error, "Not an accout registered for this Mail",  done);
+				});
+			});
+
+			it('should try to request with a wrong email (check5)', function(done) {
+				req.post({}, "/usr/mail/get", 500, function(body) {
+					myAssert (body.error, "Not an accout registered for this Mail",  done);
+				});
+			});
+		});
 	});
 
 
@@ -327,6 +402,11 @@ describe('Test:', function() {
 					});
 				});
 
+				it('should try to mark an episode with wron boolean', function(done) {
+					req.put("", "/usr/token/"+ data.acc7.token + "/watched/"+ "blub" +"/episode/"+ data.acc7.series[0].episodes[1].id , 500, function(body) {
+						myAssert (body.error, "Invalide boolean",  done);
+					});
+				});
 			});
 		});
 
@@ -335,9 +415,41 @@ describe('Test:', function() {
 				insert.user (data.acc3,  done);
 			});
 			describe('as watched', function() {
-				it('should mark all episodes of an season as watched', function(done) {
-					req.put("", "/usr/token/"+ data.acc3.token + "/watched/"+ true +"/series/"+ data.acc3.series[0].id + "/season/" + data.acc3.series[0].episodes[0].sNr  , 200, function(body) {
+				it('should mark all episodes of an season as watched (season 1)', function(done) {
+					req.put("", "/usr/token/"+ data.acc3.token + "/watched/"+ true +"/series/"+ data.acc3.series[0].id + "/season/1"  , 200, function(body) {
 						myAssert (body, data.acc8,  done);
+					});
+				});
+
+				it('should mark all episodes of an season as watched (season 2)', function(done) {
+					req.put("", "/usr/token/"+ data.acc3.token + "/watched/"+ true +"/series/"+ data.acc3.series[0].id + "/season/2" , 200, function(body) {
+						myAssert (body, data.acc9,  done);
+					});
+				});				
+			});
+
+			describe('failures', function() {
+				it('should try to mark an season as unwatched with wrong season nr', function(done) {
+					req.put("", "/usr/token/"+ data.acc3.token + "/watched/"+ true +"/series/"+ data.acc3.series[0].id + "/season/" + "999"  , 500, function(body) {
+						myAssert (body.error, "Error: Season in user not found",  done);
+					});
+				});
+
+				it('should try to mark an season as unwatched with wrong seriesId', function(done) {
+					req.put("", "/usr/token/"+ data.acc3.token + "/watched/"+ true +"/series/"+ "1" + "/season/" + data.acc3.series[0].episodes[0].sNr, 500, function(body) {
+						myAssert (body.error, "Error: Series in user not found",  done);
+					});
+				});
+
+				it('should try to mark an episode as unwatched with wrong token', function(done) {
+					req.put("", "/usr/token/"+ "blub" + "/watched/"+ true +"/series/"+ "1" + "/season/" + data.acc3.series[0].episodes[0].sNr  , 500, function(body) {
+						myAssert (body.error,"We could't find your user token",  done);
+					});
+				});
+
+				it('should try to mark an episode with wrong boolean', function(done) {
+					req.put("", "/usr/token/"+ data.acc3.token + "/watched/"+ "blub" +"/series/"+ data.acc3.series[0].id + "/season/" + data.acc3.series[0].episodes[0].sNr  , 500, function(body) {
+						myAssert (body.error, "Invalide boolean",  done);
 					});
 				});
 			});
@@ -398,6 +510,15 @@ describe('Test:', function() {
 				});
 			});
 		});
+
+		describe('search for series'.yellow, function() {	
+			it('should get meta infos about a series', function(done) {
+				req.get("", "/series/token/"+ data.acc1.token + "/searchresult/search/the%20simpsons", 200, function(body) {
+					//assert maybe will get wrong, if other series witht "simpson" are added to theTvDB
+					myAssert (body, data.simpsonsSearchResult,  done);
+				});
+			});
+		});
 	});
 });
 
@@ -409,22 +530,3 @@ describe('Test:', function() {
 
 
 
-
-
-/*
-
-var objToStr = function (obj) {
-	var output = "\n";
-		for (var property in obj) {
-			
-			if (typeof(obj[property]) === 'object') {
- 				output += "  " +property +":"+ objToStr(obj[property]);
-			} else {	
-				output +="     "+ property + ": " + obj[property]+"; \n";
-			}
-		}			
-	return output;
-};
-
-
-*/

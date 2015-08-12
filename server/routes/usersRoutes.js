@@ -10,9 +10,9 @@ var user = require('../controllers/userController');
 router.post('/register', user.registerAccount);
 
 
-// POST /usr/register
-// register a new account
-// Test NOT implemented
+// POST /usr/mail/get
+// get the token via mail
+// Test implemented
 router.post('/mail/get', user.postTokenViaMail);
 
 

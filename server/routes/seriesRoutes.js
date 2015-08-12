@@ -11,13 +11,13 @@ router.get('/token/:token/searchresult/search/:searchString', seriesController.s
 
 // GET /series/token/6752c09377e2105a1ca2748c79dac931c8e67b63/series/262980/details
 // get all meta information of a series but not the episodes (Return Series.Series)
-// Test NOT implemented
+// Test implemented
 router.get('/token/:token/series/:seriesId/details', seriesController.getSeriesDetails);
 
 
 // GET /series/token/6752c09377e2105a1ca2748c79dac931c8e67b63/episode/4411361/details
 // get all meta information of an episode (Return: Episode)
-// Test NOT implemented
+// Test implemented
 router.get('/token/:token/episode/:episodeId/details', seriesController.getEpisodeDetails);
 
 
