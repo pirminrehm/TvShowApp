@@ -9,7 +9,6 @@ app.controller( 'UserController', [ '$scope','$routeParams','$modal','SearchServ
 	$scope.searchBarActive = false;
 	$scope.token = token;
 
-	// var allSeriesNames = ["The Sopranos","Seinfeld","The Twilight Zone","All in the Family","M*A*S*H","The Mary Tyler Moore Show","Mad Men","Cheers","The Wire","The West Wing","The Simpsons","I Love Lucy","Breaking Bad","The Dick Van Dyke Show","Hill Street Blues","Arrested Development","The Daily Show with Jon Stewart","Six Feet Under","Taxi","The Larry Sanders Show","30 Rock","Friday Night Lights","Frasier","Friends","Saturday Night Live","The X-Files","Lost","The Cosby Show","Curb Your Enthusiasm","The Honeymooners","Deadwood","Star Trek","Modern Family","Twin Peaks","NYPD Blue","The Carol Burnett Show","Battlestar Galactica","Sex & The City","Game of Thrones","The Bob Newhart Show","Your Show of Shows","Downton Abbey, Law & Order","Thirtysomething","Homicide: Life on the Street","St. Elsewhere","Homeland","Buffy the Vampire Slayer","The Colbert Report","The Good Wife","Northern Exposure","The Wonder Years","L.A. Law","Sesame Street","Columbo","Fawlty Towers","The Rockford Files","Freaks and Geeks","Moonlighting","Roots","Everybody Loves Raymond","South Park","Playhouse 90","Dexter","My So-Called Life","Golden Girls","The Andy Griffith Show","Roseanne","The Shield","Murphy Brown","Barney Miller","The Odd Couple","Alfred Hitchcock Presents","Monty Python�s Flying Circus","Star Trek: The Next Generation","Upstairs, Downstairs","Get Smart","The Defenders","Gunsmoke","Justified","The Phil Silvers Show","Band of Brothers","Rowan & Martin�s Laugh-In","The Prisoner","Absolutely Fabulous","The Muppet Show","Boardwalk Empire","Will & Grace","Family Ties","Lonesome Dove","Soap","The Fugitive","Late Night with David Letterman","Louie","House of Cards"];
 	$scope.allSeriesNames = [ "The Sopranos","Seinfeld","The Twilight Zone","All in the Family","M*A*S*H","The Mary Tyler Moore Show","Mad Men","Cheers","The Wire","The West Wing","The Simpsons","I Love Lucy","Breaking Bad","The Dick Van Dyke Show","Hill Street Blues","Arrested Development","The Daily Show with Jon Stewart","Six Feet Under","Taxi","The Larry Sanders Show","30 Rock","Friday Night Lights","Frasier","Friends","Saturday Night Live","The X-Files","Lost","The Cosby Show","Curb Your Enthusiasm","The Honeymooners","Deadwood","Star Trek","Modern Family","Twin Peaks","NYPD Blue","The Carol Burnett Show","Battlestar Galactica","Sex & The City","Game of Thrones","The Bob Newhart Show","Your Show of Shows","Downton Abbey, Law & Order","Thirtysomething","Homicide: Life on the Street","St. Elsewhere","Homeland","Buffy the Vampire Slayer","The Colbert Report","The Good Wife","Northern Exposure","The Wonder Years","L.A. Law","Sesame Street","Columbo","Fawlty Towers","The Rockford Files","Freaks and Geeks","Moonlighting","Roots","Everybody Loves Raymond","South Park","Playhouse 90","Dexter","My So-Called Life","Golden Girls","The Andy Griffith Show","Roseanne","The Shield","Murphy Brown","Barney Miller","The Odd Couple","Alfred Hitchcock Presents","Monty Python�s Flying Circus","Star Trek: The Next Generation","Upstairs, Downstairs","Get Smart","The Defenders","Gunsmoke","Justified","The Phil Silvers Show","Band of Brothers","Rowan & Martin�s Laugh-In","The Prisoner","Absolutely Fabulous","The Muppet Show","Boardwalk Empire","Will & Grace","Family Ties","Lonesome Dove","Soap","The Fugitive","Late Night with David Letterman","Louie","House of Cards" ];
 
 	UserService.getUser( token )
@@ -18,7 +17,6 @@ app.controller( 'UserController', [ '$scope','$routeParams','$modal','SearchServ
 			$scope.cards = res.series;
 		}, function( err ) {
 
-			// $scope.err = err;
 			if ( !err ) {err = { error:"We were unable to load your series" };}
 			notification.notify( 'error',  err.error );
 		} );
@@ -46,14 +44,6 @@ app.controller( 'UserController', [ '$scope','$routeParams','$modal','SearchServ
 	    $scope.searchString = $item;
 		$scope.search();
 	};
-
-	/*$("#search_bar").autocomplete({
-		source: allSeriesNames,
-		select: function(event, ui) {
-			$scope.searchString = ui.item.value;
-			$scope.search();
-		}
-	});*/
 
 	$scope.search = function() {
 
@@ -85,7 +75,6 @@ app.controller( 'UserController', [ '$scope','$routeParams','$modal','SearchServ
 					}
 				}, function( err ) {
 
-					// $scope.err = err;
 					if ( !err ) {err = { error:"We were unable to get your search results" };}
 					notification.notify( 'error',  err.error );
 				} );
@@ -123,7 +112,6 @@ app.controller( 'UserController', [ '$scope','$routeParams','$modal','SearchServ
 
 			}, function( err ) {
 
-				// $scope.err = err;
 				angular.element( '#' + seriesId ).removeClass( "glyphicon-time" );
 				angular.element( '#' + seriesId ).addClass( "glyphicon-plus" );
 
@@ -167,7 +155,6 @@ app.controller( 'UserController', [ '$scope','$routeParams','$modal','SearchServ
 					} );
 				}, function( err ) {
 
-					// $scope.err = err;
 					if ( !err ) {err = { error:"We were unable to remove the series from your list" };}
 					notification.notify( 'error',  err.error );
 				} );

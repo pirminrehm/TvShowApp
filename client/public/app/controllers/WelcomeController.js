@@ -12,14 +12,11 @@ app.controller( 'WelcomeController', [ '$scope','$location','AuthenticationServi
 					$location.url( "/mail" );
 				}, function( err ) {
 
-					// $scope.err = err;
 					if ( !err ) {err = { error:"We were unable to create a new list" };}
 					notification.notify( 'error',  err.error );
 				} );
 		} else {
 
-			// $scope.err = {};
-			// $scope.err.error ="This wasn't an email adress";
 			notification.notify( 'error',  "This wasn't an email adress" );
 		}
 	};
@@ -32,14 +29,11 @@ app.controller( 'WelcomeController', [ '$scope','$location','AuthenticationServi
 					$location.url( "/mail" );
 				}, function( err ) {
 
-					// $scope.err = err;
 					if ( !err ) {err = { error:"We were unable to get your list" };}
 					notification.notify( 'error',  err.error );
 			} );
 		} else {
 
-			// $scope.err = {};
-			// $scope.err.error ="This wasn't an email adress";
 			notification.notify( 'error',  "This wasn't an email adress" );
 		}
 	};

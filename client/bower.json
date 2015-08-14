@@ -1,11 +1,11 @@
 {
-  "name": "tvd-client",
+  "name": "tvshowapp-client",
   "version": "0.0.1",
-  "homepage": "https://github.com/pirminrehm/tvdatabase",
+  "homepage": "https://github.com/pirminrehm/tvshowapp",
   "authors": [
     "HdM Stuttgart"
   ],
-  "description": "TV-Database WEB-Client",
+  "description": "TvShowApp WEB-Client",
   "license": "MIT",
   "ignore": [
     "**/.*",
@@ -18,7 +18,6 @@
   "dependencies": {
     "bootstrap": "~3.3.4",
     "angular-route": "~1.4.0",
-    "jquery-ui": "~1.11.4",
     "angular": "~1.4.3",
     "angular-filter": "~0.5.4",
     "angular-bootstrap": "~0.13.3",

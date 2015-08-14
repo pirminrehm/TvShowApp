@@ -10,7 +10,6 @@ app.controller( 'DetailController', [ '$scope','$location','$routeParams','$moda
 	UserService.getUser( token )
 		.then( function( res ) {
 
-			//search for the relevant series stored by the user
 			for ( var i = 0; i < res.series.length; i++ ) {
 				if ( res.series[ i ].id == seriesId ) {
 					userSeries = res.series[ i ];
@@ -20,13 +19,9 @@ app.controller( 'DetailController', [ '$scope','$location','$routeParams','$moda
 			if ( userSeries ) {
 				$scope.userSeries = userSeries;
 			} else {
-
-				// $scope.err = "Error";
 				notification.notify( 'error',  "We were unable to find the series in your account" );
 			}
 		}, function( err ) {
-
-			// $scope.err = err;
 			if ( !err ) {err = { error:"We were unable to load your list" };}
 			notification.notify( 'error',  err.error );
 		} );
@@ -35,23 +30,25 @@ app.controller( 'DetailController', [ '$scope','$location','$routeParams','$moda
 		.then( function( res ) {
 			$scope.seriesDetails = res;
 		}, function( err ) {
-
-			// $scope.err = err;
 			if ( !err ) {err = { error:"We were unable to details for this series" };}
 			notification.notify( 'error',  err.error );
 		} );
 
 	$scope.setEpisodeWatched = function( episode ) {
+		angular.element( '#e' + episode.id + " span").html("");
+		angular.element( '#e' + episode.id + " span").addClass( "glyphicon glyphicon-time" );
 		UserService.setWatched( token, !episode.w, episode.id )
 			.then( function( res ) {
 				episode.w = !episode.w;
-
-				//the card directive is listening on the 'update' channel
 				$scope.$broadcast( 'update' );
 			}, function( err ) {
-
-				// $scope.err = err;
-				// episode.w = episode.w;
+				if (episode.w) {
+					angular.element( '#e' + episode.id + " span").removeClass( "glyphicon-time" );
+					angular.element( '#e' + episode.id + " span").addClass( "glyphicon-ok" );
+				} else {
+					angular.element( '#e' + episode.id + " span").removeClass( "glyphicon glyphicon-time" );
+					angular.element( '#e' + episode.id + " span").html("+1");
+				}
 				if ( !err ) {err = { error: "We were unable to update this episode" };}
 				notification.notify( 'error',  err.error );
 		} );
@@ -79,13 +76,10 @@ app.controller( 'DetailController', [ '$scope','$location','$routeParams','$moda
 				} );
 
 			}, function( err ) {
-
-				// $scope.err = err;
 				if ( !err ) {err = { error: "We were unable to load details for this episode" };}
 				notification.notify( 'error',  err.error );
 			} );
 
 		modalInstance.result.then( function() {}, function() {} );
 	};
-
 } ] );

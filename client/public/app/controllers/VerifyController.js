@@ -10,7 +10,6 @@ app.controller( 'VerifyController', [ '$scope','$routeParams','$location','Authe
 			$location.url( "/user/" + token );
 		}, function( err ) {
 
-			// $scope.err = err;
 			if ( !err ) {err = { error:"We were unable to verify your account" };}
 			notification.notify( 'error',  err.error );
 		} );
