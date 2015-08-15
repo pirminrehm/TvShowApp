@@ -9,7 +9,8 @@ html{
 body {
 	background: #eee;
 	height: 100%;
-	overflow-y: scroll; 
+	overflow-y: scroll;
+	min-width : 320px;
 }
 
 .cursor-pointer{
@@ -188,7 +189,7 @@ accordion .panel-body {
 	padding: 0px !important;
 }
 
-ul.season_list {
+ul.season-list {
 	margin: 0px !important;
 	padding: 0px !important;
 	list-style: none;
@@ -197,12 +198,12 @@ ul.season_list {
 
 
 /*
-.season_list {
+.season-list {
 	box-shadow: 0 1px 2px rgba(0,0,0,.075);
 	
 }
 
-.season_list > div {
+.season-list > div {
 	padding: 10px 15px;
 	margin: 0px;
 	border-top-left-radius: 4px;
@@ -218,7 +219,7 @@ ul.season_list {
 
 }
  
-.season_list > div h4 {
+.season-list > div h4 {
 	font-weight: normal;
 	font-size: 18px;
 	color: #fff;
@@ -228,18 +229,18 @@ ul.season_list {
 */
 
   
-.season_list li {
+.season-list li {
 	position: relative;
 	display: block;
 	margin-bottom: -1px;
 	background-color: #fff;
 	border: 1px solid #ddd;
 }
-.season_list li:hover {
+.season-list li:hover {
 	background-color: #f6f6f6;
 }
 
-.season_list li > h4 {
+.season-list li > h4 {
 	padding: 10px 15px;
 	margin: 0px;
 	color: #555;
@@ -247,29 +248,29 @@ ul.season_list {
 	font-size: 14px;
 }
 /*
-.season_list div > input {
+.season-list div > input {
 	position: absolute;
 	top: 12px;
 	right: 26px;
 }
   
-.season_list li > input{
+.season-list li > input{
 	position: absolute;
 	top: 7px;
 	right: 10px;
 }
 
-.season_list li > p {
+.season-list li > p {
 	padding: 0px 15px;
 	display: none;
 }
 
-.season_list li:first-child {
+.season-list li:first-child {
 	border-top: 0px;
 }
 
 */
-.season_list li:last-child {
+.season-list li:last-child {
 	border-bottom-left-radius: 4px;
 	border-bottom-right-radius: 4px;
 }
@@ -406,15 +407,15 @@ white-space: nowrap;
   }
 
 
-.season_list div.label {
+.season-list div.label {
 	padding: 0px;
 }
 
-.season_list div.label h4{
+.season-list div.label h4{
 	height:21px;
 }
 
-h2.normal a, h2.normal a:active, h2.normal a:hover, h2.normal a:link, h2.normal a:visited, h2.normal a:focus {
+h2.normal, h2.normal a, h2.normal a:active, h2.normal a:hover, h2.normal a:link, h2.normal a:visited, h2.normal a:focus {
 	color:#fff;
 	text-decoration: none;
 	display: block;
@@ -465,4 +466,22 @@ h2.normal a, h2.normal a:active, h2.normal a:hover, h2.normal a:link, h2.normal 
 
 .episodes h4 span:not(.glyphicon) {
 	font-weight: bold;
+}
+
+
+.panel-heading a {
+    display: block;
+    height: 100%;
+    padding: 10px 15px;
+    width: 100%;
+    text-decoration: none;
+    outline: none;
+}
+
+.panel-heading a:hover, .panel-heading a:active, .panel-heading a:focus {
+	background-color: rgba(0,100,255,0.2);
+}
+
+.panel-heading {
+	padding: 0px !important;
 }

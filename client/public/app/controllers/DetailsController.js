@@ -7,6 +7,7 @@ app.controller( 'DetailController', [ '$scope','$location','$routeParams','$moda
 	var userSeries;
 	$scope.token = token;
 
+
 	UserService.getUser( token )
 		.then( function( res ) {
 
@@ -82,4 +83,10 @@ app.controller( 'DetailController', [ '$scope','$location','$routeParams','$moda
 
 		modalInstance.result.then( function() {}, function() {} );
 	};
+
+	$scope.test = function() {
+		alert("123"); 
+
+	};
+
 } ] );
