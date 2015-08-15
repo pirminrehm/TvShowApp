@@ -2,15 +2,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-
-
-
 var EpisodeSchema = new Schema({
- 	id: Number,
- 	w: Boolean,		
+ 	id: { type: Number,  required: true},
+ 	w: { type: Boolean,  required: true},	
  	n: String,		
- 	sNr: String,
- 	eNr: String
+ 	sNr: { type: String,  required: true},
+ 	eNr: { type: String,  required: true}
  });
 
 
@@ -25,7 +22,7 @@ var EpisodeSchema = new Schema({
 
 var SeriesSchema = new Schema({
  	name: String,
- 	id: String,
+ 	id: { type: String,  required: true},
  	bannerUrl: String,
  	episodes: [EpisodeSchema]
 
@@ -33,23 +30,14 @@ var SeriesSchema = new Schema({
 
 
 var UserSchema = Schema({
-	email: String,
-	token: String,
-	validated: Boolean,
+	email: { type: String,  required: true},
+	token: { type: String,  required: true},
+	validated: { type: Boolean,  required: true},
 	series: [SeriesSchema]
 
  });
 
-
-/*
-
-UserSchema.statics = {
-	load: function(id, cb){
-		this.findOne({_id:id}).exec(cb);
-	}
-}
-
-*/
-
-
+UserSchema.index({ email: 1},{ unique: true, dropDups: false });
+UserSchema.index({ token: 1},{ unique: true, dropDups: false });
+//
 mongoose.model('User', UserSchema);

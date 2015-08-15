@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 
 
 var EpisodeSchema = new Schema({  
-      id : Number,
-      Combined_episodenumber : Number,
+      id : { type: String,  required: true},
+      Combined_episodenumber : String,
       Combined_season : String,
       DVD_chapter : String,
       DVD_discid : String,
@@ -40,7 +40,7 @@ var EpisodeSchema = new Schema({
 
 var SeriesSchema = new Schema({
     Series: {
-      id: String,
+      id: { type: String,  required: true},
       Actors: String,
       Airs_DayOfWeek: String,
       Airs_Time: String,

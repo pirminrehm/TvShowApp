@@ -225,7 +225,7 @@ describe('Test:', function() {
 			});
 			describe('which is already in the mongo', function() {	
 				beforeEach(function(done) {
-					insert.series (data.houseOfCards[0], done);
+					insert.series (data.houseOfCards, done);
 				});
 				it('should add a new series to user 1', function(done) {
 					req.get("", "/usr/token/"+ data.acc1.token + "/series/"+ data.houseOfCards.Series.id, 200, function(body) {
