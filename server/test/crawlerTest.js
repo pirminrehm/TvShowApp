@@ -65,7 +65,7 @@ Testing:
 
 
 //main describe over all Tests
-describe('Crawler-Test:', function() {
+describe('Crawler-Test:'.red, function() {
 
 	describe('Update missing episode'.yellow, function() {
 		this.timeout(40000);

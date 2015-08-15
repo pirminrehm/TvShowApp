@@ -35,58 +35,13 @@ acc7 = acc3 +himym (index 1 and 2 are true)
 /******************************
 ====== config variables =======
 *******************************/
-var mongoUrl = config.dbTestUrl;
 
 //logging to console?
 var clog = false;
 
 
-
-
-
-/******************************
-========== main test ==========
-*******************************/
-before(function (done) {
-	mongoStart.connect(mongoUrl, function(success) {
-		if (success) {
-			console.log("Success: Connected MongoDB ".green +"(Database: " +  mongoUrl + ")");
-			loggingStart.setLogging (false, function() {
-				server.listen( function () {
-					console.log("Success: Server is listening".green);
-					done();
-				});
-			});
-		} else {
-			throw('Connection to mongoDB refused'.red);
-
-		}
-	});
-});
-
-after(function (done){
-	insert.user (data.accTest, function() { 
-		server.close(function() {
-			console.log("  Success: close Connection \n".green);  
-			mongoStart.close(function() {
-				console.log("Success: Closed connection to MongoDB ".green);
-				done();
-			});
-		});
-	});	
-});
-
-
-beforeEach(function (done) {
-        mongoose.connection.db.dropDatabase(function(){
-        	//console.log("  Success: dropDatabase \n".green);  
-            done();
-    	});
-});
-
-
 //main describe over all Tests 
-describe('Test:', function() {
+describe('User-Test:'.red, function() {
 	describe('User Registration'.yellow, function() {
 		this.timeout(10000);
 		it('should post the mail tvshowapp-test1@7kw.de', function(done){ 
@@ -451,71 +406,6 @@ describe('Test:', function() {
 					req.put("", "/usr/token/"+ data.acc3.token + "/watched/"+ "blub" +"/series/"+ data.acc3.series[0].id + "/season/" + data.acc3.series[0].episodes[0].sNr  , 500, function(body) {
 						myAssert (body.error, "Invalide boolean",  done);
 					});
-				});
-			});
-		});
-	});
-
-		
-
-
-
-	describe('Series based requests'.yellow, function() {
-		beforeEach(function(done) {
-			insert.user (data.acc1, function() {
-				insert.series (data.houseOfCards, function() { done(); });
-			});
-		});
-		describe('get series'.yellow, function() {	
-			describe('successfull', function() {
-				it('should get meta infos about a series', function(done) {
-					req.get("", "/series/token/"+ data.acc1.token + "/series/"+data.houseOfCards.Series.id+"/details", 200, function(body) {
-						myAssert (body, data.houseOfCards.Series,  done);
-					});
-				});
-			});
-			describe('failures', function() {
-				it('should try to get meta infos about a series with a wrong series id', function(done) {
-					req.get("", "/series/token/"+ data.acc1.token + "/series/"+"00"+"/details", 500, function(body) {
-						myAssert (body.error, "Error: seriesId not found" ,  done);
-					});
-				});
-				it('should try to get meta infos about a series with wrong token', function(done) {
-					req.get("", "/series/token/"+ "blub" + "/series/"+"00"+"/details", 500, function(body) {
-						myAssert (body.error,"We could't find your user token", done);
-					});
-				});
-			});
-		});
-
-		describe('get episode'.yellow, function() {	
-			describe('successfull', function() {
-				it('should get meta infos about an episode', function(done) {
-					req.get("", "/series/token/"+ data.acc1.token + "/episode/"+ data.acc3.series[0].episodes[0].id +"/details", 200, function(body) {
-						myAssert (body, data.houseOfCards.Episode[0],  done);
-					});
-				});
-			});
-
-			describe('failures', function() {
-				it('should try to get meta infos about an episode with a wrong series id', function(done) {
-					req.get("", "/series/token/"+ data.acc1.token + "/episode/"+"00"+"/details", 500, function(body) {
-						myAssert (body.error, "Error: episodeId not found" ,  done);
-					});
-				});
-				it('should try to get meta infos about an episode with wrong token', function(done) {
-					req.get("", "/series/token/"+ "blub" + "/episode/"+"00"+"/details", 500, function(body) {
-						myAssert (body.error,"We could't find your user token",  done);
-					});
-				});
-			});
-		});
-
-		describe('search for series'.yellow, function() {	
-			it('should get meta infos about a series', function(done) {
-				req.get("", "/series/token/"+ data.acc1.token + "/searchresult/search/the%20simpsons", 200, function(body) {
-					//assert maybe will get wrong, if other series witht "simpson" are added to theTvDB
-					myAssert (body, data.simpsonsSearchResult,  done);
 				});
 			});
 		});
