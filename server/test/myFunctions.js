@@ -36,6 +36,7 @@ var mongoUrl = config.dbTestUrl;
 *******************************/
 exports.req = {};
 
+//helper for post request
 exports.req.post = function (data2send, route, status, callback) {
 	supertest(url)
 		.post(route)
@@ -53,7 +54,7 @@ exports.req.post = function (data2send, route, status, callback) {
 		});
 };
 
-
+//helper for get request
 exports.req.get = function (data2send, route, status, callback) {
 	supertest(url)
 		.get(route)
@@ -70,6 +71,7 @@ exports.req.get = function (data2send, route, status, callback) {
 		});
 };
 
+//helper for put request
 exports.req.put = function (data2send, route, status, callback) {
 	supertest(url)
 		.put(route)
@@ -87,6 +89,7 @@ exports.req.put = function (data2send, route, status, callback) {
 		});
 };
 
+//helper for delete request
 exports.req.delete = function (data2send, route, status, callback) {
 	supertest(url)
 		.delete(route)
@@ -102,9 +105,7 @@ exports.req.delete = function (data2send, route, status, callback) {
 		});
 };
 
-
-
-
+//helper to get the updates-day from theTvDB
 exports.req.getUpdates = function (callback) {
 	errmsg = "D'oh! There went something wrong while checking for new updates!";
 	request("http://www.thetvdb.com/api/" + dataSafe.tvdbApiKey + "/updates/updates_day.xml", function (errReq, responseTvd, body) {
@@ -129,7 +130,7 @@ exports.req.getUpdates = function (callback) {
 };
 
 
-
+//helper to get the a series from theTvDB
 exports.req.getSeries= function (seriesId, callback) {
 	var errmsg = "D'oh! There went something wrong while get a series from tvd: id:" + seriesId;
 	request("http://www.thetvdb.com/api/" + dataSafe.tvdbApiKey + "/series/" + seriesId + "/all", function (errReq, responseTvd, body) {
@@ -162,6 +163,8 @@ exports.myAssert = function (body2parse, defined2parse, callback) {
 	// console.log(body2parse);
 	// console.log(defined2parse);
 	
+
+	//safe clone  of data --> new objects for deletions
 	var body = JSON.parse(JSON.stringify(body2parse));
 	var defined = JSON.parse(JSON.stringify(defined2parse));
 	delete body._id;
@@ -192,6 +195,7 @@ exports.myAssert = function (body2parse, defined2parse, callback) {
 
 	assert.deepEqual(body,defined);
 	
+	//optional callback
 	if (typeof callback === 'function') {
 		callback();
 	} 
@@ -204,6 +208,7 @@ exports.myAssert = function (body2parse, defined2parse, callback) {
 /******************************
 ====== insert functions =======
 *******************************/
+//helpers for mongoose safe functions
 exports.insert = {};
 
 exports.insert.user = function (user2save, callback) {
@@ -246,7 +251,7 @@ exports.insert.series = function (series2save, callback) {
 *******************************/
 exports.cloneSafe = function (object) {
 	return  JSON.parse(JSON.stringify(object));
-}
+};
 
 
 
@@ -254,6 +259,7 @@ exports.cloneSafe = function (object) {
 /******************************
 ===== safe for function =======
 *******************************/
+//enables a safe for loop with a function, asynchronous or synchronous
 exports.forFunctionSafe  = function (startingNr, arrayLength, callback, finalCallback) {
 	var i = startingNr;
 	var wasLastOne = false;
@@ -270,13 +276,12 @@ exports.forFunctionSafe  = function (startingNr, arrayLength, callback, finalCal
 	}	
 
 	looper();
-}
+};
 
 
 /******************************
 ===  convert series for user ===
 *******************************/
-
 exports.convertSeriesForUser = function (series2Store){
 	//console.log(series2Store);
 	
@@ -313,7 +318,7 @@ exports.convertSeriesForUser = function (series2Store){
 	}
 
 	return userSeries;
-}
+};
 
 
 
@@ -321,6 +326,7 @@ exports.convertSeriesForUser = function (series2Store){
 /******************************
 ===== findOne functions =======
 *******************************/
+//helpers for mongoose findOne functions
 exports.findOne = {};
 
 exports.findOne.user = function (token, callback) {
