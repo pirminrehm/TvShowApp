@@ -48,8 +48,12 @@
 		</div>
 	</div>
 
-	<div style="text-align: center" ng-if="cards.length == 0 && searchResults.length == 0" class="ng-scope">
+	<div style="text-align: center" ng-if="cards.length == 0 && searchResults.length == 0 && loadingFinished" class="ng-scope">
 		<h3>Click on</h3> <h5><span class="glyphicon glyphicon-plus"></span></h5> <h3>and add a new series!</h3>
+	</div>
+
+	<div style="text-align: center" ng-if="!loadingFinished" class="ng-scope">
+		<h3>Loading...</h3>
 	</div>
 
 	<div class="row">

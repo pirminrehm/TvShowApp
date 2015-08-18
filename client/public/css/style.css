@@ -97,24 +97,24 @@ body {
 .series-inner-title .right {
 }
 
-#removeSeries {
+.removeSeries {
 	position: absolute;
 	top: 10px;
 	right: 15px;
 }
 
-#updateProgress {
+.updateProgress {
 	position: absolute;
 	top: 117px;
 	right: 25px;
 }
 
-#removeSeries .glyphicon {
+.removeSeries .glyphicon {
 	text-shadow: 0px 1px 0px rgba(0, 0, 0, 1);
 	opacity: 1;
 }
 
-#removeSeries:hover .glyphicon {
+.removeSeries:hover .glyphicon {
 	color: red;
 	text-shadow: 0px 1px 0px rgba(0, 0, 0, 1);
 	opacity: 1;
@@ -415,7 +415,7 @@ white-space: nowrap;
 	height:21px;
 }
 
-h2.normal, h2.normal a, h2.normal a:active, h2.normal a:hover, h2.normal a:link, h2.normal a:visited, h2.normal a:focus {
+p.episode-nr-and-title, h2.normal, h2.normal a, h2.normal a:active, h2.normal a:hover, h2.normal a:link, h2.normal a:visited, h2.normal a:focus {
 	color:#fff;
 	text-decoration: none;
 	display: block;

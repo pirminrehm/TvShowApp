@@ -6,8 +6,14 @@ app.controller('DetailController', ['$scope', '$location', '$routeParams', '$mod
     var seriesId = $routeParams.seriesId;
     var userSeries;
     $scope.token = token;
+    $scope.loadingFinished = false;
 
+    $scope.status = {
+        detailsOpen: true
+    };
+    
 
+    //load user data
     UserService.getUser(token)
         .then(function(res) {
 
@@ -19,18 +25,22 @@ app.controller('DetailController', ['$scope', '$location', '$routeParams', '$mod
             }
             if (userSeries) {
                 $scope.userSeries = userSeries;
+                $scope.loadingFinished = true;
             } else {
                 notification.notify('error', "We were unable to find the series in your account");
+                $scope.loadingFinished = true;
             }
         }, function(err) {
             if (!err) {
                 err = {
                     error: "We were unable to load your list"
                 };
+                $scope.loadingFinished = true;
             }
             notification.notify('error', err.error);
         });
 
+    //load series data
     SeriesService.getSeriesDetails(token, seriesId)
         .then(function(res) {
             $scope.seriesDetails = res;
@@ -67,14 +77,12 @@ app.controller('DetailController', ['$scope', '$location', '$routeParams', '$mod
             });
     };
 
+    //show details of an episode in a modal
     $scope.showInformation = function(episode) {
-
         var episodeDetails;
-
         SeriesService.getEpisodeDetails(token, episode.id)
             .then(function(res) {
                 episodeDetails = res;
-
                 var modalInstance = $modal.open({
                     templateUrl: 'app/templates/modals/modalEpisodeDetails.html',
                     controller: ["$scope", "$modalInstance", "details", "seriesName", function($scope, $modalInstance, details, seriesName) {
@@ -104,9 +112,5 @@ app.controller('DetailController', ['$scope', '$location', '$routeParams', '$mod
             });
 
     };
-
-    $scope.test = function() {
-        alert("123");
-    };
-
 }]);
+
