@@ -8,8 +8,8 @@ app.controller('DetailController', ['$scope', '$location', '$routeParams', '$mod
     $scope.token = token;
     $scope.loadingFinished = false;
 
-    $scope.status = {
-        detailsOpen: true
+    $scope.statusDetails = {
+        open: true
     };
     
 

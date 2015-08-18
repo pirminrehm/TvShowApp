@@ -21,10 +21,10 @@
 	<div class="row episodes" ng-if="userSeries">
 		<div class="col-xs-12 col-sm-6 pull-right">
 			<accordion>
-			    <accordion-group  is-open="status.detailsOpen">
+			    <accordion-group  is-open="statusDetails.open">
 			    <accordion-heading>
             			Details
-            			<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.detailsOpen, 'glyphicon-chevron-right': !status.detailsOpen}"></i>
+            			<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': statusDetails.open, 'glyphicon-chevron-right': !statusDetails.open}"></i>
         			</accordion-heading>
 				<div class="series-details">
 					<p>{{seriesDetails.Overview}}</p>	
@@ -37,10 +37,10 @@
 		</div>
 		<div class="col-xs-12 col-sm-6" ng-if="userSeries">
 			<accordion close-others="false">
-				<accordion-group ng-repeat="(season, episodes) in userSeries.episodes | groupBy: 'sNr'" id="season{{season}}" is-open="status.open">
+				<accordion-group ng-repeat="(season, episodes) in userSeries.episodes | groupBy: 'sNr'" id="season{{season}}" is-open="statusSeries.open">
 					<accordion-heading>
             			Staffel {{season}}
-            			<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+            			<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': statusSeries.open, 'glyphicon-chevron-right': !statusSeries.open}"></i>
         			</accordion-heading>
 					<ul class="season-list" >
 						<li ng-repeat="episode in episodes">
