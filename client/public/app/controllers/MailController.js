@@ -26,6 +26,5 @@ app.controller( 'MailController', [ '$scope', function( $scope ) {
 			curEpisodeNr: 5,
 			curEpisodeName: "Shadow of a Doubt"
 		}
-
 	];
 } ] );

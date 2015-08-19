@@ -77,19 +77,19 @@ app.directive( 'card', [ '$routeParams', 'UserService', function( $routeParams, 
 			 * @param {int} 	j  		index of the relevant epsiode in the epsiode array
 			 */
 			function setEpisodeWatched ( card, j ) {
-				angular.element("#s" + card.id + " .updateProgress span").html(" ");
-				angular.element("#s" + card.id + " .updateProgress span").addClass( "glyphicon glyphicon-time" );
+				angular.element( "#s" + card.id + " .updateProgress span" ).html( " " );
+				angular.element( "#s" + card.id + " .updateProgress span" ).addClass( "glyphicon glyphicon-time" );
 				UserService.setWatched( $scope.token, true, card.episodes[ j ].id )
 					.then( function( res ) {
 						card.episodes[ j ].w = true;
-						angular.element("#s" + card.id + " .updateProgress span").html("+1");
-						angular.element("#s" + card.id + " .updateProgress span").removeClass( "glyphicon glyphicon-time" );
+						angular.element( "#s" + card.id + " .updateProgress span" ).html( "+1" );
+						angular.element( "#s" + card.id + " .updateProgress span" ).removeClass( "glyphicon glyphicon-time" );
 					}, function( err ) {
 						if ( !err ) {err = { error: "We were unable to update this episode" };}
 						notification.notify( 'error',  err.error );
 						card.episodes[ j ].w = false;
-						angular.element("#s" + card.id + " .updateProgress span").html("+1");
-						angular.element("#s" + card.id + " .updateProgress span").removeClass( "glyphicon glyphicon-time" );
+						angular.element( "#s" + card.id + " .updateProgress span" ).html( "+1" );
+						angular.element( "#s" + card.id + " .updateProgress span" ).removeClass( "glyphicon glyphicon-time" );
 						enhanceSeries();
 					} );
 			}

@@ -1,4 +1,4 @@
-var app = angular.module( 'tvshowapp', [ "ngRoute", "angular.filter", "ui.bootstrap", "ngAnimate"] );
+var app = angular.module( 'tvshowapp', [ "ngRoute", "angular.filter", "ui.bootstrap", "ngAnimate" ] );
 
 var config = {
 	restUrl: "http://" + window.location.hostname + ":3000"
@@ -37,7 +37,7 @@ app.run( [ function() {
 	        color: '#2574A9'
 	    },
 		behaviour: {
-	    	autoHide: false,
+	    	autoHide: true,
 	        htmlMode: true
 	    }
 	} );

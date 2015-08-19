@@ -16,7 +16,6 @@ app.controller( 'WelcomeController', [ '$scope','$location','AuthenticationServi
 					notification.notify( 'error',  err.error );
 				} );
 		} else {
-
 			notification.notify( 'error',  "This wasn't an email adress" );
 		}
 	};
@@ -33,7 +32,6 @@ app.controller( 'WelcomeController', [ '$scope','$location','AuthenticationServi
 					notification.notify( 'error',  err.error );
 			} );
 		} else {
-
 			notification.notify( 'error',  "This wasn't an email adress" );
 		}
 	};
