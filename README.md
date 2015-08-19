@@ -1,16 +1,27 @@
 A mobile web application using the TvDataBase API.
 
-#Server `localhost:3000`
 
-##Getting started
+
+#Getting started
 1. Install nodeJS.
 2. Install MongoDB and start the deamon.
-3. Go into the directory `/server` with your shell and  init node with `npm install` 
-4. Now can start the server with `npm start`
-5. If you want to run the tests, make sure you have installed mocha global: `npm install -g mocha`.
-Now you can run `npm test`
+3. Get the private-directory and add it to the root of the app
 
+##Server
+1. Go into the directory `/server` with your shell and  init node with `npm install` 
+2. Now can start the server with `npm start`
+3. Open a second shell and go into `/server/crawler` and start with `node crawlerStart` the crawler
+4. If you want to run the tests you can use `npm test` inside the `/server` directory. Stop before the server and the crawler.
 
+##Client
+1. Go into the directory `/client` with your shell and  init node with `npm install` 
+2. Get the lates libaries via `bower install`
+3. Make sure, you have installed `grunt` and `grunt-cli` global
+4. Generate the `index.html` with `grunt prod`
+5. Now can start the server with `npm start`
+6. Access the App at `http://localhost:8080`
+
+#Documentation for the REST-API `localhost:3000`
 
 ##Routes
 ### User based requests `/usr`
