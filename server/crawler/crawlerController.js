@@ -25,7 +25,28 @@ var mongoUrl = config.dbUrl;
 var url = "http://www.thetvdb.com/api/" + dataSafe.tvdbApiKey + "/updates/updates_day.xml";
 
 
-
+/**
+ * this function enables to loop an other function like a for function
+ * @param  {Number}   startingNr    initialisation value of i
+ * @param  {Number}   arrayLength   number of iterations
+ * @param  {Function} callback      executed if the loop will still go on
+ * @param  {Function} finalCallback only executed after the last iteration
+ *
+ * how to use:
+ *
+ * forFunctionSafe (startingNr, arrayLength, function (i, next) {
+ *
+ * * if you want an function executed with different i at the (more or less) same time, put here next()
+ *
+ * * if you want an function executed with different in a row, put the next() into the callback of the function
+ *
+ * }, function () {
+ *
+ * * this function will get executed only once at the end, put in here, what should happens after the loop
+ * 
+ * }
+ * 
+ */
 function forFunctionSafe (startingNr, arrayLength, callback, finalCallback) {
 	var i = startingNr;
 	var wasLastOne = false;
@@ -44,12 +65,14 @@ function forFunctionSafe (startingNr, arrayLength, callback, finalCallback) {
 	looper();
 }
 
+//just an safe clone function for objects, added to _underscore libary
 _.cloneSafe = function (object) {
 	return  JSON.parse(JSON.stringify(object));
-}
+};
 
 
 
+//generating series date saved to the users
 function convertSeriesForUser (series2Store){
 	
 	var userSeriesEpisodes = [];
@@ -88,7 +111,7 @@ function convertSeriesForUser (series2Store){
 }
 
 
-
+//get series from theTvDB
 function getSeries  (seriesId, callback) {
 	var errmsg = "Something went wrong while get a series from tvd: id:" + seriesId;
 	request("http://www.thetvdb.com/api/" + dataSafe.tvdbApiKey + "/series/" + seriesId + "/all", function (errReq, responseTvd, body) {
@@ -111,10 +134,11 @@ function getSeries  (seriesId, callback) {
 			callback(responseTvd.statusCode || errmsg, "");
 		}
 	});
-};
+}
 
 
-
+//check if there are series in the mongo which had been listed in the updates_day.xml
+//update the matching series from theTvDB
 function findAndUpdateSeries (updates, callback) {
 	Series.find(function (errFind, resultSeries){
 		if(resultSeries && !errFind){
@@ -129,7 +153,7 @@ function findAndUpdateSeries (updates, callback) {
 			}
 			if (clog) console.log("findAndUpdateSeries: found matches: ".cyan + matchingSeries);
 			var matchingSeriesWithUserSeries = [];
-			if (matchingSeries.length != 0) {
+			if (matchingSeries.length !== 0) {
 				forFunctionSafe (0, matchingSeries.length, function (k, next) {
 					Series.findOne({"Series.id":matchingSeries[k]}, function (errLoad, resultSeries){
 						if(resultSeries && !errLoad){				
@@ -138,9 +162,6 @@ function findAndUpdateSeries (updates, callback) {
 									if (clog) console.log("findAndUpdateSeries: start extending series".cyan );
 
 									var series2save = new Series(newSeries);
-
-									// series2save.__v = resultSeries.__v;
-									// series2save._id = resultSeries._id;
 
 									newSeriesEpisode = _.cloneSafe(newSeries.Episode);
 									var seriesForUser = convertSeriesForUser(newSeries);
@@ -185,7 +206,8 @@ function findAndUpdateSeries (updates, callback) {
 }
 
 
-
+//requests the updates_day.xml, there are all series listed who had been changed in the last 24h
+//saves the series id to an array an give with the callback back
 function getUpdatesFromTvD (callback) {
 	errmsg = "Something went wrong while checking for new updates!";
 	request("http://www.thetvdb.com/api/" + dataSafe.tvdbApiKey + "/updates/updates_day.xml", function (errReq, responseTvd, body) {
@@ -208,9 +230,9 @@ function getUpdatesFromTvD (callback) {
 			callback( responseTvd.statusCode || errmsg,"");
 		}
 	});
-};
+}
 
-
+//add  new episodes to the users 
 function updateUsers (matchingSeriesWithUserSeries, callback) {
 	forFunctionSafe(0,matchingSeriesWithUserSeries.length, function (i, next) {
 		if (clog) console.log("updateUsers: update users for series: ".cyan + matchingSeriesWithUserSeries[i].id);
@@ -239,7 +261,7 @@ function updateUsers (matchingSeriesWithUserSeries, callback) {
 							}
 						});
 					} else {
-						callback("This is an error, occured in matchingSeriesWithUserSeries, which normally could not appear.")
+						callback("This is an error, occured in matchingSeriesWithUserSeries, which normally could not appear.");
 					}					
 				}, function () {
 					if (clog) console.log("updateUsers: succcessfully updated users for series: ".cyan + matchingSeriesWithUserSeries[i].id);
@@ -255,6 +277,8 @@ function updateUsers (matchingSeriesWithUserSeries, callback) {
 }
 
 
+
+//the callback-chain of all functions 
 exports.getUpdates = function (callback) {
 	if (clog) console.log("start crawler update".cyan);
 	getUpdatesFromTvD( function (errParse, updates) {				
@@ -271,7 +295,7 @@ exports.getUpdates = function (callback) {
 				}						
 			});
 		} else  {
-			callback(errParse);
+			callback(errParse || "unknown error while getting updates");
 		}
 	});
 };

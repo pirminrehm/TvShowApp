@@ -29,7 +29,10 @@ exports.search = function(req, res){
 	  	} else if (error) {
 			res.status(500).jsonp({"error" : error});
 		} else {
-			res.status(500).jsonp({"error" : "Error in search request, status: " + statusCode});
+			if (!response.statusCode) {
+				response.statusCode = "undefined";
+			}
+			res.status(500).jsonp({"error" : "Error in search request, status: " + response.statusCode});
 		}
 	});
 };

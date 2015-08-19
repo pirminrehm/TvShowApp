@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node bin/appStart.js",
-    "test": "mocha"
+    "test": "./node_modules/.bin/mocha"
   },
   "dependencies": {
     "body-parser": "~1.12.0",
@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "colors": "^1.1.0",
-    "mocka": "0.0.1",
+    "mocha": "^2.2.5",
     "should": "^6.0.1",
     "supertest": "^0.15.0",
     "winston": "^1.0.0"
