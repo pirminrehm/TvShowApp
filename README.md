@@ -14,12 +14,33 @@ A mobile web application using the TvDataBase API.
 4. If you want to run the tests you can use `npm test` inside the `/server` directory. Stop before the server and the crawler.
 
 ##Client
-1. Go into the directory `/client` with your shell and  init node with `npm install` 
-2. Get the lates libaries via `bower install`
-3. Make sure, you have installed `grunt` and `grunt-cli` global
-4. Generate the `index.html` with `grunt prod`
-5. Now can start the server with `npm start`
-6. Access the App at `http://localhost:8080`
+1. Go to the directory `/client` 
+2. Get all node.js packages with `npm install` 
+3. Get all necessary libraries with `bower install`
+4. Now you can start the server with `npm start`
+
+##Using Grunt
+1. If you haven't installed the grunt cli then install it with `npm install -g grunt-cli`
+2. Go to the directory `/client` 
+
+###Development
+* To generate the `index.dev.html` run `grunt dev`
+* The URL to this development view starts with: `http://localhost:8080/index.dev.html#/...`
+* The grunt development task takes the `index.tpl.html` file and includes all necessary javascript and css files
+
+###Production
+* To generate the `index.html` run `grunt prod`
+* The URL to the production view starts with: `http://localhost:8080/#/...`
+* The grunt production task concatenates all custom javascript files. The minified version is stored in `build/custom.min.js`. Furthermore this tasks adds the necessary browser vendor prefixes to the css rules using the "can i use?" database. The minified result is written into `style.min.css`
+
+###Format
+* To format all custom javascript files run `grunt format`
+* The jscs formatter uses the configuration in `.jscsrc`
+
+
+
+
+
 
 #Documentation for the REST-API `localhost:3000`
 
@@ -277,27 +298,3 @@ episodeId not found:
 Status: 500, { "error" : "Error: episodeId not found" }
 ```
  
-#Client `localhost:8080`
-##Getting started
-1. Go to the directory `/client` 
-2. Get all node.js packages with `npm install` 
-3. Get all necessary libraries with `bower install`
-4. Now you can start the server with `npm start`
-
-##Using Grunt
-1. If you haven't installed the grunt cli then install it with `npm install -g grunt-cli`
-2. Go to the directory `/client` 
-
-###Development
-* To generate the `index.dev.html` run `grunt dev`
-* The URL to this development view starts with: `http://localhost:8080/index.dev.html#/...`
-* The grunt development task takes the `index.tpl.html` file and includes all necessary javascript and css files
-
-###Production
-* To generate the `index.html` run `grunt prod`
-* The URL to the production view starts with: `http://localhost:8080/#/...`
-* The grunt production task concatenates all custom javascript files. The minified version is stored in `build/custom.min.js`. Furthermore this tasks adds the necessary browser vendor prefixes to the css rules using the "can i use?" database. The minified result is written into `style.min.css`
-
-###Format
-* To format all custom javascript files run `grunt format`
-* The jscs formatter uses the configuration in `.jscsrc`
