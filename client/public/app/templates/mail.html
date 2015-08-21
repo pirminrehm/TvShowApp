@@ -41,16 +41,11 @@
 			<div class="series" style="background-image:url({{card.bannerUrl}});"> 
 				<div class="series-inner"> 
 					<div class="series-inner-title"> 
-						<div class="left" ng-if="!small">
+						<div class="left" >
 							<h2 class="normal">{{card.name}}</h2>
 							<p class="normal">{{card.curSeasonNr}}/{{card.curEpisodeNr}}: {{card.curEpisodeName}}</p>
 						</div>
 						<div class="right"> 
-							<h4 id="removeSeries" ng-if="small">
-								<span class="removeButton noselect">
-									<span class="glyphicon glyphicon-remove"/>
-								</span>								
-							</h4>
 							<h4 id="updateProgress">
 								<span ng-class="card.percWatched == 100 ? 'label-success' : 'label-warning'" class="label noselect" >
 									<span class="plusOne">+1</span>

@@ -59,7 +59,6 @@ body {
 }
 
 .series {
-	height: 150px;
 	background: white;
 	background-size: 100%;
 	margin-bottom: 30px;
@@ -67,8 +66,144 @@ body {
 	border-bottom-left-radius: 5px;
 }
 
-.series-inner {
+.series-small {
 	height: 150px;
+}
+
+
+@media (max-width: 767px) {
+	.series-large {
+		height: 150px;
+	}
+
+	.series-large .left > h2.normal {
+		font-size: 30px;
+		bottom: 60px;
+	}
+
+	.series-large .left > p.normal {
+	    bottom: 30px;
+	}
+
+	.series-large .updateProgress {
+	    bottom: 50px;
+		right: 30px;
+	}
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+	.series-large {
+		height: 200px;
+	}
+
+	.series-large .left > h2.normal {
+		font-size: 30px;
+		bottom: 70px;
+		margin-left: 20px;
+	}
+
+	.series-large .left > p.normal {
+	    bottom: 40px;
+		margin-left: 20px;
+	}
+
+	.series-large .updateProgress {
+	    bottom: 60px;
+		right: 40px;
+	}
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+	.series-large {
+		height: 300px;
+	}
+
+	.series-large .left > h2.normal {
+		font-size: 40px;
+		bottom: 75px;
+		margin-left: 20px;
+	}
+
+	.series-large .left > p.normal {
+		font-size: 24px;
+	    bottom: 35px;
+		margin-left: 20px;
+	}
+
+	.series-large .updateProgress {
+		font-size:28px;
+	    bottom: 60px;
+		right: 40px;
+	}
+}
+
+@media (min-width: 1200px) { 
+	.series-large {
+		height: 400px;
+	}
+
+	.series-large .left > h2.normal {
+		font-size: 40px;
+		bottom: 75px;
+		margin-left: 20px;
+	}
+
+	.series-large .left > p.normal {
+		font-size: 24px;
+	    bottom: 35px;
+		margin-left: 20px;
+	}
+
+	.series-large .updateProgress {
+		font-size:28px;
+	    bottom: 60px;
+		right: 40px;
+	}
+}
+
+
+.left > h2 { 
+	margin: 0px; 
+	padding: 0px; 
+}
+
+.left > h2.normal {
+	white-space: nowrap;
+ 	width: 70%;
+ 	overflow: hidden;
+ 	position: absolute;
+}
+
+
+.left > p.normal {
+	white-space: nowrap;
+    width: 70%;
+    overflow: hidden;
+    position: absolute;
+}
+
+.updateProgress {
+	position: absolute;
+	margin: 0px !important;
+}
+
+.series-small .left > h2.normal {
+	font-size: 30px;
+	bottom: 60px;
+}
+
+.series-small .left > p.normal {
+    bottom: 30px;
+}
+
+.series-small .updateProgress {
+    bottom: 50px;
+	right: 30px;
+}
+
+
+.series-inner {
+	height:100%;
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
 	
@@ -85,7 +220,7 @@ body {
 
 .series-inner-title{
 	padding: 0px;
-	background: ();
+	height: 100%;
 } 
 
 .series-inner-title .left {
@@ -94,8 +229,6 @@ body {
 	  width: 100%;
 }
 
-.series-inner-title .right {
-}
 
 .removeSeries {
 	position: absolute;
@@ -103,11 +236,6 @@ body {
 	right: 15px;
 }
 
-.updateProgress {
-	position: absolute;
-	top: 117px;
-	right: 25px;
-}
 
 .removeSeries .glyphicon {
 	text-shadow: 0px 1px 0px rgba(0, 0, 0, 1);
@@ -162,11 +290,6 @@ body {
 	width: 100%;
 }
 
-/*#search_button {
-	border-top-left-radius: 4px;
-	border-bottom-left-radius: 4px;
-}*/
-
 #search_button.not-active{
 	border-top-left-radius: 4px !important;
 	border-bottom-left-radius: 4px !important;
@@ -195,39 +318,6 @@ ul.season-list {
 	list-style: none;
 	border-radius: 4px;
 }
-
-
-/*
-.season-list {
-	box-shadow: 0 1px 2px rgba(0,0,0,.075);
-	
-}
-
-.season-list > div {
-	padding: 10px 15px;
-	margin: 0px;
-	border-top-left-radius: 4px;
-	border-top-right-radius: 4px;
-	text-shadow: 0 -1px 0 #286090;
-	background-image: -webkit-linear-gradient(top,#337ab7 0,#2b669a 100%);
-	background-image: -o-linear-gradient(top,#337ab7 0,#2b669a 100%);
-	background-image: -webkit-gradient(linear,left top,left bottom,from(#337ab7),to(#2b669a));
-	background-image: linear-gradient(to bottom,#337ab7 0,#2b669a 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff2b669a', GradientType=0);
-	background-repeat: repeat-x;
-	border-color: #2b669a;
-
-}
- 
-.season-list > div h4 {
-	font-weight: normal;
-	font-size: 18px;
-	color: #fff;
-	padding: 3px 0px;
-	margin: 0px;
-}
-*/
-
   
 .season-list li {
 	position: relative;
@@ -247,29 +337,7 @@ ul.season-list {
 	font-weight: normal;
 	font-size: 14px;
 }
-/*
-.season-list div > input {
-	position: absolute;
-	top: 12px;
-	right: 26px;
-}
-  
-.season-list li > input{
-	position: absolute;
-	top: 7px;
-	right: 10px;
-}
 
-.season-list li > p {
-	padding: 0px 15px;
-	display: none;
-}
-
-.season-list li:first-child {
-	border-top: 0px;
-}
-
-*/
 .season-list li:last-child {
 	border-bottom-left-radius: 4px;
 	border-bottom-right-radius: 4px;
@@ -286,35 +354,7 @@ display: none;
 display: inline;
 }
 
-/*
-	Neue Styles für längere Episodennamen
-*/
-.left > h2 { margin: 0px; padding: 0px; }
 
-.left > h2.normal {
-	font-size: 30px;
-	margin-top: 90px;
-	white-space: nowrap;
-  width: 100%;
-  overflow: hidden;
-}
-
-.left > h2.small {
-	font-size: 24px;
-	padding-top: 6px;
-	margin-top: 90px;
-	/* Gibt dir ein paar Zeichen mehr */
-}
-
-.left > p.normal {
-white-space: nowrap;
-  width: 100%;
-  overflow: hidden;
-}
-
-.left > p.small {
-
-}
 
 /*
 	Welcome Page

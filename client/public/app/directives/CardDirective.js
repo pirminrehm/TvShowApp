@@ -5,7 +5,7 @@ app.directive( 'card', [ '$routeParams', 'UserService', function( $routeParams, 
 		scope: {
 			card: '=',
 			removecard: '&',
-			small: '='
+			overview: '='
 		},
 		restrict: 'E',
 		templateUrl: '/app/templates/card.html',
